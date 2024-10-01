@@ -15,7 +15,7 @@ days.forEach((day, dayIndex) => {
       </div>
       <h2>Day ${dayIndex + 1}: ${day.title}</h2>
     </div>
-    <div id="exercises${dayIndex + 1}" class="exercises">
+    <div id="exercises${dayIndex + 1}" class="exercises" style="display: none;">
       ${day.categories
         .map(
           (category, catIndex) => `
@@ -407,7 +407,6 @@ addCountEventListeners();
 document
   .getElementById("weekCompletedBtn")
   .addEventListener("click", incrementWeekCounter);
-
 document.getElementById("resetBtn").addEventListener("click", resetAll);
 
 // Event listener for checkbox changes
