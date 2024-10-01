@@ -19,26 +19,26 @@ days.forEach((day, dayIndex) => {
       ${day.categories
         .map(
           (category, catIndex) => `
-          <h3>${category.name} (${category.time})</h3>
-          <ul>
-            ${category.exercises
-              .map((exercise, exIndex) => {
-                const hasSubExercises = exercise.exercises;
-                const hasAsciiArt = exercise.asciiArt;
-                return `
-                  <li class="exercise-item ${
+        <h3>${category.name} (${category.time})</h3>
+        <ul>
+          ${category.exercises
+            .map((exercise, exIndex) => {
+              const hasSubExercises = exercise.exercises;
+              const hasAsciiArt = exercise.asciiArt;
+              return `
+                <li class="exercise-item ${
+                  hasSubExercises
+                    ? "has-subexercises"
+                    : hasAsciiArt
+                    ? "has-ascii"
+                    : ""
+                }">
+                  <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex})">${
+                exercise.name || exercise
+              }</span>
+                  ${
                     hasSubExercises
-                      ? "has-subexercises"
-                      : hasAsciiArt
-                      ? "has-ascii"
-                      : ""
-                  }">
-                    <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex})">${
-                  exercise.name || exercise
-                }</span>
-                    ${
-                      hasSubExercises
-                        ? `
+                      ? `
                           <ul class="subexercises">
                             ${exercise.exercises
                               .map((subExercise, subIndex) => {
@@ -61,16 +61,16 @@ days.forEach((day, dayIndex) => {
                               .join("")}
                           </ul>
                         `
-                        : hasAsciiArt
-                        ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
-                        : ""
-                    }
-                  </li>
-                `;
-              })
-              .join("")}
-          </ul>
-        `
+                      : hasAsciiArt
+                      ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
+                      : ""
+                  }
+                </li>
+              `;
+            })
+            .join("")}
+        </ul>
+      `
         )
         .join("")}
     </div>
@@ -185,7 +185,7 @@ function resetProgress() {
 // Timer functionality
 const timerElement = document.getElementById("timer");
 const timerOptions = document.getElementById("timer-options");
-const timerSettings = document.getElementById("timer-settings");
+const arrowDown = document.getElementById("arrow-down");
 let countdownInterval;
 let timeLeft = 60;
 let lastSetValue = 60;
@@ -261,7 +261,7 @@ timerElement.addEventListener("click", () => {
   }
 });
 
-timerSettings.addEventListener("click", (event) => {
+arrowDown.addEventListener("click", (event) => {
   event.stopPropagation(); // Prevent the click from closing the menu immediately
   toggleTimerOptions();
 });
