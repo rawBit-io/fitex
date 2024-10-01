@@ -175,13 +175,6 @@ function updateWeekCounterDisplay() {
   document.getElementById("weekCounter").textContent = weekCount;
 }
 
-function resetProgress() {
-  localStorage.setItem("weekCount", "0");
-  updateWeekCounterDisplay();
-  resetCheckboxes();
-  updateWeekCompletedButton();
-}
-
 // Timer functionality
 const timerElement = document.getElementById("timer");
 const timerOptions = document.getElementById("timer-options");
@@ -367,6 +360,25 @@ function addCountEventListeners() {
   );
 }
 
+// Reset all functionality
+function resetAll() {
+  // Reset timer
+  stopTimer();
+  timeLeft = 60;
+  lastSetValue = 60;
+  updateTimerDisplay(timeLeft);
+
+  // Reset count
+  count = 0;
+  updateCountDisplay();
+
+  // Reset week progress
+  localStorage.setItem("weekCount", "0");
+  updateWeekCounterDisplay();
+  resetCheckboxes();
+  updateWeekCompletedButton();
+}
+
 // Hide timer options when clicking anywhere else
 document.addEventListener("click", (event) => {
   if (
@@ -396,7 +408,7 @@ document
   .getElementById("weekCompletedBtn")
   .addEventListener("click", incrementWeekCounter);
 
-document.getElementById("resetBtn").addEventListener("click", resetProgress);
+document.getElementById("resetBtn").addEventListener("click", resetAll);
 
 // Event listener for checkbox changes
 document.addEventListener("change", function (event) {

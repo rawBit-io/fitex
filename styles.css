@@ -196,9 +196,21 @@ button:hover {
   margin-top: 10px;
 }
 
-/* Additional Styles */
-.blink-green {
-  animation: blink-green 0.5s;
+#resetBtn {
+  background-color: transparent;
+  color: #839496;
+  border: 1px solid #586e75;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+#resetBtn:hover {
+  background-color: #073642;
+  color: #b58900;
+  border-color: #b58900;
 }
 
 .blink-red {
