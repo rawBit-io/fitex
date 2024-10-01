@@ -26,47 +26,47 @@ days.forEach((day, dayIndex) => {
               const hasSubExercises = exercise.exercises;
               const hasAsciiArt = exercise.asciiArt;
               return `
-                <li class="exercise-item ${
-                  hasSubExercises
-                    ? "has-subexercises"
-                    : hasAsciiArt
-                    ? "has-ascii"
-                    : ""
-                }">
-                  <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex})">${
+              <li class="exercise-item ${
+                hasSubExercises
+                  ? "has-subexercises"
+                  : hasAsciiArt
+                  ? "has-ascii"
+                  : ""
+              }">
+                <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex})">${
                 exercise.name || exercise
               }</span>
-                  ${
-                    hasSubExercises
-                      ? `
-                          <ul class="subexercises">
-                            ${exercise.exercises
-                              .map((subExercise, subIndex) => {
-                                const subHasAsciiArt = subExercise.asciiArt;
-                                return `
-                                  <li class="exercise-item ${
-                                    subHasAsciiArt ? "has-ascii" : ""
-                                  }">
-                                    <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${subIndex})">${
-                                  subExercise.name || subExercise
-                                }</span>
-                                    ${
-                                      subHasAsciiArt
-                                        ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${subIndex}"></pre>`
-                                        : ""
-                                    }
-                                  </li>
-                                `;
-                              })
-                              .join("")}
-                          </ul>
-                        `
-                      : hasAsciiArt
-                      ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
-                      : ""
-                  }
-                </li>
-              `;
+                ${
+                  hasSubExercises
+                    ? `
+                  <ul class="subexercises">
+                    ${exercise.exercises
+                      .map((subExercise, subIndex) => {
+                        const subHasAsciiArt = subExercise.asciiArt;
+                        return `
+                        <li class="exercise-item ${
+                          subHasAsciiArt ? "has-ascii" : ""
+                        }">
+                          <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${subIndex})">${
+                          subExercise.name || subExercise
+                        }</span>
+                          ${
+                            subHasAsciiArt
+                              ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${subIndex}"></pre>`
+                              : ""
+                          }
+                        </li>
+                      `;
+                      })
+                      .join("")}
+                  </ul>
+                `
+                    : hasAsciiArt
+                    ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
+                    : ""
+                }
+              </li>
+            `;
             })
             .join("")}
         </ul>
@@ -120,6 +120,21 @@ function toggleAsciiArt(event, dayIndex, catIndex, exIndex, subIndex) {
 
 function loadAsciiArt(element) {
   element.textContent = asciiArtContent;
+  scaleAsciiArt(element);
+}
+
+function scaleAsciiArt(asciiElement) {
+  const dayBox = asciiElement.closest(".day");
+  const dayBoxWidth = dayBox.offsetWidth;
+  const asciiLines = asciiElement.textContent.split("\n");
+  const maxLineLength = Math.max(...asciiLines.map((line) => line.length));
+
+  // Calculate the scaling factor
+  const scaleFactor = dayBoxWidth / (maxLineLength * 8); // Assuming 8px as base font size
+
+  // Apply the scaling
+  asciiElement.style.fontSize = `${scaleFactor * 8}px`;
+  asciiElement.style.lineHeight = "1";
 }
 
 // Functions to handle progress saving and loading
@@ -414,4 +429,10 @@ document.addEventListener("change", function (event) {
   if (event.target.type === "checkbox") {
     saveProgress(event);
   }
+});
+
+// Add a window resize event listener to rescale ASCII art
+window.addEventListener("resize", () => {
+  const asciiElements = document.querySelectorAll(".ascii-art.show");
+  asciiElements.forEach(scaleAsciiArt);
 });

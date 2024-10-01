@@ -51,9 +51,9 @@ h3 {
   font-size: 24px;
   cursor: pointer;
   user-select: none;
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   background-color: #073642;
   color: #b58900;
   border: 1px solid #b58900;
@@ -118,6 +118,8 @@ h3 {
   border: 1px solid #586e75;
   padding: 10px;
   margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
 }
 
 .day-header {
@@ -185,6 +187,14 @@ button:hover {
   line-height: 1;
   color: #2aa198;
   margin-left: 20px;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .ascii-art {
+    font-size: 6px;
+  }
 }
 
 /* Week Counter Styles */
