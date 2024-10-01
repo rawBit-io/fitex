@@ -1,7 +1,7 @@
 body {
   font-family: "Courier New", monospace;
-  background-color: #000;
-  color: #00ff00;
+  background-color: #002b36;
+  color: #839496;
   line-height: 1.6;
   padding: 20px;
   max-width: 800px;
@@ -9,19 +9,22 @@ body {
 }
 
 .header-container {
-  border-bottom: 1px solid #00ff00;
+  border-bottom: 1px solid #586e75;
   padding-bottom: 10px;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 h1,
 h2,
 h3 {
-  color: #00ff00;
+  color: #cb4b16;
 }
 
 .day {
-  border: 1px solid #00ff00;
+  border: 1px solid #586e75;
   padding: 10px;
   margin-bottom: 10px;
 }
@@ -31,7 +34,7 @@ h3 {
 }
 
 .exercises {
-  border-top: 1px dashed #00ff00;
+  border-top: 1px dashed #586e75;
   margin-top: 10px;
   padding-top: 10px;
 }
@@ -40,7 +43,7 @@ input[type="checkbox"] {
   appearance: none;
   width: 20px;
   height: 20px;
-  border: 1px solid #00ff00;
+  border: 1px solid #586e75;
   display: inline-block;
   position: relative;
 }
@@ -51,25 +54,49 @@ input[type="checkbox"]:checked::before {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #00ff00;
+  color: #859900;
 }
 
 #timer,
 button {
-  background-color: #000;
-  color: #00ff00;
-  border: 1px solid #00ff00;
+  background-color: #073642;
+  color: #b58900;
+  border: 1px solid #b58900;
   padding: 5px 10px;
   cursor: pointer;
 }
 
 #timer:hover,
 button:hover {
-  background-color: #003300;
+  background-color: #094753;
 }
 
 .ascii-art {
   white-space: pre;
   font-size: 8px;
   line-height: 1;
+  color: #2aa198;
+}
+
+#timer {
+  font-size: 24px;
+  user-select: none;
+}
+
+#timer-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  flex-direction: column;
+  background-color: #073642;
+  border: 1px solid #b58900;
+  padding: 5px;
+  z-index: 1;
+}
+
+#timer-options button {
+  margin: 2px 0;
+  padding: 5px 10px;
+  cursor: pointer;
 }

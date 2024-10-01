@@ -185,11 +185,14 @@ function resetProgress() {
 // Timer functionality
 const timerElement = document.getElementById("timer");
 const timerOptions = document.getElementById("timer-options");
+const timerSettings = document.getElementById("timer-settings");
 let countdownInterval;
 let timeLeft = 60;
 let lastSetValue = 60;
 let isTimerRunning = false;
-let pressTimer;
+
+// Hide timer options on app start
+timerOptions.style.display = "none";
 
 function updateTimerDisplay(seconds) {
   const minutes = Math.floor(seconds / 60);
@@ -232,6 +235,7 @@ function setTimer(seconds) {
   timerOptions.style.display = "none";
 }
 
+// Toggle timer options menu
 function toggleTimerOptions() {
   if (
     timerOptions.style.display === "none" ||
@@ -243,67 +247,33 @@ function toggleTimerOptions() {
   }
 }
 
-// Event listeners for timer interactions
-timerElement.addEventListener("mousedown", (event) => {
-  event.preventDefault();
-  pressTimer = setTimeout(() => {
-    toggleTimerOptions();
-  }, 500);
-});
-
-timerElement.addEventListener("mouseup", (event) => {
-  event.preventDefault();
-  clearTimeout(pressTimer);
+// Event listeners
+timerElement.addEventListener("click", () => {
   if (timerOptions.style.display !== "flex") {
     if (isTimerRunning) {
       stopTimer();
     } else {
       startTimer();
     }
-  }
-});
-
-timerElement.addEventListener("mouseleave", () => {
-  clearTimeout(pressTimer);
-});
-
-// Touch events for mobile devices
-let touchStartTime;
-
-timerElement.addEventListener("touchstart", (event) => {
-  event.preventDefault();
-  touchStartTime = new Date().getTime();
-  pressTimer = setTimeout(() => {
-    toggleTimerOptions();
-  }, 500);
-});
-
-timerElement.addEventListener("touchend", (event) => {
-  event.preventDefault();
-  clearTimeout(pressTimer);
-  const touchEndTime = new Date().getTime();
-  const touchDuration = touchEndTime - touchStartTime;
-
-  if (touchDuration < 500 && timerOptions.style.display !== "flex") {
-    if (isTimerRunning) {
-      stopTimer();
-    } else {
-      startTimer();
-    }
-  }
-});
-
-timerElement.addEventListener("touchcancel", () => {
-  clearTimeout(pressTimer);
-});
-
-document.addEventListener("click", (event) => {
-  if (
-    !timerElement.contains(event.target) &&
-    !timerOptions.contains(event.target)
-  ) {
+  } else {
+    // If timer options are visible, hide them
     timerOptions.style.display = "none";
   }
+});
+
+timerSettings.addEventListener("click", (event) => {
+  event.stopPropagation(); // Prevent the click from closing the menu immediately
+  toggleTimerOptions();
+});
+
+// Prevent clicks within the timer options from closing the menu immediately
+timerOptions.addEventListener("click", (event) => {
+  event.stopPropagation();
+});
+
+// Hide timer options when clicking anywhere else
+document.addEventListener("click", () => {
+  timerOptions.style.display = "none";
 });
 
 // Initialize the application when the page loads
