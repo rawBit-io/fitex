@@ -9,20 +9,18 @@
   <body>
     <div class="header-container">
       <h1>2-Day Fitness Program</h1>
-      <div class="timer-wrapper">
-        <div id="timer">01:00</div>
-        <div id="timer-options">
-          <button onclick="setTimer(60)">1 min</button>
-          <button onclick="setTimer(120)">2 min</button>
-          <button onclick="setTimer(300)">5 min</button>
-          <button onclick="setTimer(600)">10 min</button>
-          <button onclick="setTimer(1800)">30 min</button>
+      <div class="timer-count-wrapper">
+        <div class="timer-wrapper">
+          <div id="timer">01:00</div>
+          <div id="timer-options">
+            <button onclick="setTimer(60)">1 min</button>
+            <button onclick="setTimer(120)">2 min</button>
+            <button onclick="setTimer(300)">5 min</button>
+            <button onclick="setTimer(600)">10 min</button>
+            <button onclick="setTimer(1800)">30 min</button>
+          </div>
         </div>
-        <div id="count-wrapper">
-          <button id="count-button">
-            Count: <span id="count-value">0</span>
-          </button>
-        </div>
+        <div id="count-button">reps: <span id="count-value">0</span></div>
       </div>
     </div>
 
