@@ -46,7 +46,8 @@ h3 {
 }
 
 #timer,
-#count-button {
+#count-button,
+#weekCompletedBtn {
   font-size: 24px;
   cursor: pointer;
   user-select: none;
@@ -61,13 +62,20 @@ h3 {
 }
 
 #timer:hover,
-#count-button:hover {
+#count-button:hover,
+#weekCompletedBtn:hover {
   background-color: #094753;
 }
 
 #timer:active,
-#count-button:active {
+#count-button:active,
+#weekCompletedBtn:active {
   background-color: #0d5a6a;
+}
+
+#weekCompletedBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Timer Options Menu */
@@ -94,7 +102,7 @@ h3 {
   border-bottom: 1px solid #b58900;
   transition: background-color 0.3s ease;
   font-size: 22px;
-  text-align: middle;
+  text-align: center;
 }
 
 #timer-options button:last-child {
@@ -211,6 +219,11 @@ button:hover {
   background-color: #073642;
   color: #b58900;
   border-color: #b58900;
+}
+
+/* Animation Styles */
+.blink-green {
+  animation: blink-green 0.5s;
 }
 
 .blink-red {
