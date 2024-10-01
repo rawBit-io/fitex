@@ -1,0 +1,75 @@
+body {
+  font-family: "Courier New", monospace;
+  background-color: #000;
+  color: #00ff00;
+  line-height: 1.6;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header-container {
+  border-bottom: 1px solid #00ff00;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+h1,
+h2,
+h3 {
+  color: #00ff00;
+}
+
+.day {
+  border: 1px solid #00ff00;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.day-header {
+  cursor: pointer;
+}
+
+.exercises {
+  border-top: 1px dashed #00ff00;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #00ff00;
+  display: inline-block;
+  position: relative;
+}
+
+input[type="checkbox"]:checked::before {
+  content: "X";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #00ff00;
+}
+
+#timer,
+button {
+  background-color: #000;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#timer:hover,
+button:hover {
+  background-color: #003300;
+}
+
+.ascii-art {
+  white-space: pre;
+  font-size: 8px;
+  line-height: 1;
+}

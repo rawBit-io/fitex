@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2-Day Fitness Program</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="header-container">
+      <h1>2-Day Fitness Program</h1>
+      <div class="timer-container">
+        <div id="timer">01:00</div>
+        <div id="timer-options">
+          <button onclick="setTimer(60)">1 min</button>
+          <button onclick="setTimer(120)">2 min</button>
+          <button onclick="setTimer(300)">5 min</button>
+          <button onclick="setTimer(600)">10 min</button>
+          <button onclick="setTimer(1800)">30 min</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="program"></div>
+
+    <div class="week-completed-container">
+      <button id="weekCompletedBtn" disabled>Week completed</button>
+      <div id="weekCounter">0</div>
+    </div>
+
+    <div class="reset-container">
+      <button id="resetBtn">Reset Progress</button>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
