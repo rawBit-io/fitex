@@ -137,8 +137,35 @@ h3 {
   padding-top: 10px;
 }
 
+/* Updated Exercise Styles */
+.exercises ul {
+  padding-left: 20px;
+  margin: 0;
+  list-style-type: none;
+}
+
 .exercise-item {
-  margin-left: 20px;
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.exercise-item::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #839496;
+}
+
+.exercise-description {
+  font-style: italic;
+  margin-bottom: 10px;
+  color: #93a1a1;
+  padding-left: 20px;
+}
+
+.exercise-description::before {
+  content: none;
 }
 
 .subexercises {
@@ -189,6 +216,8 @@ button:hover {
   margin-left: 20px;
   overflow-x: auto;
   max-width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 @media (max-width: 768px) {

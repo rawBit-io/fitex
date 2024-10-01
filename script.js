@@ -23,50 +23,25 @@ days.forEach((day, dayIndex) => {
         <ul>
           ${category.exercises
             .map((exercise, exIndex) => {
-              const hasSubExercises = exercise.exercises;
-              const hasAsciiArt = exercise.asciiArt;
-              return `
-              <li class="exercise-item ${
-                hasSubExercises
-                  ? "has-subexercises"
-                  : hasAsciiArt
-                  ? "has-ascii"
-                  : ""
-              }">
-                <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex})">${
-                exercise.name || exercise
-              }</span>
-                ${
-                  hasSubExercises
-                    ? `
-                  <ul class="subexercises">
-                    ${exercise.exercises
-                      .map((subExercise, subIndex) => {
-                        const subHasAsciiArt = subExercise.asciiArt;
-                        return `
-                        <li class="exercise-item ${
-                          subHasAsciiArt ? "has-ascii" : ""
-                        }">
-                          <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${subIndex})">${
-                          subExercise.name || subExercise
-                        }</span>
-                          ${
-                            subHasAsciiArt
-                              ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${subIndex}"></pre>`
-                              : ""
-                          }
-                        </li>
-                      `;
-                      })
-                      .join("")}
-                  </ul>
-                `
-                    : hasAsciiArt
-                    ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
-                    : ""
-                }
-              </li>
-            `;
+              if (typeof exercise === "string") {
+                return `<li class="exercise-item no-bullet">${exercise}</li>`;
+              } else if (exercise.isDescription) {
+                return `<li class="exercise-description">${exercise.name}</li>`;
+              } else {
+                const hasAsciiArt = exercise.asciiArt;
+                return `
+      <li class="exercise-item">
+        <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex})">${
+                  exercise.name
+                }</span>
+        ${
+          hasAsciiArt
+            ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
+            : ""
+        }
+      </li>
+    `;
+              }
             })
             .join("")}
         </ul>
