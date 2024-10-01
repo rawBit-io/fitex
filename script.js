@@ -185,14 +185,13 @@ function resetProgress() {
 // Timer functionality
 const timerElement = document.getElementById("timer");
 const timerOptions = document.getElementById("timer-options");
-const arrowDown = document.getElementById("arrow-down");
 let countdownInterval;
 let timeLeft = 60;
 let lastSetValue = 60;
 let isTimerRunning = false;
-
-// Hide timer options on app start
-timerOptions.style.display = "none";
+let longPressTimer;
+const longPressDuration = 500; // milliseconds
+let isLongPress = false;
 
 function updateTimerDisplay(seconds) {
   const minutes = Math.floor(seconds / 60);
@@ -235,45 +234,51 @@ function setTimer(seconds) {
   timerOptions.style.display = "none";
 }
 
-// Toggle timer options menu
-function toggleTimerOptions() {
-  if (
-    timerOptions.style.display === "none" ||
-    timerOptions.style.display === ""
-  ) {
-    timerOptions.style.display = "flex";
-  } else {
-    timerOptions.style.display = "none";
-  }
+function showTimerOptions() {
+  timerOptions.style.display = "flex";
 }
 
-// Event listeners
-timerElement.addEventListener("click", () => {
-  if (timerOptions.style.display !== "flex") {
+function hideTimerOptions() {
+  timerOptions.style.display = "none";
+}
+
+// Long press functionality
+timerElement.addEventListener("mousedown", (event) => {
+  isLongPress = false;
+  longPressTimer = setTimeout(() => {
+    isLongPress = true;
+    showTimerOptions();
+  }, longPressDuration);
+});
+
+timerElement.addEventListener("mouseup", (event) => {
+  clearTimeout(longPressTimer);
+  if (!isLongPress) {
     if (isTimerRunning) {
       stopTimer();
     } else {
       startTimer();
     }
-  } else {
-    // If timer options are visible, hide them
-    timerOptions.style.display = "none";
   }
 });
 
-arrowDown.addEventListener("click", (event) => {
-  event.stopPropagation(); // Prevent the click from closing the menu immediately
-  toggleTimerOptions();
+timerElement.addEventListener("mouseleave", () => {
+  clearTimeout(longPressTimer);
+});
+
+// Hide timer options when clicking anywhere else
+document.addEventListener("click", (event) => {
+  if (
+    !timerElement.contains(event.target) &&
+    !timerOptions.contains(event.target)
+  ) {
+    hideTimerOptions();
+  }
 });
 
 // Prevent clicks within the timer options from closing the menu immediately
 timerOptions.addEventListener("click", (event) => {
   event.stopPropagation();
-});
-
-// Hide timer options when clicking anywhere else
-document.addEventListener("click", () => {
-  timerOptions.style.display = "none";
 });
 
 // Initialize the application when the page loads

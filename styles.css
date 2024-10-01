@@ -14,11 +14,15 @@ body {
 /* Header Styles */
 .header-container {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  border-bottom: 1px solid #586e75;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   padding-bottom: 10px;
   margin-bottom: 20px;
+  position: sticky;
+  top: 0;
+  background-color: #002b36;
+  z-index: 100;
 }
 
 h1,
@@ -31,7 +35,6 @@ h3 {
 .timer-wrapper {
   display: flex;
   align-items: center;
-  margin-top: 10px;
   position: relative;
 }
 
@@ -43,44 +46,38 @@ h3 {
   color: #b58900;
   border: 1px solid #b58900;
   padding: 5px 10px;
+  transition: background-color 0.3s ease;
 }
 
 #timer:hover {
   background-color: #094753;
 }
 
-.arrow-down {
-  margin-left: 10px;
-  cursor: pointer;
-  font-size: 24px;
-  user-select: none;
-  color: #b58900;
-}
-
-.arrow-down:hover {
-  color: #cb4b16;
+#timer:active {
+  background-color: #0d5a6a;
 }
 
 /* Timer Options Menu */
 #timer-options {
   display: none;
-  flex-direction: row;
+  flex-direction: column;
   background-color: #073642;
   border: 1px solid #b58900;
   padding: 5px;
   position: absolute;
   top: calc(100% + 5px);
-  left: 0;
-  z-index: 1;
+  right: 0;
+  z-index: 101;
 }
 
 #timer-options button {
-  margin: 0 5px;
+  margin: 5px 0;
   padding: 5px 10px;
   cursor: pointer;
   background-color: #073642;
   color: #b58900;
   border: 1px solid #b58900;
+  transition: background-color 0.3s ease;
 }
 
 #timer-options button:hover {
@@ -105,7 +102,6 @@ h3 {
 }
 
 .exercises {
-  border-top: 1px dashed #586e75;
   margin-top: 10px;
   padding-top: 10px;
 }
