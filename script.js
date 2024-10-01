@@ -193,6 +193,13 @@ let longPressTimer;
 const longPressDuration = 500; // milliseconds
 let isLongPress = false;
 
+// Count button functionality
+const countButton = document.getElementById("count-button");
+const countValue = document.getElementById("count-value");
+let count = 0;
+let countLongPressTimer;
+let isCountLongPress = false;
+
 function updateTimerDisplay(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
@@ -242,16 +249,16 @@ function hideTimerOptions() {
   timerOptions.style.display = "none";
 }
 
-// Long press functionality
-timerElement.addEventListener("mousedown", (event) => {
+// Long press functionality for timer
+function handleTimerStart(event) {
   isLongPress = false;
   longPressTimer = setTimeout(() => {
     isLongPress = true;
     showTimerOptions();
   }, longPressDuration);
-});
+}
 
-timerElement.addEventListener("mouseup", (event) => {
+function handleTimerEnd(event) {
   clearTimeout(longPressTimer);
   if (!isLongPress) {
     if (isTimerRunning) {
@@ -260,11 +267,53 @@ timerElement.addEventListener("mouseup", (event) => {
       startTimer();
     }
   }
-});
+}
 
-timerElement.addEventListener("mouseleave", () => {
-  clearTimeout(longPressTimer);
-});
+timerElement.addEventListener("mousedown", handleTimerStart);
+timerElement.addEventListener("mouseup", handleTimerEnd);
+timerElement.addEventListener("mouseleave", () => clearTimeout(longPressTimer));
+
+timerElement.addEventListener("touchstart", handleTimerStart);
+timerElement.addEventListener("touchend", handleTimerEnd);
+
+// Count button functionality
+function updateCountDisplay() {
+  countValue.textContent = count;
+}
+
+function incrementCount() {
+  count++;
+  updateCountDisplay();
+}
+
+function resetCount() {
+  count = 0;
+  updateCountDisplay();
+}
+
+function handleCountStart(event) {
+  isCountLongPress = false;
+  countLongPressTimer = setTimeout(() => {
+    isCountLongPress = true;
+    resetCount();
+  }, longPressDuration);
+}
+
+function handleCountEnd(event) {
+  clearTimeout(countLongPressTimer);
+  if (!isCountLongPress) {
+    incrementCount();
+  }
+}
+
+countButton.addEventListener("mousedown", handleCountStart);
+countButton.addEventListener("mouseup", handleCountEnd);
+countButton.addEventListener("mouseleave", () =>
+  clearTimeout(countLongPressTimer)
+);
+
+countButton.addEventListener("touchstart", handleCountStart);
+countButton.addEventListener("touchend", handleCountEnd);
 
 // Hide timer options when clicking anywhere else
 document.addEventListener("click", (event) => {
@@ -283,6 +332,7 @@ timerOptions.addEventListener("click", (event) => {
 
 // Initialize the application when the page loads
 updateTimerDisplay(timeLeft);
+updateCountDisplay();
 loadProgress();
 updateWeekCompletedButton();
 updateWeekCounterDisplay();
