@@ -1,3 +1,6 @@
+// script.js
+
+// Generate the program content
 const programDiv = document.getElementById("program");
 
 days.forEach((day, dayIndex) => {
@@ -16,55 +19,58 @@ days.forEach((day, dayIndex) => {
       ${day.categories
         .map(
           (category, catIndex) => `
-        <h3>${category.name} (${category.time})</h3>
-        <ul>
-          ${category.exercises
-            .map(
-              (exercise, exIndex) => `
-            <li class="exercise-item ${
-              exercise.exercises
-                ? "has-subexercises"
-                : exercise.asciiArt
-                ? "has-ascii"
-                : ""
-            }">
-              <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex})">${
-                exercise.name || exercise
-              }</span>
-              ${
-                exercise.exercises
-                  ? `
-                    <ul class="subexercises">
-                      ${exercise.exercises
-                        .map(
-                          (subExercise, subIndex) => `
-                        <li class="exercise-item ${
-                          subExercise.asciiArt ? "has-ascii" : ""
-                        }">
-                          <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${subIndex})">${
-                            subExercise.name
-                          }</span>
-                          ${
-                            subExercise.asciiArt
-                              ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${subIndex}"></pre>`
-                              : ""
-                          }
-                        </li>
-                      `
-                        )
-                        .join("")}
-                    </ul>
-                  `
-                  : exercise.asciiArt
-                  ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
-                  : ""
-              }
-            </li>
-          `
-            )
-            .join("")}
-        </ul>
-      `
+          <h3>${category.name} (${category.time})</h3>
+          <ul>
+            ${category.exercises
+              .map((exercise, exIndex) => {
+                const hasSubExercises = exercise.exercises;
+                const hasAsciiArt = exercise.asciiArt;
+                return `
+                  <li class="exercise-item ${
+                    hasSubExercises
+                      ? "has-subexercises"
+                      : hasAsciiArt
+                      ? "has-ascii"
+                      : ""
+                  }">
+                    <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex})">${
+                  exercise.name || exercise
+                }</span>
+                    ${
+                      hasSubExercises
+                        ? `
+                          <ul class="subexercises">
+                            ${exercise.exercises
+                              .map((subExercise, subIndex) => {
+                                const subHasAsciiArt = subExercise.asciiArt;
+                                return `
+                                  <li class="exercise-item ${
+                                    subHasAsciiArt ? "has-ascii" : ""
+                                  }">
+                                    <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${subIndex})">${
+                                  subExercise.name || subExercise
+                                }</span>
+                                    ${
+                                      subHasAsciiArt
+                                        ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${subIndex}"></pre>`
+                                        : ""
+                                    }
+                                  </li>
+                                `;
+                              })
+                              .join("")}
+                          </ul>
+                        `
+                        : hasAsciiArt
+                        ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
+                        : ""
+                    }
+                  </li>
+                `;
+              })
+              .join("")}
+          </ul>
+        `
         )
         .join("")}
     </div>
@@ -81,6 +87,7 @@ days.forEach((day, dayIndex) => {
   });
 });
 
+// Functions to handle exercise toggling and ASCII art display
 function toggleExercises(dayNumber) {
   const exercisesDiv = document.getElementById(`exercises${dayNumber}`);
   if (
@@ -112,9 +119,10 @@ function toggleAsciiArt(event, dayIndex, catIndex, exIndex, subIndex) {
 }
 
 function loadAsciiArt(element) {
-  element.textContent = asciiArt;
+  element.textContent = asciiArtContent;
 }
 
+// Functions to handle progress saving and loading
 function saveProgress(event) {
   event.stopPropagation();
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -235,7 +243,7 @@ function toggleTimerOptions() {
   }
 }
 
-// For mouse events
+// Event listeners for timer interactions
 timerElement.addEventListener("mousedown", (event) => {
   event.preventDefault();
   pressTimer = setTimeout(() => {
@@ -259,7 +267,7 @@ timerElement.addEventListener("mouseleave", () => {
   clearTimeout(pressTimer);
 });
 
-// For touch events
+// Touch events for mobile devices
 let touchStartTime;
 
 timerElement.addEventListener("touchstart", (event) => {
@@ -298,15 +306,17 @@ document.addEventListener("click", (event) => {
   }
 });
 
-// Initialize timer display
+// Initialize the application when the page loads
 updateTimerDisplay(timeLeft);
+loadProgress();
+updateWeekCompletedButton();
+updateWeekCounterDisplay();
 
-// Add event listener for the "Week completed" button
+// Event listeners for buttons
 document
   .getElementById("weekCompletedBtn")
   .addEventListener("click", incrementWeekCounter);
 
-// Add event listener for the reset button
 document.getElementById("resetBtn").addEventListener("click", resetProgress);
 
 // Event listener for checkbox changes
@@ -315,8 +325,3 @@ document.addEventListener("change", function (event) {
     saveProgress(event);
   }
 });
-
-// Call these functions when the page loads
-loadProgress();
-updateWeekCompletedButton();
-updateWeekCounterDisplay();
