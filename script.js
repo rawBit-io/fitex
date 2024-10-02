@@ -30,17 +30,17 @@ days.forEach((day, dayIndex) => {
               } else {
                 const hasAsciiArt = exercise.asciiArt;
                 return `
-      <li class="exercise-item">
-        <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex})">${
+                <li class="exercise-item">
+                  <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex})">${
                   exercise.name
                 }</span>
-        ${
-          hasAsciiArt
-            ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
-            : ""
-        }
-      </li>
-    `;
+                  ${
+                    hasAsciiArt
+                      ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
+                      : ""
+                  }
+                </li>
+              `;
               }
             })
             .join("")}
@@ -150,6 +150,12 @@ function updateWeekCompletedButton() {
   );
   const weekCompletedBtn = document.getElementById("weekCompletedBtn");
   weekCompletedBtn.disabled = !allChecked;
+
+  // Add blinking effect when all checkboxes are checked
+  if (allChecked) {
+    weekCompletedBtn.classList.add("blink-green");
+    setTimeout(() => weekCompletedBtn.classList.remove("blink-green"), 500);
+  }
 }
 
 function incrementWeekCounter() {
@@ -294,11 +300,15 @@ function updateCountDisplay() {
 function incrementCount() {
   count++;
   updateCountDisplay();
+  countButton.classList.add("blink-green");
+  setTimeout(() => countButton.classList.remove("blink-green"), 500);
 }
 
 function resetCount() {
   count = 0;
   updateCountDisplay();
+  countButton.classList.add("blink-red");
+  setTimeout(() => countButton.classList.remove("blink-red"), 500);
 }
 
 function handleCountStart(event) {
@@ -359,14 +369,18 @@ function resetAll() {
   updateTimerDisplay(timeLeft);
 
   // Reset count
-  count = 0;
-  updateCountDisplay();
+  resetCount();
 
   // Reset week progress
   localStorage.setItem("weekCount", "0");
   updateWeekCounterDisplay();
   resetCheckboxes();
   updateWeekCompletedButton();
+
+  // Make the complete button blink red
+  const weekCompletedBtn = document.getElementById("weekCompletedBtn");
+  weekCompletedBtn.classList.add("blink-red");
+  setTimeout(() => weekCompletedBtn.classList.remove("blink-red"), 500);
 }
 
 // Hide timer options when clicking anywhere else
