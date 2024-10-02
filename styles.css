@@ -230,7 +230,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked::before {
-  content: "✓";
+  content: "X";
   position: absolute;
   top: 50%;
   left: 50%;
