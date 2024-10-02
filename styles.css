@@ -9,35 +9,29 @@ body {
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
-}
-
-/* Header Styles */
-.header-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  position: sticky;
-  top: 0;
-  background-color: #002b36;
-  z-index: 100;
-  width: 100%;
+  /* If using position: fixed for .timer-count-wrapper, uncomment the following line */
+  /* padding-top: 80px; */ /* Adjust based on the height of the fixed timer-count-wrapper */
 }
 
 h1,
 h2,
 h3 {
   color: #cb4b16;
-  margin: 0;
+  margin: 0 0 20px 0; /* Add bottom margin to separate from the content below */
 }
 
+/* Timer-count-wrapper Styles */
 .timer-count-wrapper {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  margin-top: 10px;
+  position: sticky; /* Make the timer and reps counter sticky */
+  top: 0;
+  background-color: #002b36;
+  z-index: 100;
+  padding: 10px 0;
+  margin-bottom: 20px; /* Space below the sticky element */
 }
 
 .timer-wrapper {
@@ -49,13 +43,10 @@ h3 {
 #count-button,
 #weekCompletedBtn {
   font-family: "Courier New", monospace;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: normal;
   cursor: pointer;
   user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   background-color: #073642;
   color: #b58900;
   border: 1px solid #b58900;
@@ -117,6 +108,12 @@ h3 {
   background-color: #094753;
 }
 
+/* Program Content Styles */
+#program {
+  position: relative;
+  overflow: visible;
+}
+
 /* Day Styles */
 .day {
   border: 1px solid #586e75;
@@ -141,7 +138,7 @@ h3 {
   padding-top: 10px;
 }
 
-/* Updated Exercise Styles */
+/* Exercise Styles */
 .exercises ul {
   padding-left: 20px;
   margin: 0;
@@ -152,6 +149,7 @@ h3 {
   margin-bottom: 10px;
   position: relative;
   padding-left: 20px;
+  font-size: 18px; /* Adjust the size as desired */
 }
 
 .exercise-item::before {
@@ -159,6 +157,10 @@ h3 {
   position: absolute;
   left: 0;
   color: #839496;
+}
+
+.exercise-item.picture-available {
+  color: #268bd2; /* Blue-ish color to indicate exercises with pictures */
 }
 
 .exercise-description {
@@ -174,6 +176,40 @@ h3 {
 
 .subexercises {
   margin-left: 20px;
+}
+
+.exercise-circuit {
+  margin-left: 0;
+  padding-left: 10px;
+}
+
+.exercise-circuit > span {
+  font-weight: normal;
+  color: #cb4b16;
+}
+
+.exercise-circuit > ul {
+  margin-top: 5px;
+}
+
+/* ASCII Art Styles */
+.ascii-art {
+  white-space: pre-wrap; /* Allows the text to wrap if necessary */
+  font-size: 8px;
+  line-height: 1;
+  color: #2aa198;
+  margin: 0;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .ascii-art {
+    font-size: 6px;
+  }
 }
 
 /* Checkbox Styles */
@@ -211,30 +247,13 @@ button:hover {
   background-color: #094753;
 }
 
-/* ASCII Art Styles */
-.ascii-art {
-  white-space: pre;
-  font-size: 8px;
-  line-height: 1;
-  color: #2aa198;
-  margin-left: 0px;
-  overflow-x: auto;
-  max-width: 100%;
-  margin-top: 5px;
-  margin-bottom: 10px;
-}
-
-@media (max-width: 768px) {
-  .ascii-art {
-    font-size: 6px;
-  }
-}
-
 /* Week Counter Styles */
 .week-completed-container {
   display: flex;
   align-items: center;
   margin-top: 20px;
+  position: relative;
+  overflow: visible;
 }
 
 #weekCounter {
@@ -245,6 +264,8 @@ button:hover {
 
 .reset-container {
   margin-top: 10px;
+  position: relative;
+  overflow: visible;
 }
 
 #resetBtn {
@@ -297,35 +318,10 @@ button:hover {
   }
 }
 
-.exercise-circuit {
-  margin-left: 0px;
-  padding-left: 10px;
-}
-
-.exercise-circuit > span {
-  font-weight: bold;
-  color: #cb4b16;
-}
-
-.exercise-circuit > ul {
-  margin-top: 5px;
-}
-
-/* Exercise Item Styles */
-.exercise-item {
-  margin-bottom: 10px;
+/* Ensure no parent elements interfere with sticky positioning */
+#program,
+.week-completed-container,
+.reset-container {
   position: relative;
-  padding-left: 20px;
-}
-
-.exercise-item::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: #839496;
-}
-
-/* Simplified styling for exercises with pictures */
-.exercise-item.picture-available {
-  color: #268bd2; /* Blue-ish color */
+  overflow: visible;
 }

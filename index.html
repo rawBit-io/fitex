@@ -7,23 +7,25 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="header-container">
-      <h1>14-Days Fitness Program</h1>
-      <div class="timer-count-wrapper">
-        <div class="timer-wrapper">
-          <div id="timer">01:00</div>
-          <div id="timer-options">
-            <button onclick="setTimer(60)">1 min</button>
-            <button onclick="setTimer(120)">2</button>
-            <button onclick="setTimer(300)">5</button>
-            <button onclick="setTimer(600)">10</button>
-            <button onclick="setTimer(1800)">30</button>
-          </div>
+    <!-- Move h1 outside of header-container for clarity -->
+    <h1>14-Days Fitness Program</h1>
+
+    <!-- Timer-count-wrapper is now a direct child of body -->
+    <div class="timer-count-wrapper">
+      <div class="timer-wrapper">
+        <div id="timer">01:00</div>
+        <div id="timer-options">
+          <button onclick="setTimer(60)">1 min</button>
+          <button onclick="setTimer(120)">2</button>
+          <button onclick="setTimer(300)">5</button>
+          <button onclick="setTimer(600)">10</button>
+          <button onclick="setTimer(1800)">30</button>
         </div>
-        <div id="count-button">reps <span id="count-value">0</span></div>
       </div>
+      <div id="count-button">reps <span id="count-value">0</span></div>
     </div>
 
+    <!-- Rest of your content -->
     <div id="program"></div>
 
     <div class="week-completed-container">
