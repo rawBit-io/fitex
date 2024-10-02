@@ -310,3 +310,22 @@ button:hover {
 .exercise-circuit > ul {
   margin-top: 5px;
 }
+
+/* Exercise Item Styles */
+.exercise-item {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.exercise-item::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #839496;
+}
+
+/* Simplified styling for exercises with pictures */
+.exercise-item.picture-available {
+  color: #268bd2; /* Blue-ish color */
+}

@@ -8,10 +8,10 @@ const days = [
         name: "Dynamic Warm-up",
         time: "10 min",
         exercises: [
-          "Light jog",
-          "Arm circles",
-          "Leg swings",
-          "Bodyweight squats",
+          { name: "Light jog", hasPicture: false },
+          { name: "Arm circles", hasPicture: false },
+          { name: "Leg swings", hasPicture: false },
+          { name: "Bodyweight squats", hasPicture: false },
         ],
       },
       {
@@ -22,25 +22,46 @@ const days = [
             name: "Circuit (3 rounds, 45 sec each exercise, 15 sec rest between exercises, 2 min rest between rounds):",
             isCircuit: true,
             circuitExercises: [
-              { name: "Pull-ups or assisted pull-ups", asciiArt: true },
-              { name: "Push-ups", asciiArt: true },
-              { name: "Bodyweight squats", asciiArt: true },
-              { name: "Dumbbell rows (10kg)", asciiArt: true },
-              { name: "Lunges", asciiArt: true },
-              { name: "Plank", asciiArt: true },
+              {
+                name: "Pull-ups or assisted pull-ups",
+                asciiArtKey: "pullUps",
+                hasPicture: true,
+              },
+              { name: "Push-ups", asciiArtKey: "pushUps", hasPicture: true },
+              {
+                name: "Bodyweight squats",
+                asciiArtKey: "squats",
+                hasPicture: true,
+              },
+              {
+                name: "Dumbbell rows (10kg)",
+                asciiArtKey: "dumbbellRows",
+                hasPicture: true,
+              },
+              { name: "Lunges", asciiArtKey: "lunges", hasPicture: true },
+              { name: "Plank", asciiArtKey: "plank", hasPicture: true },
             ],
           },
-          { name: "Cardio: 15 min moderate-intensity running or cycling" },
+          {
+            name: "Cardio: 15 min moderate-intensity running or cycling",
+            hasPicture: false,
+          },
           {
             name: "Hyperextensions: 3 sets of 10 reps (bodyweight)",
-            asciiArt: true,
+            asciiArtKey: "hyperextensions",
+            hasPicture: true,
           },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "15 min",
-        exercises: ["Full body stretch, focus on back and legs"],
+        exercises: [
+          {
+            name: "Full body stretch, focus on back and legs",
+            hasPicture: false,
+          },
+        ],
       },
     ],
   },
@@ -50,7 +71,12 @@ const days = [
       {
         name: "Dynamic Warm-up",
         time: "10 min",
-        exercises: ["Jump rope", "High knees", "Butt kicks", "Arm swings"],
+        exercises: [
+          { name: "Jump rope", hasPicture: false },
+          { name: "High knees", hasPicture: false },
+          { name: "Butt kicks", hasPicture: false },
+          { name: "Arm swings", hasPicture: false },
+        ],
       },
       {
         name: "Main Workout",
@@ -60,35 +86,41 @@ const days = [
             name: "HIIT (20 min): 30 sec work, 30 sec rest",
             isCircuit: true,
             circuitExercises: [
-              { name: "Burpees" },
-              { name: "Mountain climbers" },
-              { name: "Jump squats" },
-              { name: "High knees" },
+              { name: "Burpees", hasPicture: false },
+              { name: "Mountain climbers", hasPicture: false },
+              { name: "Jump squats", hasPicture: false },
+              { name: "High knees", hasPicture: false },
             ],
           },
           {
             name: "Core Circuit (3 rounds, 45 sec each exercise, 15 sec rest):",
             isCircuit: true,
             circuitExercises: [
-              { name: "Russian twists (5kg dumbbell)", asciiArt: true },
-              { name: "Bicycle crunches", asciiArt: true },
-              { name: "Leg raises", asciiArt: true },
-              { name: "Side plank (each side)", asciiArt: true },
+              {
+                name: "Russian twists (5kg dumbbell)",
+                hasPicture: false,
+              },
+              { name: "Bicycle crunches", hasPicture: false },
+              { name: "Leg raises", hasPicture: false },
+              { name: "Side plank (each side)", hasPicture: false },
             ],
           },
           {
             name: "Balance work: Single-leg stance with eyes closed, 3 sets of 30 sec each leg",
+            hasPicture: false,
           },
           {
             name: "Hyperextensions: 3 sets of 10 reps (5kg weight)",
-            asciiArt: true,
+            hasPicture: false,
           },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "10 min",
-        exercises: ["Focus on core and lower back"],
+        exercises: [
+          { name: "Focus on core and lower back", hasPicture: false },
+        ],
       },
     ],
   },
@@ -99,10 +131,10 @@ const days = [
         name: "Dynamic Warm-up",
         time: "10 min",
         exercises: [
-          "Light jog",
-          "Leg swings",
-          "Ankle rotations",
-          "Bodyweight lunges",
+          { name: "Light jog", hasPicture: false },
+          { name: "Leg swings", hasPicture: false },
+          { name: "Ankle rotations", hasPicture: false },
+          { name: "Bodyweight lunges", hasPicture: false },
         ],
       },
       {
@@ -111,30 +143,33 @@ const days = [
         exercises: [
           {
             name: "Goblet squats: 3 sets of 12 reps (15kg dumbbell)",
-            asciiArt: true,
+            hasPicture: false,
           },
           {
             name: "Romanian deadlifts: 3 sets of 10 reps (two 15kg dumbbells)",
-            asciiArt: true,
+            hasPicture: false,
           },
           {
             name: "Step-ups: 3 sets of 10 each leg (bodyweight)",
-            asciiArt: true,
+            hasPicture: false,
           },
-          { name: "Calf raises: 3 sets of 15 reps", asciiArt: true },
+          { name: "Calf raises: 3 sets of 15 reps", hasPicture: false },
           {
             name: "Cardio: 20 min interval training on bike or rowing machine (1 min hard, 1 min easy)",
+            hasPicture: false,
           },
           {
             name: "Hyperextensions: 3 sets of 10 reps (10kg weight)",
-            asciiArt: true,
+            hasPicture: false,
           },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "15 min",
-        exercises: ["Focus on legs and lower back"],
+        exercises: [
+          { name: "Focus on legs and lower back", hasPicture: false },
+        ],
       },
     ],
   },
@@ -145,10 +180,10 @@ const days = [
         name: "Dynamic Warm-up",
         time: "10 min",
         exercises: [
-          "Arm circles",
-          "Shoulder rolls",
-          "Cat-cow stretch",
-          "Light resistance band work",
+          { name: "Arm circles", hasPicture: false },
+          { name: "Shoulder rolls", hasPicture: false },
+          { name: "Cat-cow stretch", hasPicture: false },
+          { name: "Light resistance band work", hasPicture: false },
         ],
       },
       {
@@ -157,29 +192,35 @@ const days = [
         exercises: [
           {
             name: "Pull-ups or assisted pull-ups: 3 sets of max reps (aim for 5-8)",
-            asciiArt: true,
+            hasPicture: false,
           },
-          { name: "Push-ups: 3 sets of 10-15 reps", asciiArt: true },
+          { name: "Push-ups: 3 sets of 10-15 reps", hasPicture: false },
           {
             name: "Dumbbell shoulder press: 3 sets of 10 reps (8kg dumbbells)",
-            asciiArt: true,
+            hasPicture: false,
           },
-          { name: "Dips or bench dips: 3 sets of 8-12 reps", asciiArt: true },
-          { name: "Face pulls with resistance band: 3 sets of 15 reps" },
+          {
+            name: "Dips or bench dips: 3 sets of 8-12 reps",
+            hasPicture: false,
+          },
+          {
+            name: "Face pulls with resistance band: 3 sets of 15 reps",
+            hasPicture: false,
+          },
           {
             name: "Plank variations: 3 sets of 30-45 sec (standard, side, bird-dog)",
-            asciiArt: true,
+            hasPicture: false,
           },
           {
             name: "Hyperextensions: 3 sets of 10 reps (15kg weight)",
-            asciiArt: true,
+            hasPicture: false,
           },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "10 min",
-        exercises: ["Upper body and back focus"],
+        exercises: [{ name: "Upper body and back focus", hasPicture: false }],
       },
     ],
   },
@@ -189,7 +230,12 @@ const days = [
       {
         name: "Dynamic Warm-up",
         time: "10 min",
-        exercises: ["Light jog", "High knees", "Butt kicks", "Arm swings"],
+        exercises: [
+          { name: "Light jog", hasPicture: false },
+          { name: "High knees", hasPicture: false },
+          { name: "Butt kicks", hasPicture: false },
+          { name: "Arm swings", hasPicture: false },
+        ],
       },
       {
         name: "Main Workout",
@@ -199,28 +245,36 @@ const days = [
             name: "Plyometric circuit (3 rounds, 30 sec work, 30 sec rest):",
             isCircuit: true,
             circuitExercises: [
-              { name: "Box jumps (or step-ups for lower impact)" },
-              { name: "Plyometric push-ups (or regular push-ups)" },
-              { name: "Skater hops" },
-              { name: "Medicine ball slams" },
+              {
+                name: "Box jumps (or step-ups for lower impact)",
+                hasPicture: false,
+              },
+              {
+                name: "Plyometric push-ups (or regular push-ups)",
+                hasPicture: false,
+              },
+              { name: "Skater hops", hasPicture: false },
+              { name: "Medicine ball slams", hasPicture: false },
             ],
           },
           {
             name: "Flexibility work (30 min): Yoga flow focusing on sun salutations and warrior poses",
+            hasPicture: false,
           },
           {
             name: "Balance work: Single-leg Romanian deadlifts, 3 sets of 8 each leg (light dumbbell)",
+            hasPicture: false,
           },
           {
             name: "Hyperextensions: 2 sets of 12 reps (bodyweight)",
-            asciiArt: true,
+            hasPicture: false,
           },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "15 min",
-        exercises: ["Full body stretch"],
+        exercises: [{ name: "Full body stretch", hasPicture: false }],
       },
     ],
   },
@@ -230,21 +284,35 @@ const days = [
       {
         name: "Dynamic Warm-up",
         time: "10 min",
-        exercises: ["Light movements to wake up the body"],
+        exercises: [
+          {
+            name: "Light movements to wake up the body",
+            hasPicture: false,
+          },
+        ],
       },
       {
         name: "Main Activity",
         time: "70 min",
         exercises: [
-          { name: "30 min low-intensity swimming, cycling, or brisk walking" },
-          { name: "30 min yoga flow focusing on balance and flexibility" },
-          { name: "10 min foam rolling session" },
+          {
+            name: "30 min low-intensity swimming, cycling, or brisk walking",
+            hasPicture: false,
+          },
+          {
+            name: "30 min yoga flow focusing on balance and flexibility",
+            hasPicture: false,
+          },
+          {
+            name: "10 min foam rolling session",
+            hasPicture: false,
+          },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "10 min",
-        exercises: ["Gentle full body stretch"],
+        exercises: [{ name: "Gentle full body stretch", hasPicture: false }],
       },
     ],
   },
@@ -254,7 +322,11 @@ const days = [
       {
         name: "Dynamic Warm-up",
         time: "10 min",
-        exercises: ["Light jog", "Arm circles", "Leg swings"],
+        exercises: [
+          { name: "Light jog", hasPicture: false },
+          { name: "Arm circles", hasPicture: false },
+          { name: "Leg swings", hasPicture: false },
+        ],
       },
       {
         name: "Main Workout",
@@ -262,30 +334,35 @@ const days = [
         exercises: [
           {
             name: "Cardio: 30 min steady-state run or row at moderate intensity",
+            hasPicture: false,
           },
           {
             name: "Core circuit (3 rounds, 45 sec work, 15 sec rest):",
             isCircuit: true,
             circuitExercises: [
-              { name: "Planks", asciiArt: true },
-              { name: "Russian twists (7.5kg dumbbell)", asciiArt: true },
-              { name: "Mountain climbers", asciiArt: true },
-              { name: "Supermans", asciiArt: true },
+              { name: "Planks", hasPicture: false },
+              {
+                name: "Russian twists (7.5kg dumbbell)",
+                hasPicture: false,
+              },
+              { name: "Mountain climbers", hasPicture: false },
+              { name: "Supermans", hasPicture: false },
             ],
           },
           {
             name: "Balance work: Bosu ball squats, 3 sets of 10 (or regular squats if no Bosu ball)",
+            hasPicture: false,
           },
           {
             name: "Hyperextensions: 3 sets of 10 reps (20kg weight)",
-            asciiArt: true,
+            hasPicture: false,
           },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "10 min",
-        exercises: ["Focus on back and core"],
+        exercises: [{ name: "Focus on back and core", hasPicture: false }],
       },
     ],
   },
@@ -296,10 +373,10 @@ const days = [
         name: "Dynamic Warm-up",
         time: "10 min",
         exercises: [
-          "Jumping jacks",
-          "Arm circles",
-          "Leg swings",
-          "Bodyweight squats",
+          { name: "Jumping jacks", hasPicture: false },
+          { name: "Arm circles", hasPicture: false },
+          { name: "Leg swings", hasPicture: false },
+          { name: "Bodyweight squats", hasPicture: false },
         ],
       },
       {
@@ -310,28 +387,43 @@ const days = [
             name: "Circuit (4 rounds, 40 sec each exercise, 20 sec rest):",
             isCircuit: true,
             circuitExercises: [
-              { name: "Pull-ups or inverted rows", asciiArt: true },
+              {
+                name: "Pull-ups or inverted rows",
+                hasPicture: false,
+              },
               {
                 name: "Dumbbell bench press (or push-ups if no bench)",
-                asciiArt: true,
+                hasPicture: false,
               },
-              { name: "Goblet squats (20kg dumbbell)", asciiArt: true },
-              { name: "Dumbbell rows (12kg dumbbells)", asciiArt: true },
-              { name: "Lunges with dumbbells (8kg each hand)", asciiArt: true },
-              { name: "Plank to downward dog", asciiArt: true },
+              {
+                name: "Goblet squats (20kg dumbbell)",
+                hasPicture: false,
+              },
+              {
+                name: "Dumbbell rows (12kg dumbbells)",
+                hasPicture: false,
+              },
+              {
+                name: "Lunges with dumbbells (8kg each hand)",
+                hasPicture: false,
+              },
+              { name: "Plank to downward dog", hasPicture: false },
             ],
           },
-          { name: "Farmer's walks: 3 sets of 30 sec (heavy dumbbells)" },
+          {
+            name: "Farmer's walks: 3 sets of 30 sec (heavy dumbbells)",
+            hasPicture: false,
+          },
           {
             name: "Hyperextensions: 3 sets of 12 reps (25kg weight)",
-            asciiArt: true,
+            hasPicture: false,
           },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "10 min",
-        exercises: ["Full body stretch"],
+        exercises: [{ name: "Full body stretch", hasPicture: false }],
       },
     ],
   },
@@ -341,7 +433,12 @@ const days = [
       {
         name: "Dynamic Warm-up",
         time: "10 min",
-        exercises: ["Jump rope", "High knees", "Butt kicks", "Arm swings"],
+        exercises: [
+          { name: "Jump rope", hasPicture: false },
+          { name: "High knees", hasPicture: false },
+          { name: "Butt kicks", hasPicture: false },
+          { name: "Arm swings", hasPicture: false },
+        ],
       },
       {
         name: "Main Workout",
@@ -351,36 +448,42 @@ const days = [
             name: "HIIT (25 min): 40 sec work, 20 sec rest",
             isCircuit: true,
             circuitExercises: [
-              { name: "Burpees" },
-              { name: "Mountain climbers" },
-              { name: "Squat jumps" },
-              { name: "Push-ups" },
-              { name: "High knees" },
+              { name: "Burpees", hasPicture: false },
+              { name: "Mountain climbers", hasPicture: false },
+              { name: "Squat jumps", hasPicture: false },
+              { name: "Push-ups", hasPicture: false },
+              { name: "High knees", hasPicture: false },
             ],
           },
           {
             name: "Core Circuit (3 rounds, 45 sec each exercise, 15 sec rest):",
             isCircuit: true,
             circuitExercises: [
-              { name: "V-ups", asciiArt: true },
-              { name: "Pallof press with resistance band" },
-              { name: "Bird-dog crunch", asciiArt: true },
-              { name: "Dead bug", asciiArt: true },
+              { name: "V-ups", hasPicture: false },
+              {
+                name: "Pallof press with resistance band",
+                hasPicture: false,
+              },
+              { name: "Bird-dog crunch", hasPicture: false },
+              { name: "Dead bug", hasPicture: false },
             ],
           },
           {
             name: "Balance work: Pistol squat progression, 3 sets of 5 each leg",
+            hasPicture: false,
           },
           {
             name: "Hyperextensions: 3 sets of 12 reps (20kg weight)",
-            asciiArt: true,
+            hasPicture: false,
           },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "15 min",
-        exercises: ["Focus on core and lower back"],
+        exercises: [
+          { name: "Focus on core and lower back", hasPicture: false },
+        ],
       },
     ],
   },
@@ -391,10 +494,10 @@ const days = [
         name: "Dynamic Warm-up",
         time: "10 min",
         exercises: [
-          "Light jog",
-          "Leg swings",
-          "Ankle rotations",
-          "Bodyweight lunges",
+          { name: "Light jog", hasPicture: false },
+          { name: "Leg swings", hasPicture: false },
+          { name: "Ankle rotations", hasPicture: false },
+          { name: "Bodyweight lunges", hasPicture: false },
         ],
       },
       {
@@ -403,30 +506,32 @@ const days = [
         exercises: [
           {
             name: "Bulgarian split squats: 3 sets of 10 each leg",
-            asciiArt: true,
+            hasPicture: false,
           },
           {
             name: "Single-leg Romanian deadlifts: 3 sets of 8 each leg (light dumbbells)",
-            asciiArt: true,
+            hasPicture: false,
           },
-          { name: "Glute bridges: 3 sets of 15 reps", asciiArt: true },
-          { name: "Calf raises: 3 sets of 20 reps", asciiArt: true },
+          { name: "Glute bridges: 3 sets of 15 reps", hasPicture: false },
+          { name: "Calf raises: 3 sets of 20 reps", hasPicture: false },
           {
             name: "Cardio: 20 min hill or stair climbs (or incline treadmill)",
+            hasPicture: false,
           },
           {
             name: "Balance work: Bosu ball single-leg stance, 3 sets of 30 sec each leg",
+            hasPicture: false,
           },
           {
             name: "Hyperextensions: 3 sets of 12 reps (30kg weight)",
-            asciiArt: true,
+            hasPicture: false,
           },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "10 min",
-        exercises: ["Lower body focus"],
+        exercises: [{ name: "Lower body focus", hasPicture: false }],
       },
     ],
   },
@@ -437,10 +542,10 @@ const days = [
         name: "Dynamic Warm-up",
         time: "10 min",
         exercises: [
-          "Arm circles",
-          "Shoulder rolls",
-          "Cat-cow stretch",
-          "Light resistance band work",
+          { name: "Arm circles", hasPicture: false },
+          { name: "Shoulder rolls", hasPicture: false },
+          { name: "Cat-cow stretch", hasPicture: false },
+          { name: "Light resistance band work", hasPicture: false },
         ],
       },
       {
@@ -449,38 +554,44 @@ const days = [
         exercises: [
           {
             name: "Pull-ups: 4 sets of max reps (aim for 6-10)",
-            asciiArt: true,
+            hasPicture: false,
           },
-          { name: "Push-ups: 4 sets of 12-18 reps", asciiArt: true },
+          { name: "Push-ups: 4 sets of 12-18 reps", hasPicture: false },
           {
             name: "Dumbbell shoulder press: 3 sets of 10 reps (10kg dumbbells)",
-            asciiArt: true,
+            hasPicture: false,
           },
-          { name: "Dips: 3 sets of 10-15 reps", asciiArt: true },
-          { name: "Face pulls with resistance band: 3 sets of 15 reps" },
+          { name: "Dips: 3 sets of 10-15 reps", hasPicture: false },
+          {
+            name: "Face pulls with resistance band: 3 sets of 15 reps",
+            hasPicture: false,
+          },
           {
             name: "Core circuit (3 rounds, 40 sec work, 20 sec rest):",
             isCircuit: true,
             circuitExercises: [
-              { name: "Plank with shoulder taps", asciiArt: true },
-              { name: "Russian twists (10kg dumbbell)", asciiArt: true },
+              { name: "Plank with shoulder taps", hasPicture: false },
+              {
+                name: "Russian twists (10kg dumbbell)",
+                hasPicture: false,
+              },
               {
                 name: "Hanging leg raises (or lying leg raises)",
-                asciiArt: true,
+                hasPicture: false,
               },
-              { name: "Side plank rotations", asciiArt: true },
+              { name: "Side plank rotations", hasPicture: false },
             ],
           },
           {
             name: "Hyperextensions: 3 sets of 12 reps (25kg weight)",
-            asciiArt: true,
+            hasPicture: false,
           },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "15 min",
-        exercises: ["Upper body and back focus"],
+        exercises: [{ name: "Upper body and back focus", hasPicture: false }],
       },
     ],
   },
@@ -490,7 +601,12 @@ const days = [
       {
         name: "Dynamic Warm-up",
         time: "10 min",
-        exercises: ["Light jog", "High knees", "Butt kicks", "Arm swings"],
+        exercises: [
+          { name: "Light jog", hasPicture: false },
+          { name: "High knees", hasPicture: false },
+          { name: "Butt kicks", hasPicture: false },
+          { name: "Arm swings", hasPicture: false },
+        ],
       },
       {
         name: "Main Workout",
@@ -500,26 +616,36 @@ const days = [
             name: "Plyometric circuit (3 rounds, 30 sec work, 30 sec rest):",
             isCircuit: true,
             circuitExercises: [
-              { name: "Squat jumps", asciiArt: true },
-              { name: "Clap push-ups (or regular push-ups)", asciiArt: true },
-              { name: "Lateral bounds", asciiArt: true },
-              { name: "Medicine ball chest pass against wall" },
+              { name: "Squat jumps", hasPicture: false },
+              {
+                name: "Clap push-ups (or regular push-ups)",
+                hasPicture: false,
+              },
+              { name: "Lateral bounds", hasPicture: false },
+              {
+                name: "Medicine ball chest pass against wall",
+                hasPicture: false,
+              },
             ],
           },
           {
             name: "Flexibility work (30 min): Yoga flow focusing on hip openers and spinal twists",
+            hasPicture: false,
           },
-          { name: "Balance work: Single-leg hops, 3 sets of 10 each leg" },
+          {
+            name: "Balance work: Single-leg hops, 3 sets of 10 each leg",
+            hasPicture: false,
+          },
           {
             name: "Hyperextensions: 2 sets of 15 reps (15kg weight)",
-            asciiArt: true,
+            hasPicture: false,
           },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "10 min",
-        exercises: ["Full body stretch"],
+        exercises: [{ name: "Full body stretch", hasPicture: false }],
       },
     ],
   },
@@ -529,7 +655,11 @@ const days = [
       {
         name: "Dynamic Warm-up",
         time: "10 min",
-        exercises: ["Light jog", "Arm circles", "Leg swings"],
+        exercises: [
+          { name: "Light jog", hasPicture: false },
+          { name: "Arm circles", hasPicture: false },
+          { name: "Leg swings", hasPicture: false },
+        ],
       },
       {
         name: "Main Workout",
@@ -537,30 +667,34 @@ const days = [
         exercises: [
           {
             name: "Cardio: 35 min fartlek run (alternating 3 min moderate pace, 1 min high intensity)",
+            hasPicture: false,
           },
           {
             name: "Core circuit (3 rounds, 45 sec work, 15 sec rest):",
             isCircuit: true,
             circuitExercises: [
-              { name: "Plank jacks", asciiArt: true },
-              { name: "Bicycle crunches", asciiArt: true },
-              { name: "Reverse crunches", asciiArt: true },
-              { name: "Back extensions", asciiArt: true },
+              { name: "Plank jacks", hasPicture: false },
+              { name: "Bicycle crunches", hasPicture: false },
+              { name: "Reverse crunches", hasPicture: false },
+              { name: "Back extensions", hasPicture: false },
             ],
           },
           {
             name: "Balance work: Slacklining or tandem stance walking, 10 min",
+            hasPicture: false,
           },
           {
             name: "Hyperextensions: 3 sets of 12 reps (35kg weight)",
-            asciiArt: true,
+            hasPicture: false,
           },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "15 min",
-        exercises: ["Focus on back, hips, and legs"],
+        exercises: [
+          { name: "Focus on back, hips, and legs", hasPicture: false },
+        ],
       },
     ],
   },
@@ -570,23 +704,35 @@ const days = [
       {
         name: "Dynamic Warm-up",
         time: "10 min",
-        exercises: ["Light movements to wake up the body"],
+        exercises: [
+          {
+            name: "Light movements to wake up the body",
+            hasPicture: false,
+          },
+        ],
       },
       {
         name: "Main Activity",
         time: "70 min",
         exercises: [
-          { name: "30 min low-intensity swimming or cycling" },
+          {
+            name: "30 min low-intensity swimming or cycling",
+            hasPicture: false,
+          },
           {
             name: "30 min mobility work (focusing on hips, shoulders, and spine)",
+            hasPicture: false,
           },
-          { name: "10 min self-massage with foam roller or massage ball" },
+          {
+            name: "10 min self-massage with foam roller or massage ball",
+            hasPicture: false,
+          },
         ],
       },
       {
         name: "Cool-down and Stretching",
         time: "10 min",
-        exercises: ["Full body gentle stretching"],
+        exercises: [{ name: "Full body gentle stretching", hasPicture: false }],
       },
     ],
   },

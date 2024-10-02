@@ -19,56 +19,62 @@ days.forEach((day, dayIndex) => {
       ${day.categories
         .map(
           (category, catIndex) => `
-        <h3>${category.name} (${category.time})</h3>
-        <ul>
-          ${category.exercises
-            .map((exercise, exIndex) => {
-              if (typeof exercise === "string") {
-                return `<li class="exercise-item no-bullet">${exercise}</li>`;
-              } else if (exercise.isDescription) {
-                return `<li class="exercise-description">${exercise.name}</li>`;
-              } else if (exercise.isCircuit) {
-                return `
-                <li class="exercise-circuit">
-                  <span>${exercise.name}</span>
-                  <ul>
-                    ${exercise.circuitExercises
-                      .map(
-                        (circuitExercise, circuitIndex) => `
-                      <li class="exercise-item">
-                        <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${circuitIndex})">${
-                          circuitExercise.name
-                        }</span>
+              <h3>${category.name} (${category.time})</h3>
+              <ul>
+                ${category.exercises
+                  .map((exercise, exIndex) => {
+                    if (typeof exercise === "string") {
+                      return `<li class="exercise-item no-bullet">${exercise}</li>`;
+                    } else if (exercise.isDescription) {
+                      return `<li class="exercise-description">${exercise.name}</li>`;
+                    } else if (exercise.isCircuit) {
+                      return `
+                      <li class="exercise-circuit">
+                        <span>${exercise.name}</span>
+                        <ul>
+                          ${exercise.circuitExercises
+                            .map(
+                              (circuitExercise, circuitIndex) => `
+                            <li class="exercise-item ${
+                              circuitExercise.hasPicture
+                                ? "picture-available"
+                                : ""
+                            }">
+                              <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${circuitIndex}, '${
+                                circuitExercise.asciiArtKey || ""
+                              }')">${circuitExercise.name}</span>
+                              ${
+                                circuitExercise.hasPicture
+                                  ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}"></pre>`
+                                  : ""
+                              }
+                            </li>
+                          `
+                            )
+                            .join("")}
+                        </ul>
+                      </li>
+                    `;
+                    } else {
+                      return `
+                      <li class="exercise-item ${
+                        exercise.hasPicture ? "picture-available" : ""
+                      }">
+                        <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, undefined, '${
+                        exercise.asciiArtKey || ""
+                      }')">${exercise.name}</span>
                         ${
-                          circuitExercise.asciiArt
-                            ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}"></pre>`
+                          exercise.hasPicture
+                            ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
                             : ""
                         }
                       </li>
-                    `
-                      )
-                      .join("")}
-                  </ul>
-                </li>
-              `;
-              } else {
-                return `
-                <li class="exercise-item">
-                  <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex})">${
-                  exercise.name
-                }</span>
-                  ${
-                    exercise.asciiArt
-                      ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
-                      : ""
-                  }
-                </li>
-              `;
-              }
-            })
-            .join("")}
-        </ul>
-      `
+                    `;
+                    }
+                  })
+                  .join("")}
+              </ul>
+            `
         )
         .join("")}
     </div>
@@ -98,7 +104,14 @@ function toggleExercises(dayNumber) {
   }
 }
 
-function toggleAsciiArt(event, dayIndex, catIndex, exIndex, circuitIndex) {
+function toggleAsciiArt(
+  event,
+  dayIndex,
+  catIndex,
+  exIndex,
+  circuitIndex,
+  asciiArtKey
+) {
   event.stopPropagation();
   const asciiId =
     circuitIndex !== undefined
@@ -111,15 +124,17 @@ function toggleAsciiArt(event, dayIndex, catIndex, exIndex, circuitIndex) {
       asciiElement.textContent = "";
     } else {
       asciiElement.classList.add("show");
-      loadAsciiArt(asciiElement);
+      loadAsciiArt(asciiElement, asciiArtKey);
     }
   }
 }
 
-function loadAsciiArt(element) {
-  element.textContent = asciiArtContent;
+function loadAsciiArt(element, asciiArtKey) {
+  element.textContent = asciiArts[asciiArtKey] || "ASCII art not found";
   scaleAsciiArt(element);
 }
+
+// Rest of your script.js code remains unchanged...
 
 function scaleAsciiArt(asciiElement) {
   const dayBox = asciiElement.closest(".day");
