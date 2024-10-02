@@ -350,7 +350,7 @@ input[type="checkbox"]:checked::before {
 
 /* Animation Styles */
 .blink-green {
-  animation: blink-green 0.1s;
+  animation: blink-green 0.3s;
 }
 
 .blink-red {
