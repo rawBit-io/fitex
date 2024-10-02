@@ -208,20 +208,14 @@ function updateWeekCounterDisplay() {
 // Timer functionality
 const timerElement = document.getElementById("timer");
 const timerOptions = document.getElementById("timer-options");
-let countdownInterval;
 let timeLeft = 60;
 let lastSetValue = 60;
 let isTimerRunning = false;
+let timerStartTime;
+let timerEndTime;
 let longPressTimer;
 const longPressDuration = 500; // milliseconds
 let isLongPress = false;
-
-// Count button functionality
-const countButton = document.getElementById("count-button");
-const countValue = document.getElementById("count-value");
-let count = 0;
-let countLongPressTimer;
-let isCountLongPress = false;
 
 function updateTimerDisplay(seconds) {
   const minutes = Math.floor(seconds / 60);
@@ -237,24 +231,34 @@ function startTimer() {
     setTimeout(() => timerElement.classList.remove("blink-green"), 500);
 
     isTimerRunning = true;
-    countdownInterval = setInterval(() => {
-      timeLeft--;
-      updateTimerDisplay(timeLeft);
+    timerStartTime = Date.now();
+    timerEndTime = timerStartTime + timeLeft * 1000;
 
-      if (timeLeft <= 0) {
-        stopTimer();
-      }
-    }, 1000);
+    updateTimer();
   }
 }
 
 function stopTimer() {
-  clearInterval(countdownInterval);
   timerElement.classList.add("blink-red");
   setTimeout(() => timerElement.classList.remove("blink-red"), 500);
   isTimerRunning = false;
   timeLeft = lastSetValue;
   updateTimerDisplay(timeLeft);
+}
+
+function updateTimer() {
+  if (isTimerRunning) {
+    const now = Date.now();
+    const remainingTime = Math.max(0, Math.ceil((timerEndTime - now) / 1000));
+
+    if (remainingTime > 0) {
+      timeLeft = remainingTime;
+      updateTimerDisplay(timeLeft);
+      requestAnimationFrame(updateTimer);
+    } else {
+      stopTimer();
+    }
+  }
 }
 
 function setTimer(seconds) {
@@ -327,6 +331,12 @@ function addTimerEventListeners() {
 }
 
 // Count button functionality
+const countButton = document.getElementById("count-button");
+const countValue = document.getElementById("count-value");
+let count = 0;
+let countLongPressTimer;
+let isCountLongPress = false;
+
 function updateCountDisplay() {
   countValue.textContent = count;
 }
@@ -411,6 +421,10 @@ function resetAll() {
   resetCheckboxes();
   updateWeekCompletedButton();
 
+  // Reset theme to default
+  loadTheme("Default (Solarized Dark)");
+  localStorage.removeItem("selectedTheme");
+
   // Make the complete button blink red
   const weekCompletedBtn = document.getElementById("weekCompletedBtn");
   weekCompletedBtn.classList.add("blink-red");
@@ -477,6 +491,20 @@ function initializeTheme() {
   }
   populateThemeMenu();
 }
+
+// Handle visibility change for timer
+function handleVisibilityChange() {
+  if (!document.hidden && isTimerRunning) {
+    const now = Date.now();
+    const elapsedTime = Math.floor((now - timerStartTime) / 1000);
+    timeLeft = Math.max(0, lastSetValue - elapsedTime);
+    timerEndTime = now + timeLeft * 1000;
+    updateTimer();
+  }
+}
+
+// Add visibility change event listener
+document.addEventListener("visibilitychange", handleVisibilityChange);
 
 // Hide timer options and theme menu when clicking anywhere else
 document.addEventListener("click", (event) => {
