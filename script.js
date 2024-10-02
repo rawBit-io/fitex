@@ -146,7 +146,7 @@ function scaleAsciiArt(asciiElement) {
   const scaleFactor = dayBoxWidth / (maxLineLength * 8); // Assuming 8px as base font size
 
   // Apply the scaling
-  asciiElement.style.fontSize = `${scaleFactor * 8}px`;
+  asciiElement.style.fontSize = `${scaleFactor * 10}px`;
   asciiElement.style.lineHeight = "1";
 }
 
