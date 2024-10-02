@@ -1,0 +1,23 @@
+/* themes/theme-crazy-electric.css */
+
+/* Crazy Electric Theme */
+:root {
+  --body-bg-color: #000000;
+  --text-color: #ffffff;
+  --heading-color: #ff00ff; /* Magenta */
+  --link-color: #00ffff; /* Cyan */
+  --primary-color: #ffff00; /* Yellow */
+  --secondary-color: #ff69b4; /* HotPink */
+  --accent-color: #00ff00; /* Lime */
+  --highlight-color: #ff0000; /* Red */
+  --timer-bg-color: #1a1a1a;
+  --timer-border-color: #ffffff;
+  --timer-hover-bg-color: #333333;
+  --timer-active-bg-color: #4d4d4d;
+  --blink-green-color: #00ff00; /* Lime */
+  --blink-red-color: #ff0000; /* Red */
+  --day-bg-color: #0d0d0d;
+  --section-color-dynamic-warmup: #ff00ff; /* Magenta */
+  --section-color-main-workout: #00ffff; /* Cyan */
+  --section-color-cool-down: #ffff00; /* Yellow */
+}

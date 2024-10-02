@@ -1,10 +1,12 @@
 /* styles.css */
 
+/* Base Styles */
+
 /* General Styles */
 body {
   font-family: "Courier New", monospace;
-  background-color: #002b36;
-  color: #839496;
+  background-color: var(--body-bg-color);
+  color: var(--text-color);
   line-height: 1.4;
   padding: 20px;
   max-width: 800px;
@@ -14,7 +16,7 @@ body {
 h1,
 h2,
 h3 {
-  color: #cb4b16;
+  color: var(--heading-color);
   margin: 0 0 15px 0;
 }
 
@@ -32,19 +34,27 @@ h3 {
 .timer-count-wrapper {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
   position: sticky;
   top: 0;
-  background-color: #002b36;
+  background-color: var(--body-bg-color);
   z-index: 100;
   padding: 10px 0;
   margin-bottom: 20px;
 }
 
+/* Adjusting child elements spacing */
+.timer-count-wrapper > * {
+  margin-right: 10px;
+}
+
+.timer-count-wrapper > .theme-switcher {
+  margin-right: 0;
+}
+
 .timer-wrapper {
   position: relative;
-  margin-right: 10px;
 }
 
 #timer,
@@ -55,23 +65,23 @@ h3 {
   font-weight: normal;
   cursor: pointer;
   user-select: none;
-  background-color: #073642;
-  color: #b58900;
-  border: 1px solid #b58900;
+  background-color: var(--timer-bg-color);
+  color: var(--primary-color);
+  border: 1px solid var(--timer-border-color);
   padding: 5px 10px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.1s ease;
 }
 
 #timer:hover,
 #count-button:hover,
 #weekCompletedBtn:hover {
-  background-color: #094753;
+  background-color: var(--timer-hover-bg-color);
 }
 
 #timer:active,
 #count-button:active,
 #weekCompletedBtn:active {
-  background-color: #0d5a6a;
+  background-color: var(--timer-active-bg-color);
 }
 
 #weekCompletedBtn:disabled {
@@ -83,8 +93,8 @@ h3 {
 #timer-options {
   display: none;
   flex-direction: column;
-  background-color: #073642;
-  border: 1px solid #b58900;
+  background-color: var(--timer-bg-color);
+  border: 1px solid var(--timer-border-color);
   position: absolute;
   top: 100%;
   left: 0;
@@ -100,10 +110,10 @@ h3 {
   width: 100%;
   padding: 5px 10px;
   cursor: pointer;
-  background-color: #073642;
-  color: #b58900;
+  background-color: var(--timer-bg-color);
+  color: var(--primary-color);
   border: none;
-  border-bottom: 1px solid #b58900;
+  border-bottom: 1px solid var(--timer-border-color);
   transition: background-color 0.3s ease;
   text-align: center;
 }
@@ -113,15 +123,76 @@ h3 {
 }
 
 #timer-options button:hover {
-  background-color: #094753;
+  background-color: var(--timer-hover-bg-color);
+}
+
+/* Theme Switcher Styles */
+.theme-switcher {
+  position: relative;
+  margin-left: auto;
+}
+
+#theme-button {
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
+  background-color: var(--timer-bg-color);
+  color: var(--primary-color);
+  border: 1px solid var(--timer-border-color);
+  padding: 5px 10px;
+  transition: background-color 0.3s ease;
+}
+
+#theme-button:hover {
+  background-color: var(--timer-hover-bg-color);
+}
+
+#theme-button:active {
+  background-color: var(--timer-active-bg-color);
+}
+
+#theme-options {
+  display: none;
+  flex-direction: column;
+  background-color: var(--timer-bg-color);
+  border: 1px solid var(--timer-border-color);
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 101;
+  width: 200px;
+  box-sizing: border-box;
+}
+
+#theme-options button {
+  font-family: "Courier New", monospace;
+  font-size: 16px;
+  font-weight: normal;
+  width: 100%;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: var(--timer-bg-color);
+  color: var(--primary-color);
+  border: none;
+  border-bottom: 1px solid var(--timer-border-color);
+  transition: background-color 0.3s ease;
+  text-align: left;
+}
+
+#theme-options button:last-child {
+  border-bottom: none;
+}
+
+#theme-options button:hover {
+  background-color: var(--timer-hover-bg-color);
 }
 
 /* Day Styles */
 .day {
-  border: 1px solid #586e75;
+  border: 1px solid var(--secondary-color);
   padding: 15px;
   margin-bottom: 20px;
-  background-color: #00212b;
+  background-color: var(--day-bg-color);
 }
 
 .day-header {
@@ -151,23 +222,23 @@ h3 {
   position: relative;
   padding-left: 15px;
   font-size: 16px;
-  color: #93a1a1;
+  color: var(--text-color);
 }
 
 .exercise-item::before {
   content: "•";
   position: absolute;
   left: 0;
-  color: #2aa198;
+  color: var(--accent-color);
 }
 
 .exercise-item.picture-available {
-  color: #268bd2;
+  color: var(--link-color);
 }
 
 .exercise-description {
   margin-bottom: 12px;
-  color: #839496;
+  color: var(--text-color);
   font-size: 16px;
 }
 
@@ -178,12 +249,12 @@ h3 {
 }
 
 .exercise-circuit > span {
-  color: #657b83; /* Base00 - slightly muted */
+  color: var(--secondary-color);
   font-size: 16px;
   display: block;
   margin-bottom: 10px;
   padding: 5px 10px;
-  background-color: #073642; /* Base02 - slight contrast */
+  background-color: var(--timer-bg-color);
   border-radius: 3px;
 }
 
@@ -194,21 +265,21 @@ h3 {
 
 /* Section color differentiation */
 h3:nth-of-type(1) {
-  color: #268bd2;
-} /* Blue for Dynamic Warm-up */
+  color: var(--section-color-dynamic-warmup);
+} /* Dynamic Warm-up */
 h3:nth-of-type(2) {
-  color: #859900;
-} /* Green for Main Workout */
+  color: var(--section-color-main-workout);
+} /* Main Workout */
 h3:nth-of-type(3) {
-  color: #6c71c4;
-} /* Violet for Cool-down */
+  color: var(--section-color-cool-down);
+} /* Cool-down */
 
 /* ASCII Art Styles */
 .ascii-art {
   white-space: pre-wrap;
   font-size: 8px;
   line-height: 1;
-  color: #2aa198;
+  color: var(--accent-color);
   margin: 5px 0 10px;
   overflow: hidden;
   width: 100%;
@@ -221,10 +292,10 @@ input[type="checkbox"] {
   -webkit-appearance: none;
   width: 18px;
   height: 18px;
-  border: 1px solid #586e75;
+  border: 1px solid var(--secondary-color);
   display: inline-block;
   position: relative;
-  background-color: #002b36;
+  background-color: var(--body-bg-color);
   margin-right: 10px;
   vertical-align: middle;
 }
@@ -235,7 +306,7 @@ input[type="checkbox"]:checked::before {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #859900;
+  color: var(--highlight-color);
   font-size: 14px;
 }
 
@@ -251,7 +322,7 @@ input[type="checkbox"]:checked::before {
 #weekCounter {
   margin-left: 10px;
   font-size: 24px;
-  color: #b58900;
+  color: var(--primary-color);
 }
 
 .reset-container {
@@ -262,8 +333,8 @@ input[type="checkbox"]:checked::before {
 
 #resetBtn {
   background-color: transparent;
-  color: #839496;
-  border: 1px solid #586e75;
+  color: var(--text-color);
+  border: 1px solid var(--secondary-color);
   border-radius: 3px;
   padding: 5px 10px;
   cursor: pointer;
@@ -272,41 +343,41 @@ input[type="checkbox"]:checked::before {
 }
 
 #resetBtn:hover {
-  background-color: #073642;
-  color: #b58900;
-  border-color: #f4f3f1;
+  background-color: var(--timer-bg-color);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 /* Animation Styles */
 .blink-green {
-  animation: blink-green 0.5s;
+  animation: blink-green 0.1s;
 }
 
 .blink-red {
-  animation: blink-red 0.5s;
+  animation: blink-red 0.2s;
 }
 
 @keyframes blink-green {
   0% {
-    background-color: #073642;
+    background-color: var(--timer-bg-color);
   }
   50% {
-    background-color: #859900;
+    background-color: var(--blink-green-color);
   }
   100% {
-    background-color: #073642;
+    background-color: var(--timer-bg-color);
   }
 }
 
 @keyframes blink-red {
   0% {
-    background-color: #073642;
+    background-color: var(--timer-bg-color);
   }
   50% {
-    background-color: #dc322f;
+    background-color: var(--blink-red-color);
   }
   100% {
-    background-color: #073642;
+    background-color: var(--timer-bg-color);
   }
 }
 
@@ -329,7 +400,7 @@ input[type="checkbox"]:checked::before {
   }
   h3 {
     font-size: 18px;
-    color: #93a1a1;
+    color: var(--text-color);
   }
 
   .exercise-item,
@@ -340,21 +411,21 @@ input[type="checkbox"]:checked::before {
   }
 
   .exercise-item {
-    color: #eee8d5;
+    color: var(--text-color);
     margin-bottom: 10px;
   }
 
   .exercise-item::before {
-    color: #2aa198;
+    color: var(--accent-color);
   }
 
   .exercise-circuit > span {
-    color: #fdf6e3;
+    color: var(--text-color);
     margin-bottom: 12px;
   }
 
   .exercise-description {
-    color: #93a1a1;
+    color: var(--text-color);
   }
 
   .ascii-art {
@@ -383,4 +454,26 @@ input[type="checkbox"]:checked::before {
   .day {
     padding: 15px;
   }
+}
+
+/* Default Theme (Solarized Dark) */
+:root {
+  --body-bg-color: #002b36;
+  --text-color: #839496;
+  --heading-color: #cb4b16;
+  --link-color: #268bd2;
+  --primary-color: #b58900;
+  --secondary-color: #586e75;
+  --accent-color: #2aa198;
+  --highlight-color: #859900;
+  --timer-bg-color: #073642;
+  --timer-border-color: #b58900;
+  --timer-hover-bg-color: #094753;
+  --timer-active-bg-color: #0d5a6a;
+  --blink-green-color: #859900;
+  --blink-red-color: #dc322f;
+  --day-bg-color: #00212b;
+  --section-color-dynamic-warmup: #268bd2;
+  --section-color-main-workout: #859900;
+  --section-color-cool-down: #6c71c4;
 }

@@ -19,62 +19,60 @@ days.forEach((day, dayIndex) => {
       ${day.categories
         .map(
           (category, catIndex) => `
-              <h3>${category.name} (${category.time})</h3>
-              <ul>
-                ${category.exercises
-                  .map((exercise, exIndex) => {
-                    if (typeof exercise === "string") {
-                      return `<li class="exercise-item no-bullet">${exercise}</li>`;
-                    } else if (exercise.isDescription) {
-                      return `<li class="exercise-description">${exercise.name}</li>`;
-                    } else if (exercise.isCircuit) {
-                      return `
-                      <li class="exercise-circuit">
-                        <span>${exercise.name}</span>
-                        <ul>
-                          ${exercise.circuitExercises
-                            .map(
-                              (circuitExercise, circuitIndex) => `
-                            <li class="exercise-item ${
-                              circuitExercise.hasPicture
-                                ? "picture-available"
-                                : ""
-                            }">
-                              <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${circuitIndex}, '${
-                                circuitExercise.asciiArtKey || ""
-                              }')">${circuitExercise.name}</span>
-                              ${
-                                circuitExercise.hasPicture
-                                  ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}"></pre>`
-                                  : ""
-                              }
-                            </li>
-                          `
-                            )
-                            .join("")}
-                        </ul>
-                      </li>
-                    `;
-                    } else {
-                      return `
+        <h3>${category.name} (${category.time})</h3>
+        <ul>
+          ${category.exercises
+            .map((exercise, exIndex) => {
+              if (typeof exercise === "string") {
+                return `<li class="exercise-item no-bullet">${exercise}</li>`;
+              } else if (exercise.isDescription) {
+                return `<li class="exercise-description">${exercise.name}</li>`;
+              } else if (exercise.isCircuit) {
+                return `
+                <li class="exercise-circuit">
+                  <span>${exercise.name}</span>
+                  <ul>
+                    ${exercise.circuitExercises
+                      .map(
+                        (circuitExercise, circuitIndex) => `
                       <li class="exercise-item ${
-                        exercise.hasPicture ? "picture-available" : ""
+                        circuitExercise.hasPicture ? "picture-available" : ""
                       }">
-                        <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, undefined, '${
-                        exercise.asciiArtKey || ""
-                      }')">${exercise.name}</span>
+                        <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${circuitIndex}, '${
+                          circuitExercise.asciiArtKey || ""
+                        }')">${circuitExercise.name}</span>
                         ${
-                          exercise.hasPicture
-                            ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
+                          circuitExercise.hasPicture
+                            ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}"></pre>`
                             : ""
                         }
                       </li>
-                    `;
-                    }
-                  })
-                  .join("")}
-              </ul>
-            `
+                    `
+                      )
+                      .join("")}
+                  </ul>
+                </li>
+              `;
+              } else {
+                return `
+                <li class="exercise-item ${
+                  exercise.hasPicture ? "picture-available" : ""
+                }">
+                  <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, undefined, '${
+                  exercise.asciiArtKey || ""
+                }')">${exercise.name}</span>
+                  ${
+                    exercise.hasPicture
+                      ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
+                      : ""
+                  }
+                </li>
+              `;
+              }
+            })
+            .join("")}
+        </ul>
+      `
         )
         .join("")}
     </div>
@@ -133,8 +131,6 @@ function loadAsciiArt(element, asciiArtKey) {
   element.textContent = asciiArts[asciiArtKey] || "ASCII art not found";
   scaleAsciiArt(element);
 }
-
-// Rest of your script.js code remains unchanged...
 
 function scaleAsciiArt(asciiElement) {
   const dayBox = asciiElement.closest(".day");
@@ -426,13 +422,78 @@ function resetAll() {
   }, 100);
 }
 
-// Hide timer options when clicking anywhere else
+// Theme switching functionality
+function loadTheme(themeName) {
+  const themeStylesheet = document.getElementById("theme-stylesheet");
+
+  if (themeName === "Default (Solarized Dark)") {
+    // Default theme is already in styles.css, no need to load additional file
+    themeStylesheet.href = "";
+    return;
+  }
+
+  const theme = availableThemes.find((t) => t.name === themeName);
+  if (theme && theme.file) {
+    themeStylesheet.href = theme.file;
+  }
+}
+
+function populateThemeMenu() {
+  const themeOptions = document.getElementById("theme-options");
+  availableThemes.forEach((theme) => {
+    const button = document.createElement("button");
+    button.textContent = theme.name;
+    button.onclick = () => {
+      loadTheme(theme.name);
+      localStorage.setItem("selectedTheme", theme.name);
+      hideThemeMenu();
+    };
+    themeOptions.appendChild(button);
+  });
+}
+
+function toggleThemeMenu() {
+  const themeOptions = document.getElementById("theme-options");
+  if (
+    themeOptions.style.display === "none" ||
+    themeOptions.style.display === ""
+  ) {
+    themeOptions.style.display = "flex";
+  } else {
+    hideThemeMenu();
+  }
+}
+
+function hideThemeMenu() {
+  const themeOptions = document.getElementById("theme-options");
+  themeOptions.style.display = "none";
+}
+
+// Initialize theme
+function initializeTheme() {
+  const savedTheme = localStorage.getItem("selectedTheme");
+  if (savedTheme) {
+    loadTheme(savedTheme);
+  }
+  populateThemeMenu();
+}
+
+// Hide timer options and theme menu when clicking anywhere else
 document.addEventListener("click", (event) => {
   if (
     !timerElement.contains(event.target) &&
     !timerOptions.contains(event.target)
   ) {
     hideTimerOptions();
+  }
+
+  const themeButton = document.getElementById("theme-button");
+  const themeOptions = document.getElementById("theme-options");
+  if (
+    !themeButton.contains(event.target) &&
+    !themeOptions.contains(event.target)
+  ) {
+    hideThemeMenu();
   }
 });
 
@@ -442,29 +503,32 @@ timerOptions.addEventListener("click", (event) => {
 });
 
 // Initialize the application when the page loads
-updateTimerDisplay(timeLeft);
-updateCountDisplay();
-loadProgress();
-updateWeekCompletedButton();
-updateWeekCounterDisplay();
-addTimerEventListeners();
-addCountEventListeners();
+document.addEventListener("DOMContentLoaded", () => {
+  updateTimerDisplay(timeLeft);
+  updateCountDisplay();
+  loadProgress();
+  updateWeekCompletedButton();
+  updateWeekCounterDisplay();
+  addTimerEventListeners();
+  addCountEventListeners();
+  initializeTheme();
 
-// Event listeners for buttons
-document
-  .getElementById("weekCompletedBtn")
-  .addEventListener("click", incrementWeekCounter);
-document.getElementById("resetBtn").addEventListener("click", resetAll);
+  // Event listeners for buttons
+  document
+    .getElementById("weekCompletedBtn")
+    .addEventListener("click", incrementWeekCounter);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
 
-// Event listener for checkbox changes
-document.addEventListener("change", function (event) {
-  if (event.target.type === "checkbox") {
-    saveProgress(event);
-  }
-});
+  // Event listener for checkbox changes
+  document.addEventListener("change", function (event) {
+    if (event.target.type === "checkbox") {
+      saveProgress(event);
+    }
+  });
 
-// Add a window resize event listener to rescale ASCII art
-window.addEventListener("resize", () => {
-  const asciiElements = document.querySelectorAll(".ascii-art.show");
-  asciiElements.forEach(scaleAsciiArt);
+  // Add a window resize event listener to rescale ASCII art
+  window.addEventListener("resize", () => {
+    const asciiElements = document.querySelectorAll(".ascii-art.show");
+    asciiElements.forEach(scaleAsciiArt);
+  });
 });

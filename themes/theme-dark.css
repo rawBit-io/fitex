@@ -1,0 +1,23 @@
+/* themes/theme-dark.css */
+
+/* Dark+ Theme (VS Code Default Dark) */
+:root {
+  --body-bg-color: #1e1e1e;
+  --text-color: #d4d4d4;
+  --heading-color: #569cd6;
+  --link-color: #3794ff;
+  --primary-color: #dcdcaa;
+  --secondary-color: #808080;
+  --accent-color: #c586c0;
+  --highlight-color: #4ec9b0;
+  --timer-bg-color: #252526;
+  --timer-border-color: #3c3c3c;
+  --timer-hover-bg-color: #333333;
+  --timer-active-bg-color: #3c3c3c;
+  --blink-green-color: #4ec9b0;
+  --blink-red-color: #f44747;
+  --day-bg-color: #1e1e1e;
+  --section-color-dynamic-warmup: #569cd6;
+  --section-color-main-workout: #ce9178;
+  --section-color-cool-down: #c586c0;
+}

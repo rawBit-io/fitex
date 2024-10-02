@@ -1,0 +1,23 @@
+/* themes/theme-black-white.css */
+
+/* Black and White Theme */
+:root {
+  --body-bg-color: #ffffff;
+  --text-color: #000000;
+  --heading-color: #000000;
+  --link-color: #000000;
+  --primary-color: #000000;
+  --secondary-color: #000000;
+  --accent-color: #000000;
+  --highlight-color: #000000;
+  --timer-bg-color: #ffffff;
+  --timer-border-color: #000000;
+  --timer-hover-bg-color: #e0e0e0;
+  --timer-active-bg-color: #d0d0d0;
+  --blink-green-color: #000000;
+  --blink-red-color: #000000;
+  --day-bg-color: #ffffff;
+  --section-color-dynamic-warmup: #000000;
+  --section-color-main-workout: #000000;
+  --section-color-cool-down: #000000;
+}

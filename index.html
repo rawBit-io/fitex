@@ -3,14 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fitex</title>
+    <title>FitEx</title>
     <link rel="stylesheet" href="styles.css" />
+    <!-- Placeholder for dynamic theme stylesheet -->
+    <link id="theme-stylesheet" rel="stylesheet" href="" />
   </head>
   <body>
     <!-- Move h1 outside of header-container for clarity -->
     <h1>14-Days Fitness Program</h1>
 
-    <!-- Timer-count-wrapper is now a direct child of body -->
+    <!-- Timer-count-wrapper with theme switcher -->
     <div class="timer-count-wrapper">
       <div class="timer-wrapper">
         <div id="timer">01:00</div>
@@ -23,6 +25,12 @@
         </div>
       </div>
       <div id="count-button">reps <span id="count-value">0</span></div>
+
+      <!-- Theme switcher icon -->
+      <div class="theme-switcher">
+        <div id="theme-button" onclick="toggleThemeMenu()">&#9660;</div>
+        <div id="theme-options"></div>
+      </div>
     </div>
 
     <!-- Rest of your content -->
@@ -39,6 +47,7 @@
 
     <script src="data.js"></script>
     <script src="ascii-art.js"></script>
+    <script src="themes.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
