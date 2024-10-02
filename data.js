@@ -19,7 +19,7 @@ const days = [
         time: "65 min",
         exercises: [
           {
-            name: "Circuit (3 rounds, 45 sec each exercise, 15 sec rest between exercises, 2 min rest between rounds):",
+            name: "Circuit (3 rounds, 45 sec each exercise, 15 sec rest between exercises, 2 min rest between rounds)",
             isCircuit: true,
             circuitExercises: [
               {
@@ -93,7 +93,7 @@ const days = [
             ],
           },
           {
-            name: "Core Circuit (3 rounds, 45 sec each exercise, 15 sec rest):",
+            name: "Core Circuit (3 rounds, 45 sec each exercise, 15 sec rest)",
             isCircuit: true,
             circuitExercises: [
               {

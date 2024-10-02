@@ -5,31 +5,27 @@ body {
   font-family: "Courier New", monospace;
   background-color: #002b36;
   color: #839496;
-  line-height: 1.6;
+  line-height: 1.4;
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
-  /* If using position: fixed for .timer-count-wrapper, uncomment the following line */
-  /* padding-top: 80px; */ /* Adjust based on the height of the fixed timer-count-wrapper */
 }
 
 h1,
 h2,
 h3 {
   color: #cb4b16;
-  margin: 0 0 20px 0; /* Add bottom margin to separate from the content below */
+  margin: 0 0 15px 0;
 }
 
 h1 {
-  font-size: 24px; /* You can adjust this size as needed */
+  font-size: 24px;
 }
-
 h2 {
-  font-size: 22px; /* Specific font size for h2 */
+  font-size: 22px;
 }
-
 h3 {
-  font-size: 18px; /* You can adjust this size as needed */
+  font-size: 18px;
 }
 
 /* Timer-count-wrapper Styles */
@@ -38,12 +34,12 @@ h3 {
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  position: sticky; /* Make the timer and reps counter sticky */
+  position: sticky;
   top: 0;
   background-color: #002b36;
   z-index: 100;
   padding: 10px 0;
-  margin-bottom: 20px; /* Space below the sticky element */
+  margin-bottom: 20px;
 }
 
 .timer-wrapper {
@@ -120,143 +116,127 @@ h3 {
   background-color: #094753;
 }
 
-/* Program Content Styles */
-#program {
-  position: relative;
-  overflow: visible;
-}
-
 /* Day Styles */
 .day {
   border: 1px solid #586e75;
-  padding: 10px;
-  margin-bottom: 10px;
-  position: relative;
-  overflow: hidden;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #00212b;
 }
 
 .day-header {
-  cursor: pointer;
   display: flex;
   align-items: center;
+  margin-bottom: 15px;
 }
 
 .day-header h2 {
+  margin: 0;
   margin-left: 10px;
 }
 
+/* Exercise Styles */
 .exercises {
-  margin-top: 10px;
-  padding-top: 10px;
+  margin-top: 0;
 }
 
-/* Exercise Styles */
 .exercises ul {
   padding-left: 20px;
-  margin: 0;
+  margin: 0 0 15px 0;
   list-style-type: none;
 }
 
 .exercise-item {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   position: relative;
-  padding-left: 20px;
-  font-size: 18px; /* Adjust the size as desired */
+  padding-left: 15px;
+  font-size: 16px;
+  color: #93a1a1;
 }
 
 .exercise-item::before {
   content: "•";
   position: absolute;
   left: 0;
-  color: #839496;
+  color: #2aa198;
 }
 
 .exercise-item.picture-available {
-  color: #268bd2; /* Blue-ish color to indicate exercises with pictures */
+  color: #268bd2;
 }
 
 .exercise-description {
-  font-style: italic;
-  margin-bottom: 10px;
-  color: #93a1a1;
-  padding-left: 20px;
-}
-
-.exercise-description::before {
-  content: none;
-}
-
-.subexercises {
-  margin-left: 20px;
+  margin-bottom: 12px;
+  color: #839496;
+  font-size: 16px;
 }
 
 .exercise-circuit {
   margin-left: 0;
-  padding-left: 10px;
+  padding-left: 0;
+  margin-bottom: 15px;
 }
 
 .exercise-circuit > span {
-  font-weight: normal;
-  color: #cb4b16;
+  color: #657b83; /* Base00 - slightly muted */
+  font-size: 16px;
+  display: block;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  background-color: #073642; /* Base02 - slight contrast */
+  border-radius: 3px;
 }
 
 .exercise-circuit > ul {
   margin-top: 5px;
+  margin-bottom: 0;
 }
+
+/* Section color differentiation */
+h3:nth-of-type(1) {
+  color: #268bd2;
+} /* Blue for Dynamic Warm-up */
+h3:nth-of-type(2) {
+  color: #859900;
+} /* Green for Main Workout */
+h3:nth-of-type(3) {
+  color: #6c71c4;
+} /* Violet for Cool-down */
 
 /* ASCII Art Styles */
 .ascii-art {
-  white-space: pre-wrap; /* Allows the text to wrap if necessary */
+  white-space: pre-wrap;
   font-size: 8px;
   line-height: 1;
   color: #2aa198;
-  margin: 0;
+  margin: 5px 0 10px;
   overflow: hidden;
   width: 100%;
   box-sizing: border-box;
-  margin-top: 5px;
-  margin-bottom: 10px;
-}
-
-@media (max-width: 768px) {
-  .ascii-art {
-    font-size: 6px;
-  }
 }
 
 /* Checkbox Styles */
 input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 1px solid #586e75;
   display: inline-block;
   position: relative;
   background-color: #002b36;
+  margin-right: 10px;
+  vertical-align: middle;
 }
 
 input[type="checkbox"]:checked::before {
-  content: "X";
+  content: "✓";
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: #859900;
-  font-size: 18px;
-}
-
-/* Button Styles */
-button {
-  background-color: #073642;
-  color: #b58900;
-  border: 1px solid #b58900;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #094753;
+  font-size: 14px;
 }
 
 /* Week Counter Styles */
@@ -330,10 +310,77 @@ button:hover {
   }
 }
 
-/* Ensure no parent elements interfere with sticky positioning */
-#program,
-.week-completed-container,
-.reset-container {
-  position: relative;
-  overflow: visible;
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .day {
+    padding: 12px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 18px;
+    color: #93a1a1;
+  }
+
+  .exercise-item,
+  .exercise-description,
+  .exercise-circuit > span {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .exercise-item {
+    color: #eee8d5;
+    margin-bottom: 10px;
+  }
+
+  .exercise-item::before {
+    color: #2aa198;
+  }
+
+  .exercise-circuit > span {
+    color: #fdf6e3;
+    margin-bottom: 12px;
+  }
+
+  .exercise-description {
+    color: #93a1a1;
+  }
+
+  .ascii-art {
+    font-size: 6px;
+  }
+}
+
+/* Additional styles for larger phones */
+@media (min-width: 390px) and (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+
+  .exercise-item,
+  .exercise-description,
+  .exercise-circuit > span {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .day {
+    padding: 15px;
+  }
 }
