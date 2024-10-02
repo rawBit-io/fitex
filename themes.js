@@ -1,5 +1,9 @@
+// themes.js
+
 const availableThemes = [
   { name: "Default (Solarized Dark)", file: null },
+  { name: "Solarized Light", file: "themes/theme-solarized-light.css" },
+  { name: "Forest Breeze", file: "themes/theme-forest-breeze.css" },
   { name: "Dark+", file: "themes/theme-dark.css" },
   { name: "Light+", file: "themes/theme-light.css" },
   { name: "Monokai", file: "themes/theme-monokai.css" },

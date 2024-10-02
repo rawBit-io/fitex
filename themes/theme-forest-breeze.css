@@ -1,0 +1,23 @@
+/* themes/theme-forest-breeze.css */
+
+/* Forest Breeze Theme */
+:root {
+  --body-bg-color: #f0f7e8;
+  --text-color: #2c4a3e;
+  --heading-color: #1e6643;
+  --link-color: #3498db;
+  --primary-color: #27ae60;
+  --secondary-color: #7f8c8d;
+  --accent-color: #e67e22;
+  --highlight-color: #f1c40f;
+  --timer-bg-color: #d5e8d4;
+  --timer-border-color: #27ae60;
+  --timer-hover-bg-color: #c1d9bf;
+  --timer-active-bg-color: #b5ceb3;
+  --blink-green-color: #2ecc71;
+  --blink-red-color: #e74c3c;
+  --day-bg-color: #e8f3e2;
+  --section-color-dynamic-warmup: #3498db;
+  --section-color-main-workout: #27ae60;
+  --section-color-cool-down: #9b59b6;
+}
