@@ -419,6 +419,11 @@ function resetAll() {
   const weekCompletedBtn = document.getElementById("weekCompletedBtn");
   weekCompletedBtn.classList.add("blink-red");
   setTimeout(() => weekCompletedBtn.classList.remove("blink-red"), 500);
+
+  // Add a small delay before reloading to ensure all clearing operations are complete
+  setTimeout(() => {
+    window.location.reload();
+  }, 100);
 }
 
 // Hide timer options when clicking anywhere else
