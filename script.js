@@ -27,15 +27,38 @@ days.forEach((day, dayIndex) => {
                 return `<li class="exercise-item no-bullet">${exercise}</li>`;
               } else if (exercise.isDescription) {
                 return `<li class="exercise-description">${exercise.name}</li>`;
+              } else if (exercise.isCircuit) {
+                return `
+                <li class="exercise-circuit">
+                  <span>${exercise.name}</span>
+                  <ul>
+                    ${exercise.circuitExercises
+                      .map(
+                        (circuitExercise, circuitIndex) => `
+                      <li class="exercise-item">
+                        <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${circuitIndex})">${
+                          circuitExercise.name
+                        }</span>
+                        ${
+                          circuitExercise.asciiArt
+                            ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}"></pre>`
+                            : ""
+                        }
+                      </li>
+                    `
+                      )
+                      .join("")}
+                  </ul>
+                </li>
+              `;
               } else {
-                const hasAsciiArt = exercise.asciiArt;
                 return `
                 <li class="exercise-item">
                   <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex})">${
                   exercise.name
                 }</span>
                   ${
-                    hasAsciiArt
+                    exercise.asciiArt
                       ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
                       : ""
                   }
@@ -75,11 +98,11 @@ function toggleExercises(dayNumber) {
   }
 }
 
-function toggleAsciiArt(event, dayIndex, catIndex, exIndex, subIndex) {
+function toggleAsciiArt(event, dayIndex, catIndex, exIndex, circuitIndex) {
   event.stopPropagation();
   const asciiId =
-    subIndex !== undefined
-      ? `ascii-${dayIndex}-${catIndex}-${exIndex}-${subIndex}`
+    circuitIndex !== undefined
+      ? `ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}`
       : `ascii-${dayIndex}-${catIndex}-${exIndex}`;
   const asciiElement = document.getElementById(asciiId);
   if (asciiElement) {

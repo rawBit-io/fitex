@@ -292,3 +292,17 @@ button:hover {
     background-color: #073642;
   }
 }
+
+.exercise-circuit {
+  margin-left: 0px;
+  padding-left: 10px;
+}
+
+.exercise-circuit > span {
+  font-weight: bold;
+  color: #cb4b16;
+}
+
+.exercise-circuit > ul {
+  margin-top: 5px;
+}
