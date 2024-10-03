@@ -109,13 +109,14 @@ h3 {
 /* Specific styles for #theme-button */
 #theme-button {
   font-family: "Courier New", monospace;
-  font-size: 28px; /* Adjust font size for better visibility */
+  font-size: 30px; /* Adjust font size for better visibility */
   cursor: pointer;
   user-select: none;
   color: var(--primary-color);
   background-color: transparent;
   border: none;
   padding: 0;
+  margin-right: 15px;
 }
 
 #theme-button:hover,
