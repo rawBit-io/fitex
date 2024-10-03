@@ -1,93 +1,150 @@
 // script.js
 
-// Generate the program content
-const programDiv = document.getElementById("program");
+// Initialize the current program
+let currentProgram = null;
 
-days.forEach((day, dayIndex) => {
-  const dayDiv = document.createElement("div");
-  dayDiv.className = "day";
-  dayDiv.innerHTML = `
-    <div class="day-header">
-      <div class="checkbox-container">
-        <input type="checkbox" id="day${
-          dayIndex + 1
-        }" onchange="saveProgress(event)">
-      </div>
-      <h2>Day ${dayIndex + 1}: ${day.title}</h2>
-    </div>
-    <div id="exercises${dayIndex + 1}" class="exercises" style="display: none;">
-      ${day.categories
-        .map(
-          (category, catIndex) => `
-        <h3>${category.name} (${category.time})</h3>
-        <ul>
-          ${category.exercises
-            .map((exercise, exIndex) => {
-              if (typeof exercise === "string") {
-                return `<li class="exercise-item no-bullet">${exercise}</li>`;
-              } else if (exercise.isDescription) {
-                return `<li class="exercise-description">${exercise.name}</li>`;
-              } else if (exercise.isCircuit) {
-                return `
-                <li class="exercise-circuit">
-                  <span>${exercise.name}</span>
-                  <ul>
-                    ${exercise.circuitExercises
-                      .map(
-                        (circuitExercise, circuitIndex) => `
-                      <li class="exercise-item ${
-                        circuitExercise.hasPicture ? "picture-available" : ""
-                      }">
-                        <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${circuitIndex}, '${
-                          circuitExercise.asciiArtKey || ""
-                        }')">${circuitExercise.name}</span>
-                        ${
-                          circuitExercise.hasPicture
-                            ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}"></pre>`
-                            : ""
-                        }
-                      </li>
-                    `
-                      )
-                      .join("")}
-                  </ul>
-                </li>
-              `;
-              } else {
-                return `
-                <li class="exercise-item ${
-                  exercise.hasPicture ? "picture-available" : ""
-                }">
-                  <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, undefined, '${
-                  exercise.asciiArtKey || ""
-                }')">${exercise.name}</span>
-                  ${
-                    exercise.hasPicture
-                      ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
-                      : ""
-                  }
-                </li>
-              `;
-              }
-            })
-            .join("")}
-        </ul>
-      `
-        )
-        .join("")}
-    </div>
-  `;
-  programDiv.appendChild(dayDiv);
+// Function to display the list of available programs
+function displayProgramList() {
+  const programDiv = document.getElementById("program");
+  programDiv.innerHTML = ""; // Clear previous content
 
-  // Add click event listener to the day header
-  dayDiv.querySelector(".day-header").addEventListener("click", (event) => {
-    if (!event.target.matches('input[type="checkbox"]')) {
-      event.preventDefault();
-      event.stopPropagation();
-      toggleExercises(dayIndex + 1);
-    }
+  // Hide other UI elements when no program is selected
+  document.getElementById("timer-count-wrapper").style.display = "none";
+  document.getElementById("week-completed-container").style.display = "none";
+  document.getElementById("reset-container").style.display = "none";
+  document.getElementById("program-title").style.display = "none";
+
+  const programListDiv = document.createElement("div");
+  programListDiv.className = "program-list";
+
+  // Remove the heading to display only the programs
+  // programListDiv.appendChild(heading);
+
+  availablePrograms.forEach((program) => {
+    const programButton = document.createElement("button");
+    programButton.textContent = program.name;
+    programButton.onclick = () => {
+      loadProgram(program);
+    };
+    programListDiv.appendChild(programButton);
   });
-});
+
+  programDiv.appendChild(programListDiv);
+}
+
+// Function to load the selected program
+function loadProgram(program) {
+  currentProgram = program;
+  localStorage.setItem("selectedProgramName", program.name);
+  document.getElementById("program-title").textContent = program.name;
+
+  // Show the UI elements when a program is selected
+  document.getElementById("timer-count-wrapper").style.display = "flex";
+  document.getElementById("week-completed-container").style.display = "flex";
+  document.getElementById("reset-container").style.display = "flex";
+  document.getElementById("program-title").style.display = "block";
+
+  generateProgramContent(program.days);
+  loadProgress();
+  updateWeekCompletedButton();
+  updateWeekCounterDisplay();
+}
+
+// Function to generate the program content
+function generateProgramContent(days) {
+  const programDiv = document.getElementById("program");
+  programDiv.innerHTML = ""; // Clear previous content
+
+  days.forEach((day, dayIndex) => {
+    const dayDiv = document.createElement("div");
+    dayDiv.className = "day";
+    dayDiv.innerHTML = `
+      <div class="day-header">
+        <div class="checkbox-container">
+          <input type="checkbox" id="day${
+            dayIndex + 1
+          }" onchange="saveProgress(event)">
+        </div>
+        <h2>Day ${dayIndex + 1}: ${day.title}</h2>
+      </div>
+      <div id="exercises${
+        dayIndex + 1
+      }" class="exercises" style="display: none;">
+        ${day.categories
+          .map(
+            (category, catIndex) => `
+          <h3>${category.name} (${category.time})</h3>
+          <ul>
+            ${category.exercises
+              .map((exercise, exIndex) => {
+                if (typeof exercise === "string") {
+                  return `<li class="exercise-item no-bullet">${exercise}</li>`;
+                } else if (exercise.isDescription) {
+                  return `<li class="exercise-description">${exercise.name}</li>`;
+                } else if (exercise.isCircuit) {
+                  return `
+                  <li class="exercise-circuit">
+                    <span>${exercise.name}</span>
+                    <ul>
+                      ${exercise.circuitExercises
+                        .map(
+                          (circuitExercise, circuitIndex) => `
+                          <li class="exercise-item ${
+                            circuitExercise.hasPicture
+                              ? "picture-available"
+                              : ""
+                          }">
+                            <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${circuitIndex}, '${
+                            circuitExercise.asciiArtKey || ""
+                          }')">${circuitExercise.name}</span>
+                            ${
+                              circuitExercise.hasPicture
+                                ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}"></pre>`
+                                : ""
+                            }
+                          </li>
+                        `
+                        )
+                        .join("")}
+                    </ul>
+                  </li>
+                `;
+                } else {
+                  return `
+                  <li class="exercise-item ${
+                    exercise.hasPicture ? "picture-available" : ""
+                  }">
+                    <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, undefined, '${
+                    exercise.asciiArtKey || ""
+                  }')">${exercise.name}</span>
+                    ${
+                      exercise.hasPicture
+                        ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
+                        : ""
+                    }
+                  </li>
+                `;
+                }
+              })
+              .join("")}
+          </ul>
+        `
+          )
+          .join("")}
+      </div>
+    `;
+    programDiv.appendChild(dayDiv);
+
+    // Add click event listener to the day header
+    dayDiv.querySelector(".day-header").addEventListener("click", (event) => {
+      if (!event.target.matches('input[type="checkbox"]')) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleExercises(dayIndex + 1);
+      }
+    });
+  });
+}
 
 // Functions to handle exercise toggling and ASCII art display
 function toggleExercises(dayNumber) {
@@ -151,12 +208,17 @@ function saveProgress(event) {
   event.stopPropagation();
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   const progress = Array.from(checkboxes).map((checkbox) => checkbox.checked);
-  localStorage.setItem("fitnessProgress", JSON.stringify(progress));
+  localStorage.setItem(
+    `fitnessProgress_${currentProgram.name}`,
+    JSON.stringify(progress)
+  );
   updateWeekCompletedButton();
 }
 
 function loadProgress() {
-  const savedProgress = localStorage.getItem("fitnessProgress");
+  const savedProgress = localStorage.getItem(
+    `fitnessProgress_${currentProgram.name}`
+  );
   if (savedProgress) {
     const progress = JSON.parse(savedProgress);
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -171,7 +233,7 @@ function resetCheckboxes() {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   checkboxes.forEach((checkbox) => (checkbox.checked = false));
   localStorage.setItem(
-    "fitnessProgress",
+    `fitnessProgress_${currentProgram.name}`,
     JSON.stringify(new Array(checkboxes.length).fill(false))
   );
   updateWeekCompletedButton();
@@ -193,15 +255,18 @@ function updateWeekCompletedButton() {
 }
 
 function incrementWeekCounter() {
-  let weekCount = parseInt(localStorage.getItem("weekCount") || "0");
+  let weekCount = parseInt(
+    localStorage.getItem(`weekCount_${currentProgram.name}`) || "0"
+  );
   weekCount++;
-  localStorage.setItem("weekCount", weekCount);
+  localStorage.setItem(`weekCount_${currentProgram.name}`, weekCount);
   updateWeekCounterDisplay();
   resetCheckboxes();
 }
 
 function updateWeekCounterDisplay() {
-  const weekCount = localStorage.getItem("weekCount") || "0";
+  const weekCount =
+    localStorage.getItem(`weekCount_${currentProgram.name}`) || "0";
   document.getElementById("weekCounter").textContent = weekCount;
 }
 
@@ -415,8 +480,8 @@ function resetAll() {
   // Reset count
   resetCount();
 
-  // Reset week progress
-  localStorage.setItem("weekCount", "0");
+  // Reset week progress for the current program
+  localStorage.removeItem(`weekCount_${currentProgram.name}`);
   updateWeekCounterDisplay();
   resetCheckboxes();
   updateWeekCompletedButton();
@@ -425,15 +490,15 @@ function resetAll() {
   loadTheme("Default (Solarized Dark)");
   localStorage.removeItem("selectedTheme");
 
+  // Reset selected program
+  localStorage.removeItem("selectedProgramName");
+  currentProgram = null;
+  displayProgramList();
+
   // Make the complete button blink red
   const weekCompletedBtn = document.getElementById("weekCompletedBtn");
   weekCompletedBtn.classList.add("blink-red");
   setTimeout(() => weekCompletedBtn.classList.remove("blink-red"), 500);
-
-  // Add a small delay before reloading to ensure all clearing operations are complete
-  setTimeout(() => {
-    window.location.reload();
-  }, 100);
 }
 
 // Theme switching functionality
@@ -454,6 +519,7 @@ function loadTheme(themeName) {
 
 function populateThemeMenu() {
   const themeOptions = document.getElementById("theme-options");
+  themeOptions.innerHTML = ""; // Clear previous content
   availableThemes.forEach((theme) => {
     const button = document.createElement("button");
     button.textContent = theme.name;
@@ -534,12 +600,9 @@ timerOptions.addEventListener("click", (event) => {
 document.addEventListener("DOMContentLoaded", () => {
   updateTimerDisplay(timeLeft);
   updateCountDisplay();
-  loadProgress();
-  updateWeekCompletedButton();
-  updateWeekCounterDisplay();
+  initializeTheme();
   addTimerEventListeners();
   addCountEventListeners();
-  initializeTheme();
 
   // Event listeners for buttons
   document
@@ -559,4 +622,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const asciiElements = document.querySelectorAll(".ascii-art.show");
     asciiElements.forEach(scaleAsciiArt);
   });
+
+  // Check if a program was selected before
+  const savedProgramName = localStorage.getItem("selectedProgramName");
+  if (savedProgramName) {
+    const savedProgram = availablePrograms.find(
+      (p) => p.name === savedProgramName
+    );
+    if (savedProgram) {
+      loadProgram(savedProgram);
+    } else {
+      displayProgramList();
+    }
+  } else {
+    displayProgramList();
+  }
 });

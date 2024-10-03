@@ -1,6 +1,6 @@
 // data.js
 
-const days = [
+const fullBodyProgram = [
   {
     title: "Full Body Strength and Cardio",
     categories: [

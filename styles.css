@@ -456,6 +456,33 @@ input[type="checkbox"]:checked::before {
   }
 }
 
+/* Add styles for the program list */
+.program-list {
+  margin: 20px 0;
+}
+
+.program-list h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.program-list button {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 18px;
+  background-color: var(--timer-bg-color);
+  color: var(--primary-color);
+  border: 1px solid var(--timer-border-color);
+  cursor: pointer;
+  text-align: left;
+}
+
+.program-list button:hover {
+  background-color: var(--timer-hover-bg-color);
+}
+
 /* Default Theme (Solarized Dark) */
 :root {
   --body-bg-color: #002b36;

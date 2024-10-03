@@ -9,43 +9,49 @@
     <link id="theme-stylesheet" rel="stylesheet" href="" />
   </head>
   <body>
-    <!-- Move h1 outside of header-container for clarity -->
-    <h1>14-Days Fitness Program</h1>
+    <!-- Main content area -->
+    <div id="app">
+      <!-- Program title with dynamic ID -->
+      <h1 id="program-title">Fitness Program</h1>
 
-    <!-- Timer-count-wrapper with theme switcher -->
-    <div class="timer-count-wrapper">
-      <div class="timer-wrapper">
-        <div id="timer">01:00</div>
-        <div id="timer-options">
-          <button onclick="setTimer(60)">1</button>
-          <button onclick="setTimer(120)">2</button>
-          <button onclick="setTimer(300)">5</button>
-          <button onclick="setTimer(600)">10</button>
-          <button onclick="setTimer(1800)">30</button>
+      <!-- Timer-count-wrapper with theme switcher -->
+      <div class="timer-count-wrapper" id="timer-count-wrapper">
+        <div class="timer-wrapper">
+          <div id="timer">01:00</div>
+          <div id="timer-options">
+            <button onclick="setTimer(60)">1</button>
+            <button onclick="setTimer(120)">2</button>
+            <button onclick="setTimer(300)">5</button>
+            <button onclick="setTimer(600)">10</button>
+            <button onclick="setTimer(1800)">30</button>
+          </div>
+        </div>
+        <div id="count-button">reps <span id="count-value">0</span></div>
+
+        <!-- Theme switcher icon -->
+        <div class="theme-switcher">
+          <div id="theme-button" onclick="toggleThemeMenu()">&#9660;</div>
+          <div id="theme-options"></div>
         </div>
       </div>
-      <div id="count-button">reps <span id="count-value">0</span></div>
 
-      <!-- Theme switcher icon -->
-      <div class="theme-switcher">
-        <div id="theme-button" onclick="toggleThemeMenu()">&#9660;</div>
-        <div id="theme-options"></div>
+      <!-- Program content -->
+      <div id="program"></div>
+
+      <div class="week-completed-container" id="week-completed-container">
+        <button id="weekCompletedBtn" disabled>complete</button>
+        <div id="weekCounter">0</div>
+      </div>
+
+      <div class="reset-container" id="reset-container">
+        <button id="resetBtn">reset</button>
       </div>
     </div>
 
-    <!-- Rest of your content -->
-    <div id="program"></div>
-
-    <div class="week-completed-container">
-      <button id="weekCompletedBtn" disabled>complete</button>
-      <div id="weekCounter">0</div>
-    </div>
-
-    <div class="reset-container">
-      <button id="resetBtn">reset</button>
-    </div>
-
+    <!-- Include data files before programs.js and script.js -->
     <script src="data.js"></script>
+    <script src="data1.js"></script>
+    <script src="programs.js"></script>
     <script src="ascii-art.js"></script>
     <script src="themes.js"></script>
     <script src="script.js"></script>
