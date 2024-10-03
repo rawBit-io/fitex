@@ -1,6 +1,6 @@
-// data.js
+// programs/3_Days_Yoga.js
 
-const yogaProgram = [
+window.programData = [
   {
     title: "Vinyasa Flow for Strength and Flexibility",
     categories: [

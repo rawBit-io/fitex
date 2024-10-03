@@ -1,7 +1,8 @@
 // script.js
 
-// Initialize the current program
+// Initialize the current program and available programs
 let currentProgram = null;
+let availablePrograms = [];
 
 // Function to display the list of available programs
 function displayProgramList() {
@@ -16,33 +17,91 @@ function displayProgramList() {
   const programListDiv = document.createElement("div");
   programListDiv.className = "program-list";
 
-  availablePrograms.forEach((program) => {
-    const programButton = document.createElement("button");
-    programButton.textContent = program.name;
-    programButton.onclick = () => {
-      loadProgram(program);
-    };
-    programListDiv.appendChild(programButton);
-  });
+  // Fetch the list of programs from index.json
+  fetch("programs/index.json")
+    .then((response) => response.json())
+    .then((programs) => {
+      // Save the programs list for later use
+      availablePrograms = programs;
 
-  programDiv.appendChild(programListDiv);
+      programs.forEach((program) => {
+        const programButton = document.createElement("button");
+        programButton.textContent = program.name;
+        programButton.onclick = () => {
+          loadProgram(program);
+        };
+        programListDiv.appendChild(programButton);
+      });
+
+      programDiv.appendChild(programListDiv);
+
+      // Check if a program was selected before
+      const savedProgramName = localStorage.getItem("selectedProgramName");
+      if (savedProgramName) {
+        const savedProgram = programs.find((p) => p.name === savedProgramName);
+        if (savedProgram) {
+          loadProgram(savedProgram);
+        }
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching programs:", error);
+    });
 }
 
 // Function to load the selected program
-function loadProgram(program) {
-  currentProgram = program;
-  localStorage.setItem("selectedProgramName", program.name);
-  document.getElementById("program-title").textContent = program.name;
+function loadProgram(programMeta) {
+  currentProgram = programMeta;
+  localStorage.setItem("selectedProgramName", programMeta.name);
+  document.getElementById("program-title").textContent = programMeta.name;
 
   // Show the UI elements when a program is selected
   document.getElementById("timer-count-wrapper").style.display = "flex";
   document.getElementById("week-completed-container").style.display = "flex";
   document.getElementById("program-title").style.display = "block";
 
-  generateProgramContent(program.days);
-  loadProgress();
-  updateWeekCompletedButton();
-  updateWeekCounterDisplay();
+  // Load the program data
+  loadProgramData(programMeta)
+    .then((programData) => {
+      generateProgramContent(programData);
+      loadProgress();
+      updateWeekCompletedButton();
+      updateWeekCounterDisplay();
+    })
+    .catch((error) => {
+      console.error("Error loading program data:", error);
+    });
+}
+
+// Function to load program data from the program file
+function loadProgramData(programMeta) {
+  return new Promise((resolve, reject) => {
+    // Remove any previously added program script
+    const existingScript = document.getElementById("program-script");
+    if (existingScript) {
+      existingScript.parentNode.removeChild(existingScript);
+    }
+
+    // Create a new script element to load the program file
+    const script = document.createElement("script");
+    script.id = "program-script";
+    script.src = `programs/${programMeta.file}`;
+    script.onload = () => {
+      // Assume that the program data is assigned to a global variable named 'programData'
+      if (window.programData) {
+        resolve(window.programData);
+        // Clean up the global variable to avoid conflicts
+        delete window.programData;
+      } else {
+        reject("Program data not found in the script.");
+      }
+    };
+    script.onerror = () => {
+      reject("Failed to load the program script.");
+    };
+
+    document.body.appendChild(script);
+  });
 }
 
 // Function to generate the program content
@@ -646,18 +705,6 @@ document.addEventListener("DOMContentLoaded", () => {
     asciiElements.forEach(scaleAsciiArt); // Rescale exercises
   });
 
-  // Check if a program was selected before
-  const savedProgramName = localStorage.getItem("selectedProgramName");
-  if (savedProgramName) {
-    const savedProgram = availablePrograms.find(
-      (p) => p.name === savedProgramName
-    );
-    if (savedProgram) {
-      loadProgram(savedProgram);
-    } else {
-      displayProgramList();
-    }
-  } else {
-    displayProgramList();
-  }
+  // Start by displaying the program list
+  displayProgramList();
 });

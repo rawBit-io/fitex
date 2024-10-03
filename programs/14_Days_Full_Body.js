@@ -1,6 +1,6 @@
 // data.js
 
-const fullBodyProgram = [
+window.programData = [
   {
     title: "Full Body Strength and Cardio",
     categories: [
