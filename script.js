@@ -490,7 +490,7 @@ function resetAll() {
   updateWeekCompletedButton();
 
   // Reset theme to default
-  loadTheme("Default (Solarized Dark)");
+  loadTheme("Default");
   localStorage.removeItem("selectedTheme");
 
   // Make the complete button blink red
@@ -509,33 +509,49 @@ function goBackToProgramList() {
 
 // Theme switching functionality
 function loadTheme(themeName) {
-  const themeStylesheet = document.getElementById("theme-stylesheet");
-
-  if (themeName === "Default (Solarized Dark)") {
-    // Default theme is already in styles.css, no need to load additional file
-    themeStylesheet.href = "";
-    return;
-  }
-
-  const theme = availableThemes.find((t) => t.name === themeName);
-  if (theme && theme.file) {
-    themeStylesheet.href = theme.file;
-  }
+  document.documentElement.setAttribute("data-theme", themeName);
+  localStorage.setItem("selectedTheme", themeName);
 }
 
 function populateThemeMenu() {
   const themeOptions = document.getElementById("theme-options");
   themeOptions.innerHTML = ""; // Clear previous content
-  availableThemes.forEach((theme) => {
+
+  const themes = getAvailableThemes();
+
+  themes.forEach((themeName) => {
     const button = document.createElement("button");
-    button.textContent = theme.name;
+    button.textContent = themeName;
     button.onclick = () => {
-      loadTheme(theme.name);
-      localStorage.setItem("selectedTheme", theme.name);
+      loadTheme(themeName);
       hideThemeMenu();
     };
     themeOptions.appendChild(button);
   });
+}
+
+function getAvailableThemes() {
+  const themes = ["Default"]; // Start with the default theme
+  for (let sheet of document.styleSheets) {
+    if (sheet.href && sheet.href.includes("themes.css")) {
+      try {
+        for (let rule of sheet.cssRules) {
+          if (
+            rule.selectorText &&
+            rule.selectorText.startsWith('[data-theme="')
+          ) {
+            const match = rule.selectorText.match(/\[data-theme="(.+?)"\]/);
+            if (match && match[1] && !themes.includes(match[1])) {
+              themes.push(match[1]);
+            }
+          }
+        }
+      } catch (e) {
+        console.warn("Could not read CSS rules from themes.css:", e);
+      }
+    }
+  }
+  return themes;
 }
 
 function toggleThemeMenu() {
@@ -557,10 +573,8 @@ function hideThemeMenu() {
 
 // Initialize theme
 function initializeTheme() {
-  const savedTheme = localStorage.getItem("selectedTheme");
-  if (savedTheme) {
-    loadTheme(savedTheme);
-  }
+  const savedTheme = localStorage.getItem("selectedTheme") || "Default";
+  loadTheme(savedTheme);
   populateThemeMenu();
 }
 
@@ -601,8 +615,6 @@ document.addEventListener("click", (event) => {
 timerOptions.addEventListener("click", (event) => {
   event.stopPropagation();
 });
-
-// Remove the loadBackgroundLogo function and any related code since the logo is no longer needed
 
 // Initialize the application when the page loads
 document.addEventListener("DOMContentLoaded", () => {

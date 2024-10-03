@@ -504,25 +504,3 @@ input[type="checkbox"]:checked::before {
 .program-list button:active {
   background-color: var(--timer-active-bg-color);
 }
-
-/* Default Theme (Solarized Dark) */
-:root {
-  --body-bg-color: #002b36;
-  --text-color: #839496;
-  --heading-color: #cb4b16;
-  --link-color: #268bd2;
-  --primary-color: #b58900;
-  --secondary-color: #586e75;
-  --accent-color: #2aa198;
-  --highlight-color: #859900;
-  --timer-bg-color: #073642;
-  --timer-border-color: #b58900;
-  --timer-hover-bg-color: #094753;
-  --timer-active-bg-color: #0d5a6a;
-  --blink-green-color: #859900;
-  --blink-red-color: #dc322f;
-  --day-bg-color: #00212b;
-  --section-color-dynamic-warmup: #268bd2;
-  --section-color-main-workout: #859900;
-  --section-color-cool-down: #6c71c4;
-}

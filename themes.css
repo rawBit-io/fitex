@@ -1,0 +1,222 @@
+/* themes.css */
+
+/* Default Theme (Solarized Dark) */
+:root,
+[data-theme="Default"] {
+  --body-bg-color: #002b36;
+  --text-color: #839496;
+  --heading-color: #cb4b16;
+  --link-color: #268bd2;
+  --primary-color: #b58900;
+  --secondary-color: #586e75;
+  --accent-color: #2aa198;
+  --highlight-color: #859900;
+  --timer-bg-color: #073642;
+  --timer-border-color: #b58900;
+  --timer-hover-bg-color: #094753;
+  --timer-active-bg-color: #0d5a6a;
+  --blink-green-color: #859900;
+  --blink-red-color: #dc322f;
+  --day-bg-color: #00212b;
+  --section-color-dynamic-warmup: #268bd2;
+  --section-color-main-workout: #859900;
+  --section-color-cool-down: #6c71c4;
+}
+
+/* Solarized Light Theme */
+[data-theme="Solarized Light"] {
+  --body-bg-color: #fdf6e3;
+  --text-color: #657b83;
+  --heading-color: #d33682;
+  --link-color: #268bd2;
+  --primary-color: #b58900;
+  --secondary-color: #93a1a1;
+  --accent-color: #2aa198;
+  --highlight-color: #859900;
+  --timer-bg-color: #eee8d5;
+  --timer-border-color: #b58900;
+  --timer-hover-bg-color: #e0dbcb;
+  --timer-active-bg-color: #d6d0c0;
+  --blink-green-color: #859900;
+  --blink-red-color: #dc322f;
+  --day-bg-color: #fdf6e3;
+  --section-color-dynamic-warmup: #268bd2;
+  --section-color-main-workout: #859900;
+  --section-color-cool-down: #6c71c4;
+}
+
+/* Forest Breeze Theme */
+[data-theme="Forest Breeze"] {
+  --body-bg-color: #f0f7e8;
+  --text-color: #2c4a3e;
+  --heading-color: #1e6643;
+  --link-color: #3498db;
+  --primary-color: #27ae60;
+  --secondary-color: #7f8c8d;
+  --accent-color: #e67e22;
+  --highlight-color: #f1c40f;
+  --timer-bg-color: #d5e8d4;
+  --timer-border-color: #27ae60;
+  --timer-hover-bg-color: #c1d9bf;
+  --timer-active-bg-color: #b5ceb3;
+  --blink-green-color: #2ecc71;
+  --blink-red-color: #e74c3c;
+  --day-bg-color: #e8f3e2;
+  --section-color-dynamic-warmup: #3498db;
+  --section-color-main-workout: #27ae60;
+  --section-color-cool-down: #9b59b6;
+}
+
+/* Dark+ Theme (VS Code Default Dark) */
+[data-theme="Dark+"] {
+  --body-bg-color: #1e1e1e;
+  --text-color: #d4d4d4;
+  --heading-color: #569cd6;
+  --link-color: #3794ff;
+  --primary-color: #dcdcaa;
+  --secondary-color: #808080;
+  --accent-color: #c586c0;
+  --highlight-color: #4ec9b0;
+  --timer-bg-color: #252526;
+  --timer-border-color: #3c3c3c;
+  --timer-hover-bg-color: #333333;
+  --timer-active-bg-color: #3c3c3c;
+  --blink-green-color: #4ec9b0;
+  --blink-red-color: #f44747;
+  --day-bg-color: #1e1e1e;
+  --section-color-dynamic-warmup: #569cd6;
+  --section-color-main-workout: #ce9178;
+  --section-color-cool-down: #c586c0;
+}
+
+/* Light+ Theme (VS Code Default Light) */
+[data-theme="Light+"] {
+  --body-bg-color: #ffffff;
+  --text-color: #000000;
+  --heading-color: #0000ff;
+  --link-color: #0000ff;
+  --primary-color: #af00db;
+  --secondary-color: #767676;
+  --accent-color: #008000;
+  --highlight-color: #795e26;
+  --timer-bg-color: #f3f3f3;
+  --timer-border-color: #c8c8c8;
+  --timer-hover-bg-color: #e8e8e8;
+  --timer-active-bg-color: #dcdcdc;
+  --blink-green-color: #008000;
+  --blink-red-color: #ff0000;
+  --day-bg-color: #ffffff;
+  --section-color-dynamic-warmup: #0000ff;
+  --section-color-main-workout: #af00db;
+  --section-color-cool-down: #795e26;
+}
+
+/* Monokai Theme */
+[data-theme="Monokai"] {
+  --body-bg-color: #272822;
+  --text-color: #f8f8f2;
+  --heading-color: #f92672;
+  --link-color: #66d9ef;
+  --primary-color: #a6e22e;
+  --secondary-color: #75715e;
+  --accent-color: #fd971f;
+  --highlight-color: #a6e22e;
+  --timer-bg-color: #3e3d32;
+  --timer-border-color: #75715e;
+  --timer-hover-bg-color: #49483e;
+  --timer-active-bg-color: #3e3d32;
+  --blink-green-color: #a6e22e;
+  --blink-red-color: #f92672;
+  --day-bg-color: #1e1f1c;
+  --section-color-dynamic-warmup: #66d9ef;
+  --section-color-main-workout: #a6e22e;
+  --section-color-cool-down: #fd971f;
+}
+
+/* Dracula Theme */
+[data-theme="Dracula"] {
+  --body-bg-color: #282a36;
+  --text-color: #f8f8f2;
+  --heading-color: #ff79c6;
+  --link-color: #8be9fd;
+  --primary-color: #50fa7b;
+  --secondary-color: #6272a4;
+  --accent-color: #bd93f9;
+  --highlight-color: #ffb86c;
+  --timer-bg-color: #44475a;
+  --timer-border-color: #6272a4;
+  --timer-hover-bg-color: #343746;
+  --timer-active-bg-color: #44475a;
+  --blink-green-color: #50fa7b;
+  --blink-red-color: #ff5555;
+  --day-bg-color: #282a36;
+  --section-color-dynamic-warmup: #8be9fd;
+  --section-color-main-workout: #50fa7b;
+  --section-color-cool-down: #bd93f9;
+}
+
+/* Black and White Theme */
+[data-theme="Black and White"] {
+  --body-bg-color: #ffffff;
+  --text-color: #000000;
+  --heading-color: #000000;
+  --link-color: #000000;
+  --primary-color: #000000;
+  --secondary-color: #000000;
+  --accent-color: #000000;
+  --highlight-color: #000000;
+  --timer-bg-color: #ffffff;
+  --timer-border-color: #000000;
+  --timer-hover-bg-color: #e0e0e0;
+  --timer-active-bg-color: #d0d0d0;
+  --blink-green-color: #000000;
+  --blink-red-color: #000000;
+  --day-bg-color: #ffffff;
+  --section-color-dynamic-warmup: #000000;
+  --section-color-main-workout: #000000;
+  --section-color-cool-down: #000000;
+}
+
+/* 60s Theme */
+[data-theme="60s"] {
+  --body-bg-color: #ffefd5; /* PapayaWhip */
+  --text-color: #008080; /* Teal */
+  --heading-color: #ff69b4; /* HotPink */
+  --link-color: #ffa500; /* Orange */
+  --primary-color: #ff1493; /* DeepPink */
+  --secondary-color: #32cd32; /* LimeGreen */
+  --accent-color: #ff4500; /* OrangeRed */
+  --highlight-color: #9400d3; /* DarkViolet */
+  --timer-bg-color: #fafad2; /* LightGoldenRodYellow */
+  --timer-border-color: #008080; /* Teal */
+  --timer-hover-bg-color: #eee8aa; /* PaleGoldenRod */
+  --timer-active-bg-color: #ffdead; /* NavajoWhite */
+  --blink-green-color: #32cd32; /* LimeGreen */
+  --blink-red-color: #ff4500; /* OrangeRed */
+  --day-bg-color: #fff8dc; /* Cornsilk */
+  --section-color-dynamic-warmup: #ff69b4; /* HotPink */
+  --section-color-main-workout: #32cd32; /* LimeGreen */
+  --section-color-cool-down: #ffa500; /* Orange */
+}
+
+/* Crazy Electric Theme */
+[data-theme="Crazy Electric"] {
+  --body-bg-color: #000000;
+  --text-color: #ffffff;
+  --heading-color: #ff00ff; /* Magenta */
+  --link-color: #00ffff; /* Cyan */
+  --primary-color: #ffff00; /* Yellow */
+  --secondary-color: #ff69b4; /* HotPink */
+  --accent-color: #00ff00; /* Lime */
+  --highlight-color: #ff0000; /* Red */
+  --timer-bg-color: #1a1a1a;
+  --timer-border-color: #ffffff;
+  --timer-hover-bg-color: #333333;
+  --timer-active-bg-color: #4d4d4d;
+  --blink-green-color: #00ff00; /* Lime */
+  --blink-red-color: #ff0000; /* Red */
+  --day-bg-color: #0d0d0d;
+  --section-color-dynamic-warmup: #ff00ff; /* Magenta */
+  --section-color-main-workout: #00ffff; /* Cyan */
+  --section-color-cool-down: #ffff00; /* Yellow */
+}
