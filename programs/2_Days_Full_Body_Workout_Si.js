@@ -1,5 +1,6 @@
+// programs/2_Month_Full_Body_Workout.js
+
 window.programData = [
-  // Week 1
   {
     title: "Full Body Strength and Core - Day 1",
     categories: [
@@ -23,23 +24,33 @@ window.programData = [
         time: "40 min",
         exercises: [
           {
-            name: "Perform 3 rounds, 45 sec work, 15 sec rest between exercises",
-            isDescription: true,
-          },
-          {
-            name: "Circuit",
+            name: "Circuit (3 rounds, 45 sec work, 15 sec rest between exercises)",
             isCircuit: true,
             circuitExercises: [
-              { name: "Bodyweight squats", hasPicture: false },
-              { name: "Push-ups (on knees if needed)", hasPicture: false },
+              {
+                name: "Bodyweight squats",
+                asciiArtKey: "squats",
+                hasPicture: true,
+              },
+              {
+                name: "Push-ups (on knees if needed)",
+                asciiArtKey: "pushUps",
+                hasPicture: true,
+              },
               {
                 name: "Dumbbell rows (light weight, 3-5 kg)",
-                hasPicture: false,
+                asciiArtKey: "dumbbellRows",
+                hasPicture: true,
               },
-              { name: "Plank hold", hasPicture: false },
+              {
+                name: "Plank hold",
+                asciiArtKey: "plank",
+                hasPicture: true,
+              },
               {
                 name: "Dumbbell lunges (light weight, 3-5 kg)",
-                hasPicture: false,
+                asciiArtKey: "lunges",
+                hasPicture: true,
               },
               { name: "Bicycle crunches", hasPicture: false },
               { name: "Glute bridges", hasPicture: false },
@@ -95,14 +106,14 @@ window.programData = [
         time: "40 min",
         exercises: [
           {
-            name: "Perform 3 rounds, 45 sec work, 15 sec rest between exercises",
-            isDescription: true,
-          },
-          {
-            name: "Circuit",
+            name: "Circuit (3 rounds, 45 sec work, 15 sec rest between exercises)",
             isCircuit: true,
             circuitExercises: [
-              { name: "Bodyweight reverse lunges", hasPicture: false },
+              {
+                name: "Bodyweight reverse lunges",
+                asciiArtKey: "lunges",
+                hasPicture: true,
+              },
               {
                 name: "Dumbbell shoulder press (light weight, 2-4 kg)",
                 hasPicture: false,
@@ -131,7 +142,10 @@ window.programData = [
         time: "5 min",
         exercises: [
           { name: "Plank to downward dog (2 min)", hasPicture: false },
-          { name: "Side plank holds (1 min each side)", hasPicture: false },
+          {
+            name: "Side plank holds (1 min each side)",
+            hasPicture: false,
+          },
           { name: "Bird dog exercise (1 min)", hasPicture: false },
         ],
       },
