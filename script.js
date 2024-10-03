@@ -4,18 +4,10 @@
 let currentProgram = null;
 let availablePrograms = [];
 
-// ASCII Art paths mapping
-const asciiArtPaths = {
-  pushUps: "ascii-art/pushUps.txt",
-  squats: "ascii-art/squats.txt",
-  pullUps: "ascii-art/pullUps.txt",
-  dumbbellRows: "ascii-art/dumbbellRows.txt",
-  lunges: "ascii-art/lunges.txt",
-  plank: "ascii-art/plank.txt",
-  hyperextensions: "ascii-art/hyperextensions.txt",
-  logo: "ascii-art/logo.txt",
-  // Add more mappings as needed
-};
+// Remove asciiArtPaths from script.js since it's in ascii-art.js
+
+// Create a cache object to store loaded ASCII arts
+const asciiArtCache = {};
 
 // Function to display the list of available programs
 function displayProgramList() {
@@ -251,8 +243,15 @@ function toggleAsciiArt(
   }
 }
 
-// Updated loadAsciiArt function to fetch ASCII art from files
+// Updated loadAsciiArt function with caching
 function loadAsciiArt(element, asciiArtKey) {
+  // Check if the ASCII art is already in the cache
+  if (asciiArtCache[asciiArtKey]) {
+    element.textContent = asciiArtCache[asciiArtKey];
+    scaleAsciiArt(element);
+    return;
+  }
+
   const filePath = asciiArtPaths[asciiArtKey];
   if (filePath) {
     fetch(filePath)
@@ -263,6 +262,8 @@ function loadAsciiArt(element, asciiArtKey) {
         return response.text();
       })
       .then((asciiArtContent) => {
+        // Store the ASCII art content in the cache
+        asciiArtCache[asciiArtKey] = asciiArtContent;
         element.textContent = asciiArtContent;
         scaleAsciiArt(element);
       })
@@ -275,8 +276,14 @@ function loadAsciiArt(element, asciiArtKey) {
   }
 }
 
+// Updated scaleAsciiArt function to fix scaling issue
 function scaleAsciiArt(asciiElement) {
   const container = asciiElement.parentElement;
+
+  // Reset font size and line height to default values
+  asciiElement.style.fontSize = "";
+  asciiElement.style.lineHeight = "";
+
   const containerWidth = container.offsetWidth;
   const containerHeight = container.offsetHeight;
   const asciiLines = asciiElement.textContent.split("\n");

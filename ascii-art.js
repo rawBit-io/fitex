@@ -9,4 +9,3 @@ const asciiArtPaths = {
   logo: "ascii-art/logo.txt",
   // Add more mappings as needed
 };
-export default asciiArtPaths;
