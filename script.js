@@ -533,6 +533,9 @@ function addCountEventListeners() {
 
 // Reset all functionality
 function resetAll() {
+  // Clear all localStorage data
+  localStorage.clear();
+
   // Reset timer
   stopTimer();
   timeLeft = 60;
@@ -542,20 +545,27 @@ function resetAll() {
   // Reset count
   resetCount();
 
-  // Reset week progress for the current program
-  localStorage.removeItem(`weekCount_${currentProgram.name}`);
-  updateWeekCounterDisplay();
-  resetCheckboxes();
-  updateWeekCompletedButton();
-
   // Reset theme to default (Solarized Dark)
   loadTheme("Solarized Dark");
-  localStorage.removeItem("selectedTheme");
 
   // Make the complete button blink red
   const weekCompletedBtn = document.getElementById("weekCompletedBtn");
   weekCompletedBtn.classList.add("blink-red");
   setTimeout(() => weekCompletedBtn.classList.remove("blink-red"), 500);
+
+  // Reload the program list from the server
+  displayProgramList();
+
+  // Clear the current program
+  currentProgram = null;
+
+  // Hide UI elements
+  document.getElementById("timer-count-wrapper").style.display = "none";
+  document.getElementById("week-completed-container").style.display = "none";
+  document.getElementById("program-title").style.display = "none";
+
+  // Clear the program content
+  document.getElementById("program").innerHTML = "";
 }
 
 // Go back to program list functionality
