@@ -184,17 +184,17 @@ function loadAsciiArt(element, asciiArtKey) {
   scaleAsciiArt(element);
 }
 
-function scaleAsciiArt(asciiElement, isLogo = false) {
+function scaleAsciiArt(asciiElement) {
   const container = asciiElement.parentElement;
   const containerWidth = container.offsetWidth;
   const containerHeight = container.offsetHeight;
   const asciiLines = asciiElement.textContent.split("\n");
   const maxLineLength = Math.max(...asciiLines.map((line) => line.length));
 
-  // Adjust these multipliers and base font size to make the logo bigger
-  const widthMultiplier = isLogo ? 32 : 8;
-  const heightMultiplier = isLogo ? 16 : 16;
-  const baseFontSize = isLogo ? 10 : 10;
+  // Define multipliers and base font size for exercise ASCII arts
+  const widthMultiplier = 8;
+  const heightMultiplier = 16;
+  const baseFontSize = 10;
 
   // Calculate the scaling factor
   const widthScale = containerWidth / (maxLineLength * widthMultiplier);
@@ -602,12 +602,7 @@ timerOptions.addEventListener("click", (event) => {
   event.stopPropagation();
 });
 
-// Function to load and scale the background ASCII art logo
-function loadBackgroundLogo() {
-  const asciiLogoElement = document.getElementById("ascii-logo");
-  asciiLogoElement.textContent = asciiArts.logo || "Logo not found";
-  scaleAsciiArt(asciiLogoElement, true); // Pass true to apply logo-specific scaling
-}
+// Remove the loadBackgroundLogo function and any related code since the logo is no longer needed
 
 // Initialize the application when the page loads
 document.addEventListener("DOMContentLoaded", () => {
@@ -635,15 +630,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Add a window resize event listener to rescale ASCII art
   window.addEventListener("resize", () => {
-    const asciiLogoElement = document.getElementById("ascii-logo");
-    scaleAsciiArt(asciiLogoElement, true); // Rescale the logo
-
     const asciiElements = document.querySelectorAll(".ascii-art.show");
-    asciiElements.forEach((element) => scaleAsciiArt(element)); // Rescale other ASCII arts
+    asciiElements.forEach(scaleAsciiArt); // Rescale exercises
   });
-
-  // Load and scale the background ASCII art logo
-  loadBackgroundLogo();
 
   // Check if a program was selected before
   const savedProgramName = localStorage.getItem("selectedProgramName");

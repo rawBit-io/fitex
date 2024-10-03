@@ -505,27 +505,6 @@ input[type="checkbox"]:checked::before {
   background-color: var(--timer-active-bg-color);
 }
 
-/* Background Logo Styles */
-#background-logo {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: auto;
-  height: auto;
-  overflow: visible;
-  pointer-events: none;
-  z-index: 9999;
-  display: block;
-}
-
-#ascii-logo {
-  color: var(--logo-color, #839496);
-  white-space: pre-wrap;
-  text-align: right;
-  line-height: 1;
-  margin: 0;
-}
-
 /* Default Theme (Solarized Dark) */
 :root {
   --body-bg-color: #002b36;
