@@ -343,7 +343,7 @@ input[type="checkbox"]:checked::before {
   background-color: var(--timer-bg-color);
   color: var(--primary-color);
   border: 1px solid var(--timer-border-color);
-  padding: 5px;
+  padding: 5px 10px; /* Adjusted padding to accommodate text */
   transition: background-color 0.1s ease;
   margin-right: 5px;
   text-align: center;
@@ -363,22 +363,18 @@ input[type="checkbox"]:checked::before {
   cursor: not-allowed;
 }
 
-/* Specific styles for #resetBtn */
-#resetBtn {
-  margin-left: auto;
-  padding: 5px 10px;
-}
-
-/* Specific width settings */
-#weekCompletedBtn {
-  width: 40px;
-}
-
+/* Removed specific width setting for #weekCompletedBtn */
 #weekCounter {
   font-size: 24px;
   color: var(--primary-color);
   text-align: center;
   margin-right: 10px;
+}
+
+/* Specific styles for #resetBtn */
+#resetBtn {
+  margin-left: auto;
+  padding: 5px 10px;
 }
 
 /* Animation Styles */
