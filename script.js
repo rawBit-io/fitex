@@ -184,20 +184,25 @@ function loadAsciiArt(element, asciiArtKey) {
   scaleAsciiArt(element);
 }
 
-function scaleAsciiArt(asciiElement) {
+function scaleAsciiArt(asciiElement, isLogo = false) {
   const container = asciiElement.parentElement;
   const containerWidth = container.offsetWidth;
   const containerHeight = container.offsetHeight;
   const asciiLines = asciiElement.textContent.split("\n");
   const maxLineLength = Math.max(...asciiLines.map((line) => line.length));
 
+  // Adjust these multipliers and base font size to make the logo bigger
+  const widthMultiplier = isLogo ? 32 : 8;
+  const heightMultiplier = isLogo ? 16 : 16;
+  const baseFontSize = isLogo ? 10 : 10;
+
   // Calculate the scaling factor
-  const widthScale = containerWidth / (maxLineLength * 8); // Adjust the multiplier as needed
-  const heightScale = containerHeight / (asciiLines.length * 16); // Adjust the multiplier as needed
+  const widthScale = containerWidth / (maxLineLength * widthMultiplier);
+  const heightScale = containerHeight / (asciiLines.length * heightMultiplier);
   const scaleFactor = Math.min(widthScale, heightScale);
 
   // Apply the scaling
-  asciiElement.style.fontSize = `${scaleFactor * 10}px`; // Adjust base font size as needed
+  asciiElement.style.fontSize = `${scaleFactor * baseFontSize}px`;
   asciiElement.style.lineHeight = "1";
 }
 
@@ -601,7 +606,7 @@ timerOptions.addEventListener("click", (event) => {
 function loadBackgroundLogo() {
   const asciiLogoElement = document.getElementById("ascii-logo");
   asciiLogoElement.textContent = asciiArts.logo || "Logo not found";
-  scaleAsciiArt(asciiLogoElement);
+  scaleAsciiArt(asciiLogoElement, true); // Pass true to apply logo-specific scaling
 }
 
 // Initialize the application when the page loads
@@ -631,10 +636,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add a window resize event listener to rescale ASCII art
   window.addEventListener("resize", () => {
     const asciiLogoElement = document.getElementById("ascii-logo");
-    scaleAsciiArt(asciiLogoElement);
+    scaleAsciiArt(asciiLogoElement, true); // Rescale the logo
 
     const asciiElements = document.querySelectorAll(".ascii-art.show");
-    asciiElements.forEach(scaleAsciiArt);
+    asciiElements.forEach((element) => scaleAsciiArt(element)); // Rescale other ASCII arts
   });
 
   // Load and scale the background ASCII art logo
