@@ -23,9 +23,11 @@ h3 {
 h1 {
   font-size: 24px;
 }
+
 h2 {
   font-size: 22px;
 }
+
 h3 {
   font-size: 18px;
 }
@@ -59,9 +61,11 @@ h3 {
 
 #timer,
 #count-button,
-#weekCompletedBtn {
+#weekCompletedBtn,
+#goBackBtn,
+#resetBtn {
   font-family: "Courier New", monospace;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: normal;
   cursor: pointer;
   user-select: none;
@@ -74,13 +78,17 @@ h3 {
 
 #timer:hover,
 #count-button:hover,
-#weekCompletedBtn:hover {
+#weekCompletedBtn:hover,
+#goBackBtn:hover,
+#resetBtn:hover {
   background-color: var(--timer-hover-bg-color);
 }
 
 #timer:active,
 #count-button:active,
-#weekCompletedBtn:active {
+#weekCompletedBtn:active,
+#goBackBtn:active,
+#resetBtn:active {
   background-color: var(--timer-active-bg-color);
 }
 
@@ -310,42 +318,57 @@ input[type="checkbox"]:checked::before {
   font-size: 14px;
 }
 
-/* Week Counter Styles */
+/* Week Counter and Reset Button Styles */
 .week-completed-container {
   display: flex;
   align-items: center;
   margin-top: 20px;
-  position: relative;
-  overflow: visible;
+}
+
+.week-completed-container button {
+  font-family: "Courier New", monospace;
+  font-size: 18px;
+  font-weight: normal;
+  cursor: pointer;
+  user-select: none;
+  background-color: var(--timer-bg-color);
+  color: var(--primary-color);
+  border: 1px solid var(--timer-border-color);
+  padding: 5px;
+  transition: background-color 0.1s ease;
+  margin-right: 5px;
+  width: 40px;
+  text-align: center;
+}
+
+#goBackBtn {
+  margin-right: 10px;
 }
 
 #weekCounter {
-  margin-left: 10px;
   font-size: 24px;
   color: var(--primary-color);
-}
-
-.reset-container {
-  margin-top: 10px;
-  position: relative;
-  overflow: visible;
+  text-align: center;
+  margin-right: 10px;
 }
 
 #resetBtn {
-  background-color: transparent;
-  color: var(--text-color);
-  border: 1px solid var(--secondary-color);
-  border-radius: 3px;
+  margin-left: auto;
+  width: auto;
   padding: 5px 10px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: all 0.3s ease;
 }
 
-#resetBtn:hover {
-  background-color: var(--timer-bg-color);
-  color: var(--primary-color);
-  border-color: var(--primary-color);
+.week-completed-container button:hover {
+  background-color: var(--timer-hover-bg-color);
+}
+
+.week-completed-container button:active {
+  background-color: var(--timer-active-bg-color);
+}
+
+#weekCompletedBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Animation Styles */
@@ -456,14 +479,9 @@ input[type="checkbox"]:checked::before {
   }
 }
 
-/* Add styles for the program list */
+/* Program List Styles */
 .program-list {
   margin: 20px 0;
-}
-
-.program-list h2 {
-  font-size: 24px;
-  margin-bottom: 15px;
 }
 
 .program-list button {
@@ -481,6 +499,10 @@ input[type="checkbox"]:checked::before {
 
 .program-list button:hover {
   background-color: var(--timer-hover-bg-color);
+}
+
+.program-list button:active {
+  background-color: var(--timer-active-bg-color);
 }
 
 /* Default Theme (Solarized Dark) */

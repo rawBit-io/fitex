@@ -11,14 +11,10 @@ function displayProgramList() {
   // Hide other UI elements when no program is selected
   document.getElementById("timer-count-wrapper").style.display = "none";
   document.getElementById("week-completed-container").style.display = "none";
-  document.getElementById("reset-container").style.display = "none";
   document.getElementById("program-title").style.display = "none";
 
   const programListDiv = document.createElement("div");
   programListDiv.className = "program-list";
-
-  // Remove the heading to display only the programs
-  // programListDiv.appendChild(heading);
 
   availablePrograms.forEach((program) => {
     const programButton = document.createElement("button");
@@ -41,7 +37,6 @@ function loadProgram(program) {
   // Show the UI elements when a program is selected
   document.getElementById("timer-count-wrapper").style.display = "flex";
   document.getElementById("week-completed-container").style.display = "flex";
-  document.getElementById("reset-container").style.display = "flex";
   document.getElementById("program-title").style.display = "block";
 
   generateProgramContent(program.days);
@@ -490,15 +485,18 @@ function resetAll() {
   loadTheme("Default (Solarized Dark)");
   localStorage.removeItem("selectedTheme");
 
-  // Reset selected program
-  localStorage.removeItem("selectedProgramName");
-  currentProgram = null;
-  displayProgramList();
-
   // Make the complete button blink red
   const weekCompletedBtn = document.getElementById("weekCompletedBtn");
   weekCompletedBtn.classList.add("blink-red");
   setTimeout(() => weekCompletedBtn.classList.remove("blink-red"), 500);
+}
+
+// Go back to program list functionality
+function goBackToProgramList() {
+  // Reset selected program
+  localStorage.removeItem("selectedProgramName");
+  currentProgram = null;
+  displayProgramList();
 }
 
 // Theme switching functionality
@@ -609,6 +607,9 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("weekCompletedBtn")
     .addEventListener("click", incrementWeekCounter);
   document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document
+    .getElementById("goBackBtn")
+    .addEventListener("click", goBackToProgramList);
 
   // Event listener for checkbox changes
   document.addEventListener("change", function (event) {
