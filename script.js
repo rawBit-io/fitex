@@ -185,16 +185,19 @@ function loadAsciiArt(element, asciiArtKey) {
 }
 
 function scaleAsciiArt(asciiElement) {
-  const dayBox = asciiElement.closest(".day");
-  const dayBoxWidth = dayBox.offsetWidth;
+  const container = asciiElement.parentElement;
+  const containerWidth = container.offsetWidth;
+  const containerHeight = container.offsetHeight;
   const asciiLines = asciiElement.textContent.split("\n");
   const maxLineLength = Math.max(...asciiLines.map((line) => line.length));
 
   // Calculate the scaling factor
-  const scaleFactor = dayBoxWidth / (maxLineLength * 8); // Assuming 8px as base font size
+  const widthScale = containerWidth / (maxLineLength * 8); // Adjust the multiplier as needed
+  const heightScale = containerHeight / (asciiLines.length * 16); // Adjust the multiplier as needed
+  const scaleFactor = Math.min(widthScale, heightScale);
 
   // Apply the scaling
-  asciiElement.style.fontSize = `${scaleFactor * 10}px`;
+  asciiElement.style.fontSize = `${scaleFactor * 10}px`; // Adjust base font size as needed
   asciiElement.style.lineHeight = "1";
 }
 
@@ -594,6 +597,13 @@ timerOptions.addEventListener("click", (event) => {
   event.stopPropagation();
 });
 
+// Function to load and scale the background ASCII art logo
+function loadBackgroundLogo() {
+  const asciiLogoElement = document.getElementById("ascii-logo");
+  asciiLogoElement.textContent = asciiArts.logo || "Logo not found";
+  scaleAsciiArt(asciiLogoElement);
+}
+
 // Initialize the application when the page loads
 document.addEventListener("DOMContentLoaded", () => {
   updateTimerDisplay(timeLeft);
@@ -620,9 +630,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Add a window resize event listener to rescale ASCII art
   window.addEventListener("resize", () => {
+    const asciiLogoElement = document.getElementById("ascii-logo");
+    scaleAsciiArt(asciiLogoElement);
+
     const asciiElements = document.querySelectorAll(".ascii-art.show");
     asciiElements.forEach(scaleAsciiArt);
   });
+
+  // Load and scale the background ASCII art logo
+  loadBackgroundLogo();
 
   // Check if a program was selected before
   const savedProgramName = localStorage.getItem("selectedProgramName");
