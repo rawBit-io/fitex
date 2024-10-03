@@ -19,21 +19,24 @@
         id="timer-count-wrapper"
         style="display: none"
       >
-        <div class="timer-wrapper">
-          <div id="timer">01:00</div>
-          <div id="timer-options" style="display: none">
-            <button onclick="setTimer(60)">1</button>
-            <button onclick="setTimer(120)">2</button>
-            <button onclick="setTimer(300)">5</button>
-            <button onclick="setTimer(600)">10</button>
-            <button onclick="setTimer(1800)">30</button>
+        <!-- Left controls grouped together -->
+        <div class="left-controls">
+          <div class="timer-wrapper">
+            <div id="timer">01:00</div>
+            <div id="timer-options" style="display: none">
+              <button onclick="setTimer(60)">1</button>
+              <button onclick="setTimer(120)">2</button>
+              <button onclick="setTimer(300)">5</button>
+              <button onclick="setTimer(600)">10</button>
+              <button onclick="setTimer(1800)">30</button>
+            </div>
           </div>
+          <div id="count-button">reps <span id="count-value">0</span></div>
         </div>
-        <div id="count-button">reps <span id="count-value">0</span></div>
 
         <!-- Theme switcher icon -->
         <div class="theme-switcher">
-          <div id="theme-button" onclick="toggleThemeMenu()">&#9660;</div>
+          <div id="theme-button" onclick="toggleThemeMenu()">&#9789;</div>
           <div id="theme-options" style="display: none"></div>
         </div>
       </div>

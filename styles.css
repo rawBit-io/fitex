@@ -35,8 +35,8 @@ h3 {
 /* Timer-count-wrapper Styles */
 .timer-count-wrapper {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: space-between; /* Adjusted to space out items */
   width: 100%;
   position: sticky;
   top: 0;
@@ -46,13 +46,14 @@ h3 {
   margin-bottom: 20px;
 }
 
-/* Adjusting child elements spacing */
-.timer-count-wrapper > * {
-  margin-right: 10px;
+/* Left controls styles */
+.left-controls {
+  display: flex;
+  align-items: center;
 }
 
-.timer-count-wrapper > .theme-switcher {
-  margin-right: 0;
+.left-controls > * {
+  margin-right: 10px;
 }
 
 .timer-wrapper {
@@ -97,6 +98,37 @@ h3 {
   cursor: not-allowed;
 }
 
+/* Specific styles for #goBackBtn */
+#goBackBtn {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-right: 10px;
+}
+
+/* Specific styles for #theme-button */
+#theme-button {
+  font-family: "Courier New", monospace;
+  font-size: 28px; /* Adjust font size for better visibility */
+  cursor: pointer;
+  user-select: none;
+  color: var(--primary-color);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+#theme-button:hover,
+#theme-button:active {
+  background-color: transparent;
+}
+
+/* Theme Switcher Container */
+.theme-switcher {
+  position: relative;
+  margin-right: 0px; /* Space from the right edge */
+}
+
 /* Timer Options Menu */
 #timer-options {
   display: none;
@@ -134,31 +166,7 @@ h3 {
   background-color: var(--timer-hover-bg-color);
 }
 
-/* Theme Switcher Styles */
-.theme-switcher {
-  position: relative;
-  margin-left: auto;
-}
-
-#theme-button {
-  font-size: 16px;
-  cursor: pointer;
-  user-select: none;
-  background-color: var(--timer-bg-color);
-  color: var(--primary-color);
-  border: 1px solid var(--timer-border-color);
-  padding: 5px 10px;
-  transition: background-color 0.3s ease;
-}
-
-#theme-button:hover {
-  background-color: var(--timer-hover-bg-color);
-}
-
-#theme-button:active {
-  background-color: var(--timer-active-bg-color);
-}
-
+/* Theme Options Menu */
 #theme-options {
   display: none;
   flex-direction: column;
@@ -341,24 +349,6 @@ input[type="checkbox"]:checked::before {
   text-align: center;
 }
 
-/* Specific styles for #goBackBtn */
-#goBackBtn {
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  margin-right: 10px;
-}
-
-/* Specific width settings */
-#weekCompletedBtn {
-  width: 40px;
-}
-
-#resetBtn {
-  margin-left: auto;
-  padding: 5px 10px;
-}
-
 /* Adjust hover and active states */
 .week-completed-container button:hover {
   background-color: var(--timer-hover-bg-color);
@@ -371,6 +361,17 @@ input[type="checkbox"]:checked::before {
 #weekCompletedBtn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Specific styles for #resetBtn */
+#resetBtn {
+  margin-left: auto;
+  padding: 5px 10px;
+}
+
+/* Specific width settings */
+#weekCompletedBtn {
+  width: 40px;
 }
 
 #weekCounter {
