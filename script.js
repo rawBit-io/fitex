@@ -548,8 +548,8 @@ function resetAll() {
   resetCheckboxes();
   updateWeekCompletedButton();
 
-  // Reset theme to default
-  loadTheme("Default");
+  // Reset theme to default (Solarized Dark)
+  loadTheme("Solarized Dark");
   localStorage.removeItem("selectedTheme");
 
   // Make the complete button blink red
@@ -590,18 +590,18 @@ function populateThemeMenu() {
 }
 
 function getAvailableThemes() {
-  const themes = ["Default"]; // Start with the default theme
+  const themes = [];
   for (let sheet of document.styleSheets) {
     if (sheet.href && sheet.href.includes("themes.css")) {
       try {
         for (let rule of sheet.cssRules) {
-          if (
-            rule.selectorText &&
-            rule.selectorText.startsWith('[data-theme="')
-          ) {
-            const match = rule.selectorText.match(/\[data-theme="(.+?)"\]/);
-            if (match && match[1] && !themes.includes(match[1])) {
-              themes.push(match[1]);
+          if (rule.selectorText) {
+            const regex = /\[data-theme="(.+?)"\]/g;
+            let match;
+            while ((match = regex.exec(rule.selectorText)) !== null) {
+              if (match[1] && !themes.includes(match[1])) {
+                themes.push(match[1]);
+              }
             }
           }
         }
@@ -632,7 +632,11 @@ function hideThemeMenu() {
 
 // Initialize theme
 function initializeTheme() {
-  const savedTheme = localStorage.getItem("selectedTheme") || "Default";
+  let savedTheme = localStorage.getItem("selectedTheme") || "Solarized Dark";
+  if (savedTheme === "Default") {
+    savedTheme = "Solarized Dark";
+    localStorage.setItem("selectedTheme", savedTheme);
+  }
   loadTheme(savedTheme);
   populateThemeMenu();
 }

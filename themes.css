@@ -2,7 +2,7 @@
 
 /* Default Theme (Solarized Dark) */
 :root,
-[data-theme="Default"] {
+[data-theme="Solarized Dark"] {
   --body-bg-color: #002b36;
   --text-color: #839496;
   --heading-color: #cb4b16;
