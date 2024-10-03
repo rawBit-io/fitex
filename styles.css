@@ -325,6 +325,7 @@ input[type="checkbox"]:checked::before {
   margin-top: 20px;
 }
 
+/* General button styles for week-completed-container */
 .week-completed-container button {
   font-family: "Courier New", monospace;
   font-size: 18px;
@@ -337,27 +338,28 @@ input[type="checkbox"]:checked::before {
   padding: 5px;
   transition: background-color 0.1s ease;
   margin-right: 5px;
-  width: 40px;
   text-align: center;
 }
 
+/* Specific styles for #goBackBtn */
 #goBackBtn {
+  background-color: transparent;
+  border: none;
+  padding: 0;
   margin-right: 10px;
 }
 
-#weekCounter {
-  font-size: 24px;
-  color: var(--primary-color);
-  text-align: center;
-  margin-right: 10px;
+/* Specific width settings */
+#weekCompletedBtn {
+  width: 40px;
 }
 
 #resetBtn {
   margin-left: auto;
-  width: auto;
   padding: 5px 10px;
 }
 
+/* Adjust hover and active states */
 .week-completed-container button:hover {
   background-color: var(--timer-hover-bg-color);
 }
@@ -369,6 +371,13 @@ input[type="checkbox"]:checked::before {
 #weekCompletedBtn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+#weekCounter {
+  font-size: 24px;
+  color: var(--primary-color);
+  text-align: center;
+  margin-right: 10px;
 }
 
 /* Animation Styles */
