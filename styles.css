@@ -609,11 +609,20 @@ input[type="checkbox"]:checked::before {
 /* Circuit controls */
 #circuit-controls {
   display: flex;
-  justify-content: center;
-  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
   margin-bottom: 8px;
 }
 
+#circuit-timer-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+#circuit-back-button,
 #circuit-start-button,
 #circuit-pause-button {
   padding: 6px 10px;
@@ -624,6 +633,11 @@ input[type="checkbox"]:checked::before {
   cursor: pointer;
 }
 
+#circuit-back-button {
+  padding: 6px 12px;
+}
+
+#circuit-back-button:hover,
 #circuit-start-button:hover,
 #circuit-pause-button:hover {
   background-color: var(--timer-hover-bg-color);
@@ -636,19 +650,6 @@ input[type="checkbox"]:checked::before {
 }
 
 /* Done Button */
-#circuit-done-button {
-  margin-top: 5px;
-  padding: 6px 10px;
-  font-size: 16px;
-  background-color: var(--timer-bg-color);
-  color: var(--primary-color);
-  border: 1px solid var(--timer-border-color);
-  cursor: pointer;
-}
-
-#circuit-done-button:hover {
-  background-color: var(--timer-hover-bg-color);
-}
 
 /* Circuit exercise list */
 #circuit-exercise-list {

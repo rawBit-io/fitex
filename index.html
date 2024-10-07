@@ -57,35 +57,36 @@
       </div>
 
       <!-- Circuit page content -->
-      <div id="circuit-page" style="display: none">
-        <div id="circuit-container">
-          <div id="circuit-description"></div>
-          <div id="circuit-status">
-            Round <span id="circuit-round">1</span> /
-            <span id="circuit-total-rounds">1</span>
-          </div>
-          <div id="circuit-exercise-name"></div>
-          <pre class="ascii-art" id="circuit-ascii-art"></pre>
-          <div id="circuit-timer">00:00</div>
-          <div id="circuit-controls">
-            <button id="circuit-start-button" onclick="startCircuitTimer()">
-              Start
-            </button>
-            <button
-              id="circuit-pause-button"
-              onclick="pauseCircuitTimer()"
-              disabled
-            >
-              Pause
-            </button>
-          </div>
-          <button id="circuit-done-button" onclick="stopCircuit()">Done</button>
-          <div id="circuit-exercise-list">
-            <!-- List of circuit exercises will be displayed here -->
-          </div>
-        </div>
+<div id="circuit-page" style="display: none">
+  <div id="circuit-container">
+    <div id="circuit-description"></div>
+    <div id="circuit-status">
+      Round <span id="circuit-round">1</span> /
+      <span id="circuit-total-rounds">1</span>
+    </div>
+    <div id="circuit-exercise-name"></div>
+    <pre class="ascii-art" id="circuit-ascii-art"></pre>
+    <div id="circuit-timer">00:00</div>
+    <div id="circuit-controls">
+      <button id="circuit-back-button" onclick="stopCircuit()">&lt;</button>
+      <div id="circuit-timer-controls">
+        <button id="circuit-start-button" onclick="startCircuitTimer()">
+          Start
+        </button>
+        <button
+          id="circuit-pause-button"
+          onclick="pauseCircuitTimer()"
+          disabled
+        >
+          Pause
+        </button>
       </div>
     </div>
+    <div id="circuit-exercise-list">
+      <!-- List of circuit exercises will be displayed here -->
+    </div>
+  </div>
+</div>
 
     <!-- Include the necessary scripts -->
     <script src="ascii-art.js"></script>
