@@ -9,8 +9,14 @@ function initializeCircuit(exercise) {
   const restBetweenRounds = exercise.restBetweenRounds || 60; // default to 60 seconds
   const circuitExercises = exercise.circuitExercises;
 
-  // Update the content with circuit details
-  document.getElementById("circuit-name").textContent = exercise.name;
+  // Update the circuit description (remove 'Circuit' and parentheses)
+  let description = exercise.name
+    .replace(/Circuit/g, "")
+    .replace(/[()]/g, "")
+    .trim();
+  document.getElementById("circuit-description").textContent = description;
+
+  // Update total rounds
   document.getElementById("circuit-total-rounds").textContent = rounds;
 
   // Initialize circuit variables
@@ -26,7 +32,6 @@ function initializeCircuit(exercise) {
     timeLeft: workTime,
     timerInterval: null,
     isTimerRunning: false,
-    count: 0,
   };
 
   // Display the list of circuit exercises
@@ -38,6 +43,9 @@ function initializeCircuit(exercise) {
   // Update the display
   updateCircuitDisplay();
   updateCircuitTimerDisplay();
+
+  // Start the circuit timer automatically
+  startCircuitTimer();
 }
 
 // Function to display the list of circuit exercises
@@ -123,25 +131,6 @@ function startCircuitTimer() {
       }
     }
   }, 1000);
-
-  document.getElementById("circuit-play-button").disabled = true;
-  document.getElementById("circuit-pause-button").disabled = false;
-}
-
-// Function to pause the circuit timer
-function pauseCircuitTimer() {
-  const circuit = window.currentCircuit;
-
-  if (!circuit.isTimerRunning) {
-    // Timer is not running
-    return;
-  }
-
-  circuit.isTimerRunning = false;
-  clearInterval(circuit.timerInterval);
-
-  document.getElementById("circuit-play-button").disabled = false;
-  document.getElementById("circuit-pause-button").disabled = true;
 }
 
 // Function to update the circuit display
@@ -170,8 +159,6 @@ function updateCircuitDisplay(status) {
   }
 
   updateActiveExerciseInList();
-  circuit.count = 0;
-  updateCircuitCountDisplay();
 }
 
 // Function to update the circuit timer display
@@ -182,19 +169,6 @@ function updateCircuitTimerDisplay() {
   document.getElementById("circuit-timer").textContent = `${String(
     minutes
   ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-}
-
-// Function to increment the circuit count
-function incrementCircuitCount() {
-  const circuit = window.currentCircuit;
-  circuit.count++;
-  updateCircuitCountDisplay();
-}
-
-// Function to update the circuit count display
-function updateCircuitCountDisplay() {
-  const circuit = window.currentCircuit;
-  document.getElementById("circuit-count-value").textContent = circuit.count;
 }
 
 // Function to stop the circuit

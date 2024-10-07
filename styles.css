@@ -553,3 +553,105 @@ input[type="checkbox"]:checked::before {
 .program-list button:active {
   background-color: var(--timer-active-bg-color);
 }
+
+/* Circuit Page Styles */
+/* Place all styles of the circuit page below */
+
+/* Container for the circuit page */
+#circuit-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Circuit description at the top */
+#circuit-description {
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: var(--accent-color);
+}
+
+/* Circuit status (Round indicator) */
+#circuit-status {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Current exercise name */
+#circuit-exercise-name {
+  font-size: 26px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+/* Timer display */
+#circuit-timer {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+/* Stop Circuit button */
+#circuit-stop-button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  font-size: 18px;
+  background-color: var(--timer-bg-color);
+  color: var(--primary-color);
+  border: 1px solid var(--timer-border-color);
+  cursor: pointer;
+}
+
+#circuit-stop-button:hover {
+  background-color: var(--timer-hover-bg-color);
+}
+
+/* Circuit exercise list */
+#circuit-exercise-list {
+  text-align: left;
+  margin-top: 20px;
+}
+
+/* Individual exercise items */
+.circuit-exercise-item {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+/* Active exercise item */
+.circuit-exercise-item.active {
+  font-weight: bold;
+  color: var(--accent-color);
+}
+
+/* ASCII Art Styles specific to circuit page */
+#circuit-ascii-art {
+  white-space: pre-wrap;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--accent-color);
+  margin: 5px 0 10px;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive adjustments for mobile devices on circuit page */
+@media (max-width: 600px) {
+  #circuit-description {
+    font-size: 20px;
+  }
+  #circuit-status {
+    font-size: 22px;
+  }
+  #circuit-exercise-name {
+    font-size: 24px;
+  }
+  #circuit-timer {
+    font-size: 40px;
+  }
+  #circuit-container {
+    padding: 10px;
+  }
+}

@@ -20,12 +20,14 @@
         margin: 0 auto;
         text-align: center;
       }
-      #circuit-name {
-        font-size: 24px;
+      #circuit-description {
+        font-size: 22px;
         margin-bottom: 20px;
+        font-weight: bold;
+        color: var(--accent-color);
       }
       #circuit-status {
-        font-size: 20px;
+        font-size: 24px;
         margin-bottom: 10px;
       }
       #circuit-exercise-name {
@@ -36,20 +38,6 @@
       #circuit-timer {
         font-size: 48px;
         margin-bottom: 15px;
-      }
-      #circuit-count-button {
-        font-size: 24px;
-        cursor: pointer;
-        user-select: none;
-        background-color: var(--timer-bg-color);
-        color: var(--primary-color);
-        border: 1px solid var(--timer-border-color);
-        padding: 10px 15px;
-        display: inline-block;
-        margin-bottom: 15px;
-      }
-      #circuit-count-button:hover {
-        background-color: var(--timer-hover-bg-color);
       }
       #circuit-stop-button {
         margin-top: 20px;
@@ -86,27 +74,29 @@
         width: 100%;
         box-sizing: border-box;
       }
-      /* Play and Pause Buttons */
-      #circuit-play-button,
-      #circuit-pause-button {
-        margin-top: 20px;
-        padding: 10px 15px;
-        font-size: 18px;
-        background-color: var(--timer-bg-color);
-        color: var(--primary-color);
-        border: 1px solid var(--timer-border-color);
-        cursor: pointer;
-        display: inline-block;
-      }
-      #circuit-play-button:hover,
-      #circuit-pause-button:hover {
-        background-color: var(--timer-hover-bg-color);
+      /* Responsive adjustments for mobile devices */
+      @media (max-width: 600px) {
+        #circuit-description {
+          font-size: 20px;
+        }
+        #circuit-status {
+          font-size: 22px;
+        }
+        #circuit-exercise-name {
+          font-size: 24px;
+        }
+        #circuit-timer {
+          font-size: 40px;
+        }
+        #circuit-container {
+          padding: 10px;
+        }
       }
     </style>
   </head>
   <body>
     <div id="circuit-container">
-      <h2 id="circuit-name"></h2>
+      <div id="circuit-description"></div>
       <div id="circuit-status">
         Round <span id="circuit-round">1</span> /
         <span id="circuit-total-rounds">1</span>
@@ -114,21 +104,6 @@
       <div id="circuit-exercise-name"></div>
       <pre class="ascii-art" id="circuit-ascii-art"></pre>
       <div id="circuit-timer">00:00</div>
-      <div id="circuit-count-button" onclick="incrementCircuitCount()">
-        reps <span id="circuit-count-value">0</span>
-      </div>
-      <div>
-        <button id="circuit-play-button" onclick="startCircuitTimer()">
-          Start
-        </button>
-        <button
-          id="circuit-pause-button"
-          onclick="pauseCircuitTimer()"
-          disabled
-        >
-          Pause
-        </button>
-      </div>
       <button id="circuit-stop-button" onclick="stopCircuit()">
         Stop Circuit
       </button>
