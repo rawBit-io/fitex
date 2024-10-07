@@ -993,6 +993,7 @@ function pauseCircuitTimer() {
 }
 
 // Function to update the circuit display
+// Function to update the circuit display
 function updateCircuitDisplay(status) {
   const circuit = currentCircuit;
   document.getElementById("circuit-round").textContent = circuit.currentRound;
@@ -1002,12 +1003,12 @@ function updateCircuitDisplay(status) {
   if (status === "Rest") {
     exerciseNameElement.textContent = "Rest";
     asciiArtElement.textContent = "REST";
-    asciiArtElement.style.fontSize = "20px"; // Adjust font size as needed
+    asciiArtElement.style.fontSize = "20px";
     asciiArtElement.style.lineHeight = "normal";
   } else if (status === "Rest between rounds") {
     exerciseNameElement.textContent = "Rest between rounds";
     asciiArtElement.textContent = "REST";
-    asciiArtElement.style.fontSize = "20px"; // Adjust font size as needed
+    asciiArtElement.style.fontSize = "20px";
     asciiArtElement.style.lineHeight = "normal";
   } else {
     const exercise = circuit.circuitExercises[circuit.currentExerciseIndex];
@@ -1018,13 +1019,41 @@ function updateCircuitDisplay(status) {
       loadAsciiArt(asciiArtElement, exercise.asciiArtKey);
     } else {
       asciiArtElement.textContent = "NO PIC";
-      asciiArtElement.style.fontSize = "20px"; // Adjust font size as needed
+      asciiArtElement.style.fontSize = "20px";
       asciiArtElement.style.lineHeight = "normal";
     }
+
+    // Update the selected exercise to match the current exercise
+    circuit.selectedExerciseIndex = circuit.currentExerciseIndex;
   }
 
+  // Update the active and selected exercise in the list
   updateActiveExerciseInList();
+  highlightSelectedExercise();
 }
+
+// Function to update the active exercise in the list
+function updateActiveExerciseInList() {
+  const circuit = currentCircuit;
+
+  // Remove 'active' and 'selected' classes from all exercises
+  const exerciseItems = document.querySelectorAll(".circuit-exercise-item");
+  exerciseItems.forEach((item) => {
+    item.classList.remove("active");
+    item.classList.remove("selected");
+  });
+
+  // Add 'active' and 'selected' classes to the current exercise
+  const currentExerciseItem = document.getElementById(
+    `exercise-item-${circuit.currentExerciseIndex}`
+  );
+  if (currentExerciseItem) {
+    currentExerciseItem.classList.add("active");
+    currentExerciseItem.classList.add("selected");
+  }
+}
+
+// Remove the separate highlightSelectedExercise function as it's no longer needed
 
 // Function to update the active exercise in the list
 function updateActiveExerciseInList() {
