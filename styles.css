@@ -717,6 +717,6 @@ input[type="checkbox"]:checked::before {
 /* Responsive adjustments for ASCII Art container height */
 @media (max-width: 600px) {
   #circuit-ascii-art {
-    height: 150px; /* Adjust this value as needed for smaller screens */
+    height: 200px; /* Adjust this value as needed for smaller screens */
   }
 }
