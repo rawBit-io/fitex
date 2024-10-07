@@ -27,9 +27,9 @@ window.programData = [
             name: "Circuit (3 rounds, 45 sec work, 15 sec rest between exercises, 1 min rest between rounds)",
             isCircuit: true,
             rounds: 3,
-            workTime: 45,
-            restTime: 15,
-            restBetweenRounds: 60,
+            workTime: 5,
+            restTime: 5,
+            restBetweenRounds: 6,
             circuitExercises: [
               {
                 name: "Bodyweight squats",

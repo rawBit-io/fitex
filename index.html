@@ -3,24 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FitEx</title>
+    <title>Fitness Tracking App</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="themes.css" />
   </head>
   <body>
-    <!-- Main content area -->
     <div id="app">
-      <!-- Program title with dynamic ID -->
       <h1 id="program-title" style="display: none"></h1>
 
-      <!-- Timer-count-wrapper with theme switcher -->
       <div
-        class="timer-count-wrapper"
         id="timer-count-wrapper"
+        class="timer-count-wrapper"
         style="display: none"
       >
-        <!-- Left controls grouped together -->
         <div class="left-controls">
+          <button id="goBackBtn" onclick="goBackToProgramList()">&lt;</button>
           <div class="timer-wrapper">
             <div id="timer">01:00</div>
             <div id="timer-options" style="display: none">
@@ -33,32 +30,48 @@
           </div>
           <div id="count-button">reps <span id="count-value">0</span></div>
         </div>
-
-        <!-- Theme switcher icon -->
         <div class="theme-switcher">
-          <div id="theme-button" onclick="toggleThemeMenu()">&#9789;</div>
+          <div id="theme-button" onclick="toggleThemeMenu()">☽</div>
           <div id="theme-options" style="display: none"></div>
         </div>
       </div>
 
-      <!-- Program content -->
       <div id="program"></div>
 
-      <!-- Week completed container -->
+      <div id="circuit-container" style="display: none">
+        <div id="circuit-description"></div>
+        <div id="circuit-status">
+          Round <span id="circuit-round">1</span> /
+          <span id="circuit-total-rounds">1</span>
+        </div>
+        <div id="circuit-exercise-name"></div>
+        <pre id="circuit-ascii-art" class="ascii-art"></pre>
+        <div id="circuit-timer">00:00</div>
+        <div id="circuit-controls">
+          <button id="circuit-start-button" onclick="startCircuitTimer()">
+            Start
+          </button>
+          <button id="circuit-pause-button" onclick="pauseCircuitTimer()">
+            Pause
+          </button>
+        </div>
+        <button id="circuit-done-button" onclick="stopCircuit()">Done</button>
+        <div id="circuit-exercise-list"></div>
+      </div>
+
       <div
-        class="week-completed-container"
         id="week-completed-container"
+        class="week-completed-container"
         style="display: none"
       >
-        <button id="goBackBtn"><</button>
-        <button id="weekCompletedBtn" disabled>done</button>
+        <button id="weekCompletedBtn" onclick="incrementWeekCounter()">
+          done
+        </button>
         <div id="weekCounter">0</div>
-        <button id="resetBtn">reset</button>
+        <button id="resetBtn" onclick="resetAll()">reset</button>
       </div>
     </div>
 
-    <!-- Include the necessary scripts -->
-    <!-- Make sure to include ascii-art.js before script.js -->
     <script src="ascii-art.js"></script>
     <script src="script.js"></script>
   </body>
