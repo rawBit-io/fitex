@@ -43,9 +43,6 @@ function initializeCircuit(exercise) {
   // Update the display
   updateCircuitDisplay();
   updateCircuitTimerDisplay();
-
-  // Start the circuit timer automatically
-  startCircuitTimer();
 }
 
 // Function to display the list of circuit exercises
@@ -54,13 +51,19 @@ function displayCircuitExerciseList() {
   const exerciseListDiv = document.getElementById("circuit-exercise-list");
   exerciseListDiv.innerHTML = "";
 
+  // Create a container similar to the exercise boxes in the main program
+  const exerciseBox = document.createElement("div");
+  exerciseBox.className = "exercise-box";
+
   circuit.circuitExercises.forEach((exercise, index) => {
     const exerciseItem = document.createElement("div");
     exerciseItem.className = "circuit-exercise-item";
     exerciseItem.textContent = exercise.name;
     exerciseItem.id = `exercise-item-${index}`;
-    exerciseListDiv.appendChild(exerciseItem);
+    exerciseBox.appendChild(exerciseItem);
   });
+
+  exerciseListDiv.appendChild(exerciseBox);
 }
 
 // Function to update the active exercise in the list
@@ -131,6 +134,25 @@ function startCircuitTimer() {
       }
     }
   }, 1000);
+
+  document.getElementById("circuit-start-button").disabled = true;
+  document.getElementById("circuit-pause-button").disabled = false;
+}
+
+// Function to pause the circuit timer
+function pauseCircuitTimer() {
+  const circuit = window.currentCircuit;
+
+  if (!circuit.isTimerRunning) {
+    // Timer is not running
+    return;
+  }
+
+  circuit.isTimerRunning = false;
+  clearInterval(circuit.timerInterval);
+
+  document.getElementById("circuit-start-button").disabled = false;
+  document.getElementById("circuit-pause-button").disabled = true;
 }
 
 // Function to update the circuit display
@@ -177,13 +199,7 @@ function stopCircuit() {
   if (circuit.timerInterval) {
     clearInterval(circuit.timerInterval);
   }
-  if (confirm("Do you want to stop the circuit?")) {
-    window.close();
-  } else {
-    if (!circuit.isTimerRunning) {
-      startCircuitTimer();
-    }
-  }
+  window.close();
 }
 
 // Function to apply the selected theme

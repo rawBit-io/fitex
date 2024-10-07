@@ -3,96 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <title>Circuit Timer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Include the stylesheets -->
     <link rel="stylesheet" href="styles.css" />
-    <!-- Include the themes.css to apply themes -->
     <link rel="stylesheet" href="themes.css" />
-    <style>
-      /* Additional styles for the circuit window */
-      body {
-        background-color: var(--body-bg-color);
-        color: var(--text-color);
-        font-family: "Courier New", monospace;
-        padding: 20px;
-        margin: 0;
-      }
-      #circuit-container {
-        max-width: 800px;
-        margin: 0 auto;
-        text-align: center;
-      }
-      #circuit-description {
-        font-size: 22px;
-        margin-bottom: 20px;
-        font-weight: bold;
-        color: var(--accent-color);
-      }
-      #circuit-status {
-        font-size: 24px;
-        margin-bottom: 10px;
-      }
-      #circuit-exercise-name {
-        font-size: 26px;
-        margin-bottom: 15px;
-        font-weight: bold;
-      }
-      #circuit-timer {
-        font-size: 48px;
-        margin-bottom: 15px;
-      }
-      #circuit-stop-button {
-        margin-top: 20px;
-        padding: 10px 15px;
-        font-size: 18px;
-        background-color: var(--timer-bg-color);
-        color: var(--primary-color);
-        border: 1px solid var(--timer-border-color);
-        cursor: pointer;
-      }
-      #circuit-stop-button:hover {
-        background-color: var(--timer-hover-bg-color);
-      }
-      #circuit-exercise-list {
-        text-align: left;
-        margin-top: 20px;
-      }
-      .circuit-exercise-item {
-        margin-bottom: 10px;
-        font-size: 18px;
-        color: var(--text-color);
-      }
-      .circuit-exercise-item.active {
-        font-weight: bold;
-        color: var(--accent-color);
-      }
-      .ascii-art {
-        white-space: pre-wrap;
-        font-size: 10px;
-        line-height: 1;
-        color: var(--accent-color);
-        margin: 5px 0 10px;
-        overflow: hidden;
-        width: 100%;
-        box-sizing: border-box;
-      }
-      /* Responsive adjustments for mobile devices */
-      @media (max-width: 600px) {
-        #circuit-description {
-          font-size: 20px;
-        }
-        #circuit-status {
-          font-size: 22px;
-        }
-        #circuit-exercise-name {
-          font-size: 24px;
-        }
-        #circuit-timer {
-          font-size: 40px;
-        }
-        #circuit-container {
-          padding: 10px;
-        }
-      }
-    </style>
   </head>
   <body>
     <div id="circuit-container">
@@ -104,9 +18,19 @@
       <div id="circuit-exercise-name"></div>
       <pre class="ascii-art" id="circuit-ascii-art"></pre>
       <div id="circuit-timer">00:00</div>
-      <button id="circuit-stop-button" onclick="stopCircuit()">
-        Stop Circuit
-      </button>
+      <div id="circuit-controls">
+        <button id="circuit-start-button" onclick="startCircuitTimer()">
+          Start
+        </button>
+        <button
+          id="circuit-pause-button"
+          onclick="pauseCircuitTimer()"
+          disabled
+        >
+          Pause
+        </button>
+      </div>
+      <button id="circuit-done-button" onclick="stopCircuit()">Done</button>
       <div id="circuit-exercise-list">
         <!-- List of circuit exercises will be displayed here -->
       </div>
