@@ -249,13 +249,12 @@ function toggleAsciiArt(
 
 // Function to load ASCII art
 function loadAsciiArt(element, asciiArtKey) {
-  // Set a flag to indicate whether ASCII art is found
-  let asciiArtFound = false;
+  // Clear the element's content initially
+  element.textContent = ""; // Optional: Set to 'Loading...' if desired
 
   // Check if the ASCII art is already in the cache
   if (asciiArtCache[asciiArtKey]) {
     element.textContent = asciiArtCache[asciiArtKey];
-    asciiArtFound = true;
     scaleAsciiArt(element);
   } else {
     const filePath = asciiArtPaths[asciiArtKey];
@@ -271,23 +270,19 @@ function loadAsciiArt(element, asciiArtKey) {
           // Store the ASCII art content in the cache
           asciiArtCache[asciiArtKey] = asciiArtContent;
           element.textContent = asciiArtContent;
-          asciiArtFound = true;
           scaleAsciiArt(element);
         })
         .catch((error) => {
           console.error(error);
           element.textContent = "NO PIC";
+          element.style.fontSize = "20px"; // Adjust font size as needed
+          element.style.lineHeight = "normal";
         });
     } else {
       element.textContent = "NO PIC";
+      element.style.fontSize = "20px"; // Adjust font size as needed
+      element.style.lineHeight = "normal";
     }
-  }
-
-  // If ASCII art is not found, display "NO PIC" and center it
-  if (!asciiArtFound) {
-    element.textContent = "NO PIC";
-    element.style.fontSize = "20px"; // Adjust font size as needed
-    element.style.lineHeight = "normal";
   }
 }
 
@@ -954,8 +949,7 @@ function startCircuitTimer() {
             // Finished all rounds
             clearInterval(circuit.timerInterval);
             circuit.isTimerRunning = false;
-            alert("Circuit completed!");
-            stopCircuit();
+
             return;
           } else {
             // Rest between rounds
