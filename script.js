@@ -415,13 +415,18 @@ function stopTimer() {
 }
 
 function updateTimer() {
-  if (remainingTime > 0) {
-    timeLeft = remainingTime;
-    updateTimerDisplay(timeLeft);
-    timerAnimationFrame = requestAnimationFrame(updateTimer);
-  } else {
-    stopTimer();
-    timeLeft = lastSetValue; // Reset timeLeft after timer ends
+  if (isTimerRunning) {
+    const now = Date.now();
+    const remainingTime = Math.max(0, Math.ceil((timerEndTime - now) / 1000));
+
+    if (remainingTime > 0) {
+      timeLeft = remainingTime;
+      updateTimerDisplay(timeLeft);
+      timerAnimationFrame = requestAnimationFrame(updateTimer);
+    } else {
+      stopTimer();
+      timeLeft = lastSetValue; // Reset timeLeft after timer ends
+    }
   }
 }
 
