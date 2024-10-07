@@ -553,54 +553,56 @@ input[type="checkbox"]:checked::before {
 .program-list button:active {
   background-color: var(--timer-active-bg-color);
 }
-/* Circuit Page Styles - Adjusted Font Sizes */
+
+/* Circuit Page Styles - Optimized for Mobile */
 
 /* Container for the circuit page */
 #circuit-container {
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
+  padding: 10px;
 }
 
 /* Circuit description at the top */
 #circuit-description {
-  font-size: 20px; /* Reduced font size */
-  margin-bottom: 15px; /* Reduced margin */
+  font-size: 18px; /* Reduced font size */
+  margin-bottom: 8px; /* Reduced margin */
   font-weight: normal; /* Changed to normal weight */
   color: var(--accent-color);
 }
 
 /* Circuit status (Round indicator) */
 #circuit-status {
-  font-size: 31px; /* 10% increase over original 28px */
-  margin-bottom: 10px;
+  font-size: 22px; /* Further reduced font size */
+  margin-bottom: 8px;
 }
 
 /* Current exercise name */
 #circuit-exercise-name {
-  font-size: 35px; /* 10% increase over original 32px */
-  margin-bottom: 10px; /* Reduced margin */
+  font-size: 24px; /* Reduced font size */
+  margin-bottom: 8px;
   font-weight: bold;
 }
 
 /* Timer display */
 #circuit-timer {
-  font-size: 70px; /* 10% increase over original 64px */
-  margin-bottom: 10px; /* Reduced margin */
+  font-size: 40px; /* Reduced font size */
+  margin-bottom: 8px;
 }
 
 /* Circuit controls */
 #circuit-controls {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 15px; /* Reduced margin */
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
 #circuit-start-button,
 #circuit-pause-button {
-  padding: 8px 12px; /* Reduced padding */
-  font-size: 18px; /* Slightly smaller font size */
+  padding: 6px 10px;
+  font-size: 16px;
   background-color: var(--timer-bg-color);
   color: var(--primary-color);
   border: 1px solid var(--timer-border-color);
@@ -620,9 +622,9 @@ input[type="checkbox"]:checked::before {
 
 /* Done Button */
 #circuit-done-button {
-  margin-top: 5px; /* Reduced margin */
-  padding: 8px 12px; /* Reduced padding */
-  font-size: 18px; /* Slightly smaller font size */
+  margin-top: 5px;
+  padding: 6px 10px;
+  font-size: 16px;
   background-color: var(--timer-bg-color);
   color: var(--primary-color);
   border: 1px solid var(--timer-border-color);
@@ -635,20 +637,19 @@ input[type="checkbox"]:checked::before {
 
 /* Circuit exercise list */
 #circuit-exercise-list {
-  margin-top: 15px; /* Reduced margin */
+  margin-top: 8px;
 }
 
 .exercise-box {
   border: 1px solid var(--secondary-color);
-  padding: 10px; /* Reduced padding */
+  padding: 8px;
   background-color: var(--day-bg-color);
-  max-height: 200px; /* Set a max height */
-  overflow-y: auto; /* Enable vertical scroll if content exceeds max height */
+  /* Removed max-height and overflow-y properties */
 }
 
 .circuit-exercise-item {
-  margin-bottom: 8px; /* Reduced margin */
-  font-size: 18px; /* Slightly smaller font size */
+  margin-bottom: 6px;
+  font-size: 14px; /* Reduced font size */
   color: var(--text-color);
 }
 
@@ -660,7 +661,7 @@ input[type="checkbox"]:checked::before {
 /* ASCII Art Styles specific to circuit page */
 #circuit-ascii-art {
   white-space: pre-wrap;
-  font-size: 13px; /* 10% increase over original 12px */
+  font-size: 10px; /* Reduced font size */
   line-height: 1;
   color: var(--accent-color);
   margin: 5px 0 8px;
@@ -669,35 +670,22 @@ input[type="checkbox"]:checked::before {
   box-sizing: border-box;
 }
 
-/* Responsive adjustments for mobile devices on circuit page */
-@media (max-width: 600px) {
+/* Responsive adjustments */
+@media (min-width: 601px) {
+  /* Adjust font sizes for larger screens if needed */
   #circuit-description {
-    font-size: 18px; /* Reduced font size */
-    margin-bottom: 10px; /* Reduced margin */
+    font-size: 20px;
   }
   #circuit-status {
-    font-size: 24px; /* Reduced font size */
+    font-size: 24px;
   }
   #circuit-exercise-name {
-    font-size: 28px; /* Reduced font size */
+    font-size: 28px;
   }
   #circuit-timer {
-    font-size: 48px; /* Reduced font size */
-  }
-  #circuit-container {
-    padding: 10px;
-  }
-  #circuit-start-button,
-  #circuit-pause-button,
-  #circuit-done-button {
-    padding: 6px 10px; /* Reduced padding */
-    font-size: 16px; /* Reduced font size */
+    font-size: 48px;
   }
   .circuit-exercise-item {
-    font-size: 16px; /* Reduced font size */
-  }
-  .exercise-box {
-    max-height: none; /* Remove max height on mobile */
-    overflow-y: visible; /* Allow full content to be visible */
+    font-size: 16px;
   }
 }
