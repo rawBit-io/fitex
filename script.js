@@ -293,6 +293,7 @@ function loadAsciiArt(element, asciiArtKey) {
 
 // Function to scale ASCII art
 function scaleAsciiArt(asciiElement) {
+  const containerWidth = asciiElement.clientWidth;
   const containerHeight = asciiElement.clientHeight;
 
   // Reset font size and line height to default values
@@ -303,17 +304,24 @@ function scaleAsciiArt(asciiElement) {
   const lineCount = asciiLines.length;
   const maxLineLength = Math.max(...asciiLines.map((line) => line.length));
 
-  // Define base font size and line height
-  const baseFontSize = 10;
+  // Define base font size
+  const baseFontSize = 10; // You can adjust this value
 
   // Calculate scaling factors based on container dimensions
+  const widthScale = containerWidth / (maxLineLength * baseFontSize * 0.6);
   const heightScale = containerHeight / (lineCount * baseFontSize);
 
-  const scaleFactor = Math.min(heightScale, 1);
+  // Use the smaller scale factor to ensure the ASCII art fits within both dimensions
+  const scaleFactor = Math.min(widthScale, heightScale, 1);
 
   // Apply the scaling
   asciiElement.style.fontSize = `${scaleFactor * baseFontSize}px`;
   asciiElement.style.lineHeight = "1";
+
+  // Center the ASCII art within the container
+  asciiElement.style.display = "flex";
+  asciiElement.style.alignItems = "center";
+  asciiElement.style.justifyContent = "center";
 }
 
 // Functions to handle progress saving and loading

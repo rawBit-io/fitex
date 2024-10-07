@@ -662,7 +662,7 @@ input[type="checkbox"]:checked::before {
 
 /* ASCII Art Styles specific to circuit page */
 #circuit-ascii-art {
-  white-space: pre-wrap;
+  white-space: pre;
   font-size: 10px;
   line-height: 1;
   color: var(--accent-color);
