@@ -884,8 +884,20 @@ function highlightSelectedExercise() {
 // Function to handle exercise selection
 function selectCircuitExercise(index) {
   const circuit = currentCircuit;
-  circuit.selectedExerciseIndex = index;
-  highlightSelectedExercise();
+  if (!circuit.isTimerRunning) {
+    circuit.selectedExerciseIndex = index;
+    highlightSelectedExercise();
+  }
+}
+
+function setupCircuitExerciseList() {
+  const exerciseListDiv = document.getElementById("circuit-exercise-list");
+  exerciseListDiv.addEventListener("click", function (event) {
+    if (event.target.classList.contains("circuit-exercise-item")) {
+      const index = parseInt(event.target.dataset.index, 10);
+      selectCircuitExercise(index);
+    }
+  });
 }
 
 // Function to update the ASCII art for the selected exercise
