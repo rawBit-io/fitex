@@ -1,4 +1,4 @@
-// programs/2_Month_Full_Body_Workout.js
+// programs/2_Days_Full_Body_Workout_Si.js
 
 window.programData = [
   {
@@ -24,37 +24,58 @@ window.programData = [
         time: "40 min",
         exercises: [
           {
-            name: "Circuit (3 rounds, 45 sec work, 15 sec rest between exercises)",
+            name: "Circuit (3 rounds, 45 sec work, 15 sec rest between exercises, 1 min rest between rounds)",
             isCircuit: true,
+            rounds: 3,
+            workTime: 45,
+            restTime: 15,
+            restBetweenRounds: 60,
             circuitExercises: [
               {
                 name: "Bodyweight squats",
                 asciiArtKey: "squats",
                 hasPicture: true,
+                repetitions: 0,
               },
               {
                 name: "Push-ups (on knees if needed)",
                 asciiArtKey: "pushUps",
                 hasPicture: true,
+                repetitions: 0,
               },
               {
                 name: "Dumbbell rows (light weight, 3-5 kg)",
                 asciiArtKey: "dumbbellRows",
                 hasPicture: true,
+                repetitions: 0,
               },
               {
                 name: "Plank hold",
                 asciiArtKey: "plank",
                 hasPicture: true,
+                repetitions: 0,
               },
               {
                 name: "Dumbbell lunges (light weight, 3-5 kg)",
                 asciiArtKey: "lunges",
                 hasPicture: true,
+                repetitions: 0,
               },
-              { name: "Bicycle crunches", hasPicture: false },
-              { name: "Glute bridges", hasPicture: false },
-              { name: "Mountain climbers", hasPicture: false },
+              {
+                name: "Bicycle crunches",
+                hasPicture: false,
+                repetitions: 0,
+              },
+              {
+                name: "Glute bridges",
+                hasPicture: false,
+                repetitions: 0,
+              },
+              {
+                name: "Mountain climbers",
+                hasPicture: false,
+                repetitions: 0,
+              },
             ],
           },
         ],
@@ -106,33 +127,54 @@ window.programData = [
         time: "40 min",
         exercises: [
           {
-            name: "Circuit (3 rounds, 45 sec work, 15 sec rest between exercises)",
+            name: "Circuit (3 rounds, 45 sec work, 15 sec rest between exercises, 1 min rest between rounds)",
             isCircuit: true,
+            rounds: 3,
+            workTime: 45,
+            restTime: 15,
+            restBetweenRounds: 60,
             circuitExercises: [
               {
                 name: "Bodyweight reverse lunges",
                 asciiArtKey: "lunges",
                 hasPicture: true,
+                repetitions: 0,
               },
               {
                 name: "Dumbbell shoulder press (light weight, 2-4 kg)",
                 hasPicture: false,
+                repetitions: 0,
               },
               {
                 name: "Dumbbell Romanian deadlifts (light weight, 3-5 kg)",
                 hasPicture: false,
+                repetitions: 0,
               },
               {
                 name: "Tricep dips (using a chair or bench)",
                 hasPicture: false,
+                repetitions: 0,
               },
-              { name: "Lateral lunges", hasPicture: false },
+              {
+                name: "Lateral lunges",
+                hasPicture: false,
+                repetitions: 0,
+              },
               {
                 name: "Dumbbell woodchoppers (light weight, 3-5 kg)",
                 hasPicture: false,
+                repetitions: 0,
               },
-              { name: "Superman holds", hasPicture: false },
-              { name: "High knees", hasPicture: false },
+              {
+                name: "Superman holds",
+                hasPicture: false,
+                repetitions: 0,
+              },
+              {
+                name: "High knees",
+                hasPicture: false,
+                repetitions: 0,
+              },
             ],
           },
         ],
@@ -161,5 +203,4 @@ window.programData = [
       },
     ],
   },
-  // Add more days/weeks as needed
 ];

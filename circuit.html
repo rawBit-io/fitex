@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Circuit Timer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Include the themes.css to apply themes -->
+    <link rel="stylesheet" href="themes.css" />
+    <style>
+      /* Additional styles for the circuit window */
+      body {
+        background-color: var(--body-bg-color);
+        color: var(--text-color);
+        font-family: "Courier New", monospace;
+        padding: 20px;
+        margin: 0;
+      }
+      #circuit-container {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      #circuit-name {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      #circuit-status {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      #circuit-exercise-name {
+        font-size: 26px;
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+      #circuit-timer {
+        font-size: 48px;
+        margin-bottom: 15px;
+      }
+      #circuit-count-button {
+        font-size: 24px;
+        cursor: pointer;
+        user-select: none;
+        background-color: var(--timer-bg-color);
+        color: var(--primary-color);
+        border: 1px solid var(--timer-border-color);
+        padding: 10px 15px;
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+      #circuit-count-button:hover {
+        background-color: var(--timer-hover-bg-color);
+      }
+      #circuit-stop-button {
+        margin-top: 20px;
+        padding: 10px 15px;
+        font-size: 18px;
+        background-color: var(--timer-bg-color);
+        color: var(--primary-color);
+        border: 1px solid var(--timer-border-color);
+        cursor: pointer;
+      }
+      #circuit-stop-button:hover {
+        background-color: var(--timer-hover-bg-color);
+      }
+      #circuit-exercise-list {
+        text-align: left;
+        margin-top: 20px;
+      }
+      .circuit-exercise-item {
+        margin-bottom: 10px;
+        font-size: 18px;
+        color: var(--text-color);
+      }
+      .circuit-exercise-item.active {
+        font-weight: bold;
+        color: var(--accent-color);
+      }
+      .ascii-art {
+        white-space: pre-wrap;
+        font-size: 10px;
+        line-height: 1;
+        color: var(--accent-color);
+        margin: 5px 0 10px;
+        overflow: hidden;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      /* Play and Pause Buttons */
+      #circuit-play-button,
+      #circuit-pause-button {
+        margin-top: 20px;
+        padding: 10px 15px;
+        font-size: 18px;
+        background-color: var(--timer-bg-color);
+        color: var(--primary-color);
+        border: 1px solid var(--timer-border-color);
+        cursor: pointer;
+        display: inline-block;
+      }
+      #circuit-play-button:hover,
+      #circuit-pause-button:hover {
+        background-color: var(--timer-hover-bg-color);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="circuit-container">
+      <h2 id="circuit-name"></h2>
+      <div id="circuit-status">
+        Round <span id="circuit-round">1</span> /
+        <span id="circuit-total-rounds">1</span>
+      </div>
+      <div id="circuit-exercise-name"></div>
+      <pre class="ascii-art" id="circuit-ascii-art"></pre>
+      <div id="circuit-timer">00:00</div>
+      <div id="circuit-count-button" onclick="incrementCircuitCount()">
+        reps <span id="circuit-count-value">0</span>
+      </div>
+      <div>
+        <button id="circuit-play-button" onclick="startCircuitTimer()">
+          Start
+        </button>
+        <button
+          id="circuit-pause-button"
+          onclick="pauseCircuitTimer()"
+          disabled
+        >
+          Pause
+        </button>
+      </div>
+      <button id="circuit-stop-button" onclick="stopCircuit()">
+        Stop Circuit
+      </button>
+      <div id="circuit-exercise-list">
+        <!-- List of circuit exercises will be displayed here -->
+      </div>
+    </div>
+
+    <!-- Include the necessary scripts -->
+    <script src="ascii-art.js"></script>
+    <script src="circuit.js"></script>
+  </body>
+</html>

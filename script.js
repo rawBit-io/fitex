@@ -3,8 +3,7 @@
 // Initialize the current program and available programs
 let currentProgram = null;
 let availablePrograms = [];
-
-// Remove asciiArtPaths from script.js since it's in ascii-art.js
+let currentProgramData = null; // Store the current program data
 
 // Create a cache object to store loaded ASCII arts
 const asciiArtCache = {};
@@ -68,6 +67,7 @@ function loadProgram(programMeta) {
   // Load the program data
   loadProgramData(programMeta)
     .then((programData) => {
+      currentProgramData = programData; // Store the program data
       generateProgramContent(programData);
       loadProgress();
       updateWeekCompletedButton();
@@ -132,62 +132,63 @@ function generateProgramContent(days) {
         ${day.categories
           .map(
             (category, catIndex) => `
-            <h3>${category.name} (${category.time})</h3>
-            <ul>
-              ${category.exercises
-                .map((exercise, exIndex) => {
-                  if (typeof exercise === "string") {
-                    return `<li class="exercise-item no-bullet">${exercise}</li>`;
-                  } else if (exercise.isDescription) {
-                    return `<li class="exercise-description">${exercise.name}</li>`;
-                  } else if (exercise.isCircuit) {
-                    return `
-                    <li class="exercise-circuit">
-                      <span>${exercise.name}</span>
-                      <ul>
-                        ${exercise.circuitExercises
-                          .map(
-                            (circuitExercise, circuitIndex) => `
-                            <li class="exercise-item ${
-                              circuitExercise.hasPicture
-                                ? "picture-available"
-                                : ""
-                            }">
-                              <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${circuitIndex}, '${
-                              circuitExercise.asciiArtKey || ""
-                            }')">${circuitExercise.name}</span>
-                              ${
+              <h3>${category.name} (${category.time})</h3>
+              <ul>
+                ${category.exercises
+                  .map((exercise, exIndex) => {
+                    if (typeof exercise === "string") {
+                      return `<li class="exercise-item no-bullet">${exercise}</li>`;
+                    } else if (exercise.isDescription) {
+                      return `<li class="exercise-description">${exercise.name}</li>`;
+                    } else if (exercise.isCircuit) {
+                      return `
+                      <li class="exercise-circuit">
+                        <span>${exercise.name}</span>
+                        <button class="start-circuit-button" onclick="startCircuit(${dayIndex}, ${catIndex}, ${exIndex})">Start Circuit</button>
+                        <ul>
+                          ${exercise.circuitExercises
+                            .map(
+                              (circuitExercise, circuitIndex) => `
+                              <li class="exercise-item ${
                                 circuitExercise.hasPicture
-                                  ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}"></pre>`
+                                  ? "picture-available"
                                   : ""
-                              }
-                            </li>
-                          `
-                          )
-                          .join("")}
-                      </ul>
-                    </li>
-                  `;
-                  } else {
-                    return `
-                    <li class="exercise-item ${
-                      exercise.hasPicture ? "picture-available" : ""
-                    }">
-                      <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, undefined, '${
-                      exercise.asciiArtKey || ""
-                    }')">${exercise.name}</span>
-                      ${
-                        exercise.hasPicture
-                          ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
-                          : ""
-                      }
-                    </li>
-                  `;
-                  }
-                })
-                .join("")}
-            </ul>
-          `
+                              }">
+                                <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${circuitIndex}, '${
+                                circuitExercise.asciiArtKey || ""
+                              }')">${circuitExercise.name}</span>
+                                ${
+                                  circuitExercise.hasPicture
+                                    ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}"></pre>`
+                                    : ""
+                                }
+                              </li>
+                            `
+                            )
+                            .join("")}
+                        </ul>
+                      </li>
+                    `;
+                    } else {
+                      return `
+                      <li class="exercise-item ${
+                        exercise.hasPicture ? "picture-available" : ""
+                      }">
+                        <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, undefined, '${
+                        exercise.asciiArtKey || ""
+                      }')">${exercise.name}</span>
+                        ${
+                          exercise.hasPicture
+                            ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
+                            : ""
+                        }
+                      </li>
+                    `;
+                    }
+                  })
+                  .join("")}
+              </ul>
+            `
           )
           .join("")}
       </div>
@@ -243,7 +244,7 @@ function toggleAsciiArt(
   }
 }
 
-// Updated loadAsciiArt function with caching
+// Function to load ASCII art
 function loadAsciiArt(element, asciiArtKey) {
   // Check if the ASCII art is already in the cache
   if (asciiArtCache[asciiArtKey]) {
@@ -276,7 +277,7 @@ function loadAsciiArt(element, asciiArtKey) {
   }
 }
 
-// Updated scaleAsciiArt function to fix scaling issue
+// Function to scale ASCII art
 function scaleAsciiArt(asciiElement) {
   const container = asciiElement.parentElement;
 
@@ -747,3 +748,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // Start by displaying the program list
   displayProgramList();
 });
+
+// Function to start the circuit (opens new window)
+function startCircuit(dayIndex, catIndex, exIndex) {
+  // Retrieve the circuit exercise data
+  const day = currentProgramData[dayIndex];
+  const category = day.categories[catIndex];
+  const exercise = category.exercises[exIndex];
+
+  // Open a new window for the circuit
+  const circuitWindow = window.open(
+    `circuit.html`,
+    "_blank",
+    "width=500,height=700"
+  );
+
+  // Pass the circuit data to the new window after it has loaded
+  circuitWindow.onload = function () {
+    circuitWindow.initializeCircuit(exercise);
+  };
+}

@@ -116,7 +116,7 @@ h3 {
 #goBackBtn {
   background-color: transparent;
   border: none;
-  padding: 10;
+  padding: 0;
   margin-right: 10px;
 }
 
@@ -292,6 +292,21 @@ h3 {
 .exercise-circuit > ul {
   margin-top: 5px;
   margin-bottom: 0;
+}
+
+/* Start Circuit Button Styles */
+.start-circuit-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: var(--timer-bg-color);
+  color: var(--primary-color);
+  border: 1px solid var(--timer-border-color);
+  cursor: pointer;
+}
+
+.start-circuit-button:hover {
+  background-color: var(--timer-hover-bg-color);
 }
 
 /* Section color differentiation */
