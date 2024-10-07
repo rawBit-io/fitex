@@ -8,6 +8,9 @@ let currentProgramData = null; // Store the current program data
 // Create a cache object to store loaded ASCII arts
 const asciiArtCache = {};
 
+// Initialize the current circuit
+let currentCircuit = null;
+
 // Function to display the list of available programs
 function displayProgramList() {
   const programDiv = document.getElementById("program");
@@ -286,19 +289,16 @@ function scaleAsciiArt(asciiElement) {
   asciiElement.style.lineHeight = "";
 
   const containerWidth = container.offsetWidth;
-  const containerHeight = container.offsetHeight;
   const asciiLines = asciiElement.textContent.split("\n");
   const maxLineLength = Math.max(...asciiLines.map((line) => line.length));
 
   // Define multipliers and base font size for exercise ASCII arts
   const widthMultiplier = 8;
-  const heightMultiplier = 16;
   const baseFontSize = 10;
 
   // Calculate the scaling factor
   const widthScale = containerWidth / (maxLineLength * widthMultiplier);
-  const heightScale = containerHeight / (asciiLines.length * heightMultiplier);
-  const scaleFactor = Math.min(widthScale, heightScale);
+  const scaleFactor = widthScale;
 
   // Apply the scaling
   asciiElement.style.fontSize = `${scaleFactor * baseFontSize}px`;
@@ -738,32 +738,36 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", () => {
     const asciiElements = document.querySelectorAll(".ascii-art.show");
     asciiElements.forEach(scaleAsciiArt); // Rescale exercises
+    if (currentCircuit && document.getElementById("circuit-ascii-art")) {
+      scaleAsciiArt(document.getElementById("circuit-ascii-art"));
+    }
   });
 
   // Start by displaying the program list
   displayProgramList();
 });
 
-// Integrated Circuit Functionality
-
-// Function to start the circuit
+// Function to start the circuit (now embedded in the same page)
 function startCircuit(dayIndex, catIndex, exIndex) {
   // Retrieve the circuit exercise data
   const day = currentProgramData[dayIndex];
   const category = day.categories[catIndex];
   const exercise = category.exercises[exIndex];
 
-  // Hide the main program content
+  // Hide main content
   document.getElementById("program").style.display = "none";
+  document.getElementById("timer-count-wrapper").style.display = "none";
   document.getElementById("week-completed-container").style.display = "none";
+  document.getElementById("program-title").style.display = "none";
 
-  // Show the circuit container
-  const circuitContainer = document.getElementById("circuit-container");
-  circuitContainer.style.display = "block";
+  // Show circuit content
+  document.getElementById("circuit-page").style.display = "block";
 
-  // Initialize the circuit
+  // Initialize circuit
   initializeCircuit(exercise);
 }
+
+// Circuit functionality (merged from circuit.js)
 
 // Function to initialize the circuit
 function initializeCircuit(exercise) {
@@ -774,7 +778,7 @@ function initializeCircuit(exercise) {
   const restBetweenRounds = exercise.restBetweenRounds || 60; // default to 60 seconds
   const circuitExercises = exercise.circuitExercises;
 
-  // Update the circuit description
+  // Update the circuit description (remove 'Circuit' and parentheses)
   let description = exercise.name
     .replace(/Circuit/g, "")
     .replace(/[()]/g, "")
@@ -785,7 +789,7 @@ function initializeCircuit(exercise) {
   document.getElementById("circuit-total-rounds").textContent = rounds;
 
   // Initialize circuit variables
-  window.currentCircuit = {
+  currentCircuit = {
     rounds,
     workTime,
     restTime,
@@ -793,7 +797,7 @@ function initializeCircuit(exercise) {
     circuitExercises,
     currentRound: 1,
     currentExerciseIndex: 0,
-    isExercise: true,
+    isExercise: true, // true if currently in exercise time, false if in rest
     timeLeft: workTime,
     timerInterval: null,
     isTimerRunning: false,
@@ -809,10 +813,11 @@ function initializeCircuit(exercise) {
 
 // Function to display the list of circuit exercises
 function displayCircuitExerciseList() {
-  const circuit = window.currentCircuit;
+  const circuit = currentCircuit;
   const exerciseListDiv = document.getElementById("circuit-exercise-list");
   exerciseListDiv.innerHTML = "";
 
+  // Create a container similar to the exercise boxes in the main program
   const exerciseBox = document.createElement("div");
   exerciseBox.className = "exercise-box";
 
@@ -829,11 +834,13 @@ function displayCircuitExerciseList() {
 
 // Function to update the active exercise in the list
 function updateActiveExerciseInList() {
-  const circuit = window.currentCircuit;
+  const circuit = currentCircuit;
 
+  // Remove 'active' class from all exercises
   const exerciseItems = document.querySelectorAll(".circuit-exercise-item");
   exerciseItems.forEach((item) => item.classList.remove("active"));
 
+  // Add 'active' class to the current exercise
   const currentExerciseItem = document.getElementById(
     `exercise-item-${circuit.currentExerciseIndex}`
   );
@@ -844,9 +851,10 @@ function updateActiveExerciseInList() {
 
 // Function to start the circuit timer
 function startCircuitTimer() {
-  const circuit = window.currentCircuit;
+  const circuit = currentCircuit;
 
   if (circuit.isTimerRunning) {
+    // Timer is already running
     return;
   }
 
@@ -859,27 +867,33 @@ function startCircuitTimer() {
 
     if (circuit.timeLeft <= 0) {
       if (circuit.isExercise) {
+        // Finished work time, start rest time
         circuit.isExercise = false;
         circuit.timeLeft = circuit.restTime;
         updateCircuitDisplay("Rest");
       } else {
+        // Finished rest time, move to next exercise
         circuit.isExercise = true;
         circuit.currentExerciseIndex++;
         if (circuit.currentExerciseIndex >= circuit.circuitExercises.length) {
+          // Finished all exercises in this round
           circuit.currentExerciseIndex = 0;
           circuit.currentRound++;
           if (circuit.currentRound > circuit.rounds) {
+            // Finished all rounds
             clearInterval(circuit.timerInterval);
             circuit.isTimerRunning = false;
             alert("Circuit completed!");
             stopCircuit();
             return;
           } else {
+            // Rest between rounds
             circuit.isExercise = false;
             circuit.timeLeft = circuit.restBetweenRounds;
             updateCircuitDisplay("Rest between rounds");
           }
         } else {
+          // Start next exercise
           circuit.timeLeft = circuit.workTime;
           updateCircuitDisplay();
         }
@@ -893,9 +907,10 @@ function startCircuitTimer() {
 
 // Function to pause the circuit timer
 function pauseCircuitTimer() {
-  const circuit = window.currentCircuit;
+  const circuit = currentCircuit;
 
   if (!circuit.isTimerRunning) {
+    // Timer is not running
     return;
   }
 
@@ -908,7 +923,7 @@ function pauseCircuitTimer() {
 
 // Function to update the circuit display
 function updateCircuitDisplay(status) {
-  const circuit = window.currentCircuit;
+  const circuit = currentCircuit;
   document.getElementById("circuit-round").textContent = circuit.currentRound;
   const exerciseNameElement = document.getElementById("circuit-exercise-name");
   const asciiArtElement = document.getElementById("circuit-ascii-art");
@@ -923,6 +938,7 @@ function updateCircuitDisplay(status) {
     const exercise = circuit.circuitExercises[circuit.currentExerciseIndex];
     exerciseNameElement.textContent = exercise.name;
 
+    // Load ASCII art if available
     if (exercise.hasPicture && exercise.asciiArtKey) {
       loadAsciiArt(asciiArtElement, exercise.asciiArtKey);
     } else {
@@ -935,7 +951,7 @@ function updateCircuitDisplay(status) {
 
 // Function to update the circuit timer display
 function updateCircuitTimerDisplay() {
-  const circuit = window.currentCircuit;
+  const circuit = currentCircuit;
   const minutes = Math.floor(circuit.timeLeft / 60);
   const seconds = circuit.timeLeft % 60;
   document.getElementById("circuit-timer").textContent = `${String(
@@ -945,36 +961,35 @@ function updateCircuitTimerDisplay() {
 
 // Function to stop the circuit
 function stopCircuit() {
-  const circuit = window.currentCircuit;
+  const circuit = currentCircuit;
   if (circuit.timerInterval) {
     clearInterval(circuit.timerInterval);
   }
 
-  // Hide the circuit container
-  document.getElementById("circuit-container").style.display = "none";
+  // Hide circuit content
+  document.getElementById("circuit-page").style.display = "none";
 
-  // Show the main program content
+  // Show main content
   document.getElementById("program").style.display = "block";
+  document.getElementById("timer-count-wrapper").style.display = "flex";
   document.getElementById("week-completed-container").style.display = "flex";
+  document.getElementById("program-title").style.display = "block";
+
+  // Reset currentCircuit
+  currentCircuit = null;
 }
 
-// Add event listener for window resize to rescale ASCII art in circuit
-window.addEventListener("resize", () => {
-  const asciiElement = document.getElementById("circuit-ascii-art");
-  if (asciiElement && asciiElement.textContent) {
-    scaleAsciiArt(asciiElement);
+// Ensure that theme is applied when circuit is initialized
+function applySelectedTheme() {
+  let savedTheme = localStorage.getItem("selectedTheme") || "Solarized Dark";
+  if (savedTheme === "Default") {
+    savedTheme = "Solarized Dark";
+    localStorage.setItem("selectedTheme", savedTheme);
   }
+  loadTheme(savedTheme);
+}
+
+// Add event listener for window load to apply theme
+window.addEventListener("load", () => {
+  applySelectedTheme();
 });
-
-// Additional event listeners for circuit buttons
-document
-  .getElementById("circuit-start-button")
-  .addEventListener("click", startCircuitTimer);
-document
-  .getElementById("circuit-pause-button")
-  .addEventListener("click", pauseCircuitTimer);
-document
-  .getElementById("circuit-done-button")
-  .addEventListener("click", stopCircuit);
-
-// The end of the script.js file
