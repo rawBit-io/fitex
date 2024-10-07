@@ -379,6 +379,7 @@ let lastSetValue = 60;
 let isTimerRunning = false;
 let timerStartTime;
 let timerEndTime;
+let timerAnimationFrame;
 let longPressTimer;
 const longPressDuration = 500; // milliseconds
 let isLongPress = false;
@@ -408,7 +409,7 @@ function stopTimer() {
   timerElement.classList.add("blink-red");
   setTimeout(() => timerElement.classList.remove("blink-red"), 500);
   isTimerRunning = false;
-  timeLeft = lastSetValue;
+  cancelAnimationFrame(timerAnimationFrame); // Stop the animation frame
   updateTimerDisplay(timeLeft);
 }
 
@@ -420,9 +421,10 @@ function updateTimer() {
     if (remainingTime > 0) {
       timeLeft = remainingTime;
       updateTimerDisplay(timeLeft);
-      requestAnimationFrame(updateTimer);
+      timerAnimationFrame = requestAnimationFrame(updateTimer);
     } else {
       stopTimer();
+      timeLeft = lastSetValue; // Reset timeLeft after timer ends
     }
   }
 }
@@ -430,6 +432,14 @@ function updateTimer() {
 function setTimer(seconds) {
   lastSetValue = seconds;
   timeLeft = seconds;
+
+  if (isTimerRunning) {
+    isTimerRunning = false; // Stop the timer
+    cancelAnimationFrame(timerAnimationFrame); // Stop the animation frame
+    timerElement.classList.add("blink-red");
+    setTimeout(() => timerElement.classList.remove("blink-red"), 500);
+  }
+
   updateTimerDisplay(timeLeft);
   timerOptions.style.display = "none";
 }
