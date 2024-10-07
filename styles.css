@@ -579,10 +579,25 @@ input[type="checkbox"]:checked::before {
 }
 
 /* Current exercise name */
+/* Current exercise name */
 #circuit-exercise-name {
   font-size: 24px;
-  margin-bottom: 8px;
+  margin: 0;
   font-weight: bold;
+
+  /* Added min-height to prevent layout shifts */
+  min-height: 3em; /* Adjust this value as needed */
+}
+
+/* Adjust the container that holds the ASCII art and other elements */
+#circuit-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Optional: Set a min-height to prevent shifts */
+  /* min-height: 400px; /* Uncomment and adjust if needed */
 }
 
 /* Timer display */
