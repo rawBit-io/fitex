@@ -249,56 +249,67 @@ function toggleAsciiArt(
 
 // Function to load ASCII art
 function loadAsciiArt(element, asciiArtKey) {
+  // Set a flag to indicate whether ASCII art is found
+  let asciiArtFound = false;
+
   // Check if the ASCII art is already in the cache
   if (asciiArtCache[asciiArtKey]) {
     element.textContent = asciiArtCache[asciiArtKey];
+    asciiArtFound = true;
     scaleAsciiArt(element);
-    return;
+  } else {
+    const filePath = asciiArtPaths[asciiArtKey];
+    if (filePath) {
+      fetch(filePath)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Could not load ASCII art for key: ${asciiArtKey}`);
+          }
+          return response.text();
+        })
+        .then((asciiArtContent) => {
+          // Store the ASCII art content in the cache
+          asciiArtCache[asciiArtKey] = asciiArtContent;
+          element.textContent = asciiArtContent;
+          asciiArtFound = true;
+          scaleAsciiArt(element);
+        })
+        .catch((error) => {
+          console.error(error);
+          element.textContent = "NO PIC";
+        });
+    } else {
+      element.textContent = "NO PIC";
+    }
   }
 
-  const filePath = asciiArtPaths[asciiArtKey];
-  if (filePath) {
-    fetch(filePath)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Could not load ASCII art for key: ${asciiArtKey}`);
-        }
-        return response.text();
-      })
-      .then((asciiArtContent) => {
-        // Store the ASCII art content in the cache
-        asciiArtCache[asciiArtKey] = asciiArtContent;
-        element.textContent = asciiArtContent;
-        scaleAsciiArt(element);
-      })
-      .catch((error) => {
-        console.error(error);
-        element.textContent = "ASCII art not found";
-      });
-  } else {
-    element.textContent = "ASCII art not found";
+  // If ASCII art is not found, display "NO PIC" and center it
+  if (!asciiArtFound) {
+    element.textContent = "NO PIC";
+    element.style.fontSize = "20px"; // Adjust font size as needed
+    element.style.lineHeight = "normal";
   }
 }
 
 // Function to scale ASCII art
 function scaleAsciiArt(asciiElement) {
-  const container = asciiElement.parentElement;
+  const containerHeight = asciiElement.clientHeight;
 
   // Reset font size and line height to default values
   asciiElement.style.fontSize = "";
   asciiElement.style.lineHeight = "";
 
-  const containerWidth = container.offsetWidth;
   const asciiLines = asciiElement.textContent.split("\n");
+  const lineCount = asciiLines.length;
   const maxLineLength = Math.max(...asciiLines.map((line) => line.length));
 
-  // Define multipliers and base font size for exercise ASCII arts
-  const widthMultiplier = 8;
+  // Define base font size and line height
   const baseFontSize = 10;
 
-  // Calculate the scaling factor
-  const widthScale = containerWidth / (maxLineLength * widthMultiplier);
-  const scaleFactor = widthScale;
+  // Calculate scaling factors based on container dimensions
+  const heightScale = containerHeight / (lineCount * baseFontSize);
+
+  const scaleFactor = Math.min(heightScale, 1);
 
   // Apply the scaling
   asciiElement.style.fontSize = `${scaleFactor * baseFontSize}px`;
@@ -772,7 +783,7 @@ function startCircuit(dayIndex, catIndex, exIndex) {
   initializeCircuit(exercise);
 }
 
-// Circuit functionality (adjusted to allow exercise selection)
+// Circuit functionality (adjusted to allow exercise selection and ASCII art update)
 
 // Function to initialize the circuit
 function initializeCircuit(exercise) {
@@ -862,6 +873,9 @@ function highlightSelectedExercise() {
       item.classList.remove("selected");
     }
   });
+
+  // Update the ASCII art for the selected exercise
+  updateSelectedExerciseAsciiArt();
 }
 
 // Function to handle exercise selection
@@ -869,6 +883,28 @@ function selectCircuitExercise(index) {
   const circuit = currentCircuit;
   circuit.selectedExerciseIndex = index;
   highlightSelectedExercise();
+}
+
+// Function to update the ASCII art for the selected exercise
+function updateSelectedExerciseAsciiArt() {
+  const circuit = currentCircuit;
+  const asciiArtElement = document.getElementById("circuit-ascii-art");
+  const exerciseNameElement = document.getElementById("circuit-exercise-name");
+
+  // Only update if the circuit is not running
+  if (!circuit.isTimerRunning) {
+    const exercise = circuit.circuitExercises[circuit.selectedExerciseIndex];
+    exerciseNameElement.textContent = exercise.name;
+
+    // Load ASCII art if available
+    if (exercise.hasPicture && exercise.asciiArtKey) {
+      loadAsciiArt(asciiArtElement, exercise.asciiArtKey);
+    } else {
+      asciiArtElement.textContent = "NO PIC";
+      asciiArtElement.style.fontSize = "20px"; // Adjust font size as needed
+      asciiArtElement.style.lineHeight = "normal";
+    }
+  }
 }
 
 // Function to start the circuit timer
@@ -963,10 +999,14 @@ function updateCircuitDisplay(status) {
 
   if (status === "Rest") {
     exerciseNameElement.textContent = "Rest";
-    asciiArtElement.textContent = "";
+    asciiArtElement.textContent = "REST";
+    asciiArtElement.style.fontSize = "20px"; // Adjust font size as needed
+    asciiArtElement.style.lineHeight = "normal";
   } else if (status === "Rest between rounds") {
     exerciseNameElement.textContent = "Rest between rounds";
-    asciiArtElement.textContent = "";
+    asciiArtElement.textContent = "REST";
+    asciiArtElement.style.fontSize = "20px"; // Adjust font size as needed
+    asciiArtElement.style.lineHeight = "normal";
   } else {
     const exercise = circuit.circuitExercises[circuit.currentExerciseIndex];
     exerciseNameElement.textContent = exercise.name;
@@ -975,7 +1015,9 @@ function updateCircuitDisplay(status) {
     if (exercise.hasPicture && exercise.asciiArtKey) {
       loadAsciiArt(asciiArtElement, exercise.asciiArtKey);
     } else {
-      asciiArtElement.textContent = "";
+      asciiArtElement.textContent = "NO PIC";
+      asciiArtElement.style.fontSize = "20px"; // Adjust font size as needed
+      asciiArtElement.style.lineHeight = "normal";
     }
   }
 

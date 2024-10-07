@@ -554,7 +554,7 @@ input[type="checkbox"]:checked::before {
   background-color: var(--timer-active-bg-color);
 }
 
-/* Circuit Page Styles - Optimized for Mobile */
+/* Circuit Page Styles */
 
 /* Container for the circuit page */
 #circuit-container {
@@ -566,28 +566,28 @@ input[type="checkbox"]:checked::before {
 
 /* Circuit description at the top */
 #circuit-description {
-  font-size: 18px; /* Reduced font size */
-  margin-bottom: 8px; /* Reduced margin */
-  font-weight: normal; /* Changed to normal weight */
+  font-size: 18px;
+  margin-bottom: 8px;
+  font-weight: normal;
   color: var(--accent-color);
 }
 
 /* Circuit status (Round indicator) */
 #circuit-status {
-  font-size: 22px; /* Further reduced font size */
+  font-size: 22px;
   margin-bottom: 8px;
 }
 
 /* Current exercise name */
 #circuit-exercise-name {
-  font-size: 24px; /* Reduced font size */
+  font-size: 24px;
   margin-bottom: 8px;
   font-weight: bold;
 }
 
 /* Timer display */
 #circuit-timer {
-  font-size: 40px; /* Reduced font size */
+  font-size: 40px;
   margin-bottom: 8px;
 }
 
@@ -649,8 +649,9 @@ input[type="checkbox"]:checked::before {
 
 .circuit-exercise-item {
   margin-bottom: 6px;
-  font-size: 14px; /* Reduced font size */
+  font-size: 14px;
   color: var(--text-color);
+  cursor: pointer; /* Added cursor pointer for better UX */
 }
 
 .circuit-exercise-item.selected {
@@ -662,13 +663,20 @@ input[type="checkbox"]:checked::before {
 /* ASCII Art Styles specific to circuit page */
 #circuit-ascii-art {
   white-space: pre-wrap;
-  font-size: 10px; /* Reduced font size */
+  font-size: 10px;
   line-height: 1;
   color: var(--accent-color);
   margin: 5px 0 8px;
   overflow: hidden;
   width: 100%;
   box-sizing: border-box;
+
+  /* Set a fixed height */
+  height: 200px; /* Adjust this value as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 /* Responsive adjustments */
@@ -688,5 +696,12 @@ input[type="checkbox"]:checked::before {
   }
   .circuit-exercise-item {
     font-size: 16px;
+  }
+}
+
+/* Responsive adjustments for ASCII Art container height */
+@media (max-width: 600px) {
+  #circuit-ascii-art {
+    height: 150px; /* Adjust this value as needed for smaller screens */
   }
 }
