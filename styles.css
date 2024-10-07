@@ -653,9 +653,10 @@ input[type="checkbox"]:checked::before {
   color: var(--text-color);
 }
 
-.circuit-exercise-item.active {
-  font-weight: bold;
+.circuit-exercise-item.selected {
+  background-color: var(--timer-bg-color);
   color: var(--accent-color);
+  font-weight: bold;
 }
 
 /* ASCII Art Styles specific to circuit page */

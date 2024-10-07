@@ -772,7 +772,7 @@ function startCircuit(dayIndex, catIndex, exIndex) {
   initializeCircuit(exercise);
 }
 
-// Circuit functionality (merged from circuit.js)
+// Circuit functionality (adjusted to allow exercise selection)
 
 // Function to initialize the circuit
 function initializeCircuit(exercise) {
@@ -802,6 +802,7 @@ function initializeCircuit(exercise) {
     circuitExercises,
     currentRound: 1,
     currentExerciseIndex: 0,
+    selectedExerciseIndex: 0, // New property to track selected exercise
     isExercise: true, // true if currently in exercise time, false if in rest
     timeLeft: workTime,
     timerInterval: null,
@@ -831,27 +832,43 @@ function displayCircuitExerciseList() {
     exerciseItem.className = "circuit-exercise-item";
     exerciseItem.textContent = exercise.name;
     exerciseItem.id = `exercise-item-${index}`;
+    exerciseItem.dataset.index = index; // Store the index for reference
+
+    // Add click event listener to make the exercise selectable
+    exerciseItem.addEventListener("click", (event) => {
+      selectCircuitExercise(index);
+    });
+
     exerciseBox.appendChild(exerciseItem);
   });
 
   exerciseListDiv.appendChild(exerciseBox);
+
+  // Set the default selected exercise to the first one
+  circuit.selectedExerciseIndex = 0;
+  highlightSelectedExercise();
 }
 
-// Function to update the active exercise in the list
-function updateActiveExerciseInList() {
+// Function to highlight the selected exercise
+function highlightSelectedExercise() {
   const circuit = currentCircuit;
-
-  // Remove 'active' class from all exercises
   const exerciseItems = document.querySelectorAll(".circuit-exercise-item");
-  exerciseItems.forEach((item) => item.classList.remove("active"));
 
-  // Add 'active' class to the current exercise
-  const currentExerciseItem = document.getElementById(
-    `exercise-item-${circuit.currentExerciseIndex}`
-  );
-  if (currentExerciseItem) {
-    currentExerciseItem.classList.add("active");
-  }
+  exerciseItems.forEach((item) => {
+    const itemIndex = parseInt(item.dataset.index, 10);
+    if (itemIndex === circuit.selectedExerciseIndex) {
+      item.classList.add("selected");
+    } else {
+      item.classList.remove("selected");
+    }
+  });
+}
+
+// Function to handle exercise selection
+function selectCircuitExercise(index) {
+  const circuit = currentCircuit;
+  circuit.selectedExerciseIndex = index;
+  highlightSelectedExercise();
 }
 
 // Function to start the circuit timer
@@ -861,6 +878,11 @@ function startCircuitTimer() {
   if (circuit.isTimerRunning) {
     // Timer is already running
     return;
+  }
+
+  // Set the current exercise index to the selected one at the start
+  if (circuit.currentRound === 1 && circuit.currentExerciseIndex === 0) {
+    circuit.currentExerciseIndex = circuit.selectedExerciseIndex;
   }
 
   circuit.isTimerRunning = true;
@@ -897,11 +919,17 @@ function startCircuitTimer() {
             circuit.timeLeft = circuit.restBetweenRounds;
             updateCircuitDisplay("Rest between rounds");
           }
-        } else {
-          // Start next exercise
-          circuit.timeLeft = circuit.workTime;
-          updateCircuitDisplay();
         }
+        // Skip to selected exercise if starting a new round
+        if (
+          circuit.currentExerciseIndex === 0 &&
+          circuit.currentRound > 1 &&
+          circuit.selectedExerciseIndex > 0
+        ) {
+          circuit.currentExerciseIndex = circuit.selectedExerciseIndex;
+        }
+        circuit.timeLeft = circuit.workTime;
+        updateCircuitDisplay();
       }
     }
   }, 1000);
@@ -952,6 +980,23 @@ function updateCircuitDisplay(status) {
   }
 
   updateActiveExerciseInList();
+}
+
+// Function to update the active exercise in the list
+function updateActiveExerciseInList() {
+  const circuit = currentCircuit;
+
+  // Remove 'active' class from all exercises
+  const exerciseItems = document.querySelectorAll(".circuit-exercise-item");
+  exerciseItems.forEach((item) => item.classList.remove("active"));
+
+  // Add 'active' class to the current exercise
+  const currentExerciseItem = document.getElementById(
+    `exercise-item-${circuit.currentExerciseIndex}`
+  );
+  if (currentExerciseItem) {
+    currentExerciseItem.classList.add("active");
+  }
 }
 
 // Function to update the circuit timer display
