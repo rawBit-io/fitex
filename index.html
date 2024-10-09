@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- (unchanged head content) -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FitEx</title>
@@ -52,6 +53,33 @@
       >
         <button id="goBackBtn"><</button>
         <div id="weekCounter">0</div>
+      </div>
+    </div>
+
+    <!-- Info Modal -->
+    <div id="info-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="info-modal-close">&times;</span>
+        <h2>Program Format Example</h2>
+        <pre id="example-program"></pre>
+        <p>To ask an AI chat for a fitness program, you can say:</p>
+        <p>
+          "Please generate a 14-day fitness program focusing on full-body
+          workouts, including warm-ups, main workouts, and cool-downs. Include
+          specific exercises, times, and any necessary equipment."
+        </p>
+      </div>
+    </div>
+
+    <!-- Program Input Modal -->
+    <div id="program-input-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="program-input-modal-close">&times;</span>
+        <h2>Load Your Own Program</h2>
+        <p>Paste your program data in JSON format below:</p>
+        <textarea id="program-input-textarea" rows="15" cols="80"></textarea>
+        <br />
+        <button id="load-program-button">Load Program</button>
       </div>
     </div>
 

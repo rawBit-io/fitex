@@ -42,6 +42,22 @@ function displayProgramList() {
   const programListDiv = document.createElement("div");
   programListDiv.className = "program-list";
 
+  // Add 'Load your own program' button
+  const loadProgramButton = document.createElement("button");
+  loadProgramButton.textContent = "Load your own program";
+  loadProgramButton.onclick = () => {
+    showProgramInputModal();
+  };
+  programListDiv.appendChild(loadProgramButton);
+
+  // Add 'Info' button
+  const infoButton = document.createElement("button");
+  infoButton.textContent = "Info";
+  infoButton.onclick = () => {
+    showInfoModal();
+  };
+  programListDiv.appendChild(infoButton);
+
   // Fetch the list of programs from index.json
   fetch("programs/index.json")
     .then((response) => response.json())
@@ -49,7 +65,12 @@ function displayProgramList() {
       // Save the programs list for later use
       availablePrograms = programs;
 
-      programs.forEach((program) => {
+      // Load custom programs from localStorage
+      const customPrograms = loadCustomPrograms();
+      availablePrograms = availablePrograms.concat(customPrograms);
+
+      // Display programs
+      availablePrograms.forEach((program) => {
         const programButton = document.createElement("button");
         programButton.textContent = program.name;
         programButton.onclick = () => {
@@ -63,7 +84,9 @@ function displayProgramList() {
       // Check if a program was selected before
       const savedProgramName = localStorage.getItem("selectedProgramName");
       if (savedProgramName) {
-        const savedProgram = programs.find((p) => p.name === savedProgramName);
+        const savedProgram = availablePrograms.find(
+          (p) => p.name === savedProgramName
+        );
         if (savedProgram) {
           loadProgram(savedProgram);
         }
@@ -74,7 +97,177 @@ function displayProgramList() {
     });
 }
 
-// Function to load the selected program
+// Function to load custom programs from localStorage
+function loadCustomPrograms() {
+  const customPrograms = [];
+  const customProgramsData =
+    JSON.parse(localStorage.getItem("customPrograms")) || [];
+  customProgramsData.forEach((programMeta) => {
+    customPrograms.push(programMeta);
+  });
+  return customPrograms;
+}
+
+// Function to save custom program to localStorage
+function saveCustomProgram(programMeta) {
+  let customPrograms = JSON.parse(localStorage.getItem("customPrograms")) || [];
+  // Check for duplicate program names
+  const existingProgram = customPrograms.find(
+    (p) => p.name === programMeta.name
+  );
+  if (existingProgram) {
+    // Update existing program
+    existingProgram.data = programMeta.data;
+  } else {
+    // Add new program
+    customPrograms.push(programMeta);
+  }
+  localStorage.setItem("customPrograms", JSON.stringify(customPrograms));
+}
+
+// Function to show the program input modal
+function showProgramInputModal() {
+  const modal = document.getElementById("program-input-modal");
+  modal.style.display = "block";
+}
+
+// Function to show the info modal
+function showInfoModal() {
+  const modal = document.getElementById("info-modal");
+  modal.style.display = "block";
+
+  // Load the example program data (take for example one first day of 14 days program)
+  const exampleProgram = [
+    {
+      title: "Full Body Strength and Cardio",
+      categories: [
+        {
+          name: "Dynamic Warm-up",
+          time: "10 min",
+          exercises: [
+            { name: "Light jog", hasPicture: false },
+            { name: "Arm circles", hasPicture: false },
+            { name: "Leg swings", hasPicture: false },
+            { name: "Bodyweight squats", hasPicture: false },
+          ],
+        },
+        {
+          name: "Main Workout",
+          time: "65 min",
+          exercises: [
+            {
+              name: "Circuit (3 rounds, 45 sec each exercise, 15 sec rest between exercises, 2 min rest between rounds)",
+              isCircuit: true,
+              circuitExercises: [
+                {
+                  name: "Pull-ups or assisted pull-ups",
+                  asciiArtKey: "pullUps",
+                  hasPicture: true,
+                },
+                { name: "Push-ups", asciiArtKey: "pushUps", hasPicture: true },
+                {
+                  name: "Bodyweight squats",
+                  asciiArtKey: "squats",
+                  hasPicture: true,
+                },
+                {
+                  name: "Dumbbell rows (10kg)",
+                  asciiArtKey: "dumbbellRows",
+                  hasPicture: true,
+                },
+                { name: "Lunges", asciiArtKey: "lunges", hasPicture: true },
+                { name: "Plank", asciiArtKey: "plank", hasPicture: true },
+              ],
+            },
+            {
+              name: "Cardio: 15 min moderate-intensity running or cycling",
+              hasPicture: false,
+            },
+            {
+              name: "Hyperextensions: 3 sets of 10 reps (bodyweight)",
+              asciiArtKey: "hyperextensions",
+              hasPicture: true,
+            },
+          ],
+        },
+        {
+          name: "Cool-down and Stretching",
+          time: "15 min",
+          exercises: [
+            {
+              name: "Full body stretch, focus on back and legs",
+              hasPicture: false,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const exampleProgramPre = document.getElementById("example-program");
+  exampleProgramPre.textContent = JSON.stringify(exampleProgram, null, 2);
+}
+
+// Function to hide modals
+function hideModal(modalId) {
+  const modal = document.getElementById(modalId);
+  modal.style.display = "none";
+}
+
+// Event listeners for modal close buttons
+document.getElementById("info-modal-close").onclick = function () {
+  hideModal("info-modal");
+};
+
+document.getElementById("program-input-modal-close").onclick = function () {
+  hideModal("program-input-modal");
+};
+
+// Event listener for loading the user's own program
+document.getElementById("load-program-button").onclick = function () {
+  const textarea = document.getElementById("program-input-textarea");
+  let userProgramData;
+  try {
+    userProgramData = JSON.parse(textarea.value);
+  } catch (e) {
+    alert("Invalid JSON format. Please check your program data.");
+    return;
+  }
+
+  // Prompt the user to enter a name for the custom program
+  let programName = prompt(
+    "Enter a name for your custom program:",
+    "My Custom Program"
+  );
+  if (!programName) {
+    alert("Program name cannot be empty.");
+    return;
+  }
+
+  // Create a program metadata object
+  const programMeta = {
+    name: programName,
+    data: userProgramData,
+    isCustom: true,
+  };
+
+  // Save the custom program to localStorage
+  saveCustomProgram(programMeta);
+
+  // Add the program to the available programs list
+  availablePrograms.push(programMeta);
+
+  // Load the program
+  loadProgram(programMeta);
+
+  // Close the modal
+  hideModal("program-input-modal");
+
+  // Clear the textarea
+  textarea.value = "";
+};
+
+// Modify loadProgram function to handle user-loaded programs
 function loadProgram(programMeta) {
   currentProgram = programMeta;
   localStorage.setItem("selectedProgramName", programMeta.name);
@@ -85,16 +278,23 @@ function loadProgram(programMeta) {
   document.getElementById("week-completed-container").style.display = "flex";
   document.getElementById("program-title").style.display = "block";
 
-  // Load the program data
-  loadProgramData(programMeta)
-    .then((programData) => {
-      generateProgramContent(programData);
-      loadProgress();
-      updateWeekCounterDisplay();
-    })
-    .catch((error) => {
-      console.error("Error loading program data:", error);
-    });
+  if (programMeta.data) {
+    // If program data is already available (user-loaded program)
+    generateProgramContent(programMeta.data);
+    loadProgress();
+    updateWeekCounterDisplay();
+  } else {
+    // Load the program data
+    loadProgramData(programMeta)
+      .then((programData) => {
+        generateProgramContent(programData);
+        loadProgress();
+        updateWeekCounterDisplay();
+      })
+      .catch((error) => {
+        console.error("Error loading program data:", error);
+      });
+  }
 }
 
 // Function to load program data from the program file
