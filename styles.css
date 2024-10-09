@@ -64,7 +64,7 @@ h3 {
 #timer,
 #count-button {
   font-family: "Courier New", monospace;
-  font-size: 22px; /* Increased font size */
+  font-size: 24px; /* Increased font size */
   font-weight: normal;
   cursor: pointer;
   user-select: none;
@@ -428,29 +428,32 @@ input[type="checkbox"]:checked::before {
 @media (max-width: 768px) {
   body {
     padding: 10px;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .day {
-    padding: 12px;
+    padding: 15px;
   }
 
   h1 {
     font-size: 22px;
   }
+
   h2 {
     font-size: 20px;
   }
+
   h3 {
-    font-size: 18px;
+    font-size: 20px;
     color: var(--text-color);
+    margin-bottom: 15px;
   }
 
   .exercise-item,
   .exercise-description,
   .exercise-circuit > span {
-    font-size: 16px;
-    line-height: 1.4;
+    font-size: 18px;
+    line-height: 1.5;
   }
 
   .exercise-item {
@@ -475,37 +478,7 @@ input[type="checkbox"]:checked::before {
     font-size: 6px;
   }
 
-  /* Adjust font size for timer and count-button on small screens */
-  #timer,
-  #count-button {
-    font-size: 20px; /* Slightly smaller font size for mobile */
-    padding: 8px 12px;
-  }
-}
-
-/* Additional styles for larger phones */
-@media (min-width: 390px) and (max-width: 768px) {
-  body {
-    font-size: 16px;
-  }
-
-  .exercise-item,
-  .exercise-description,
-  .exercise-circuit > span {
-    font-size: 18px;
-    line-height: 1.5;
-  }
-
-  h3 {
-    font-size: 20px;
-    margin-bottom: 15px;
-  }
-
-  .day {
-    padding: 15px;
-  }
-
-  /* Adjust font size for timer and count-button on larger mobile screens */
+  /* Adjust font size for timer and count-button on all mobile screens */
   #timer,
   #count-button {
     font-size: 22px;
