@@ -4,10 +4,30 @@
 let currentProgram = null;
 let availablePrograms = [];
 
-// Remove asciiArtPaths from script.js since it's in ascii-art.js
-
 // Create a cache object to store loaded ASCII arts
 const asciiArtCache = {};
+
+// Initialize elements and variables
+const timerElement = document.getElementById("timer");
+const timerOptions = document.getElementById("timer-options");
+const countButton = document.getElementById("count-button");
+const countValue = document.getElementById("count-value");
+const weekCounterElement = document.getElementById("weekCounter");
+let timeLeft = 60;
+let lastSetValue = 60;
+let isTimerRunning = false;
+let timerStartTime;
+let timerEndTime;
+let timerAnimationFrame;
+let longPressTimer;
+const longPressDuration = 500; // milliseconds
+let isLongPress = false;
+let count = 0;
+let countLongPressTimer;
+let isCountLongPress = false;
+let weekCount = 0;
+let weekCountLongPressTimer;
+let isWeekCountLongPress = false;
 
 // Function to display the list of available programs
 function displayProgramList() {
@@ -70,7 +90,6 @@ function loadProgram(programMeta) {
     .then((programData) => {
       generateProgramContent(programData);
       loadProgress();
-      updateWeekCompletedButton();
       updateWeekCounterDisplay();
     })
     .catch((error) => {
@@ -313,7 +332,7 @@ function saveProgress(event) {
     `fitnessProgress_${currentProgram.name}`,
     JSON.stringify(progress)
   );
-  updateWeekCompletedButton();
+  checkAllChecked();
 }
 
 function loadProgress() {
@@ -326,7 +345,6 @@ function loadProgress() {
     checkboxes.forEach((checkbox, index) => {
       checkbox.checked = progress[index];
     });
-    updateWeekCompletedButton();
   }
 }
 
@@ -337,53 +355,106 @@ function resetCheckboxes() {
     `fitnessProgress_${currentProgram.name}`,
     JSON.stringify(new Array(checkboxes.length).fill(false))
   );
-  updateWeekCompletedButton();
 }
 
-function updateWeekCompletedButton() {
+function checkAllChecked() {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   const allChecked = Array.from(checkboxes).every(
     (checkbox) => checkbox.checked
   );
-  const weekCompletedBtn = document.getElementById("weekCompletedBtn");
-  weekCompletedBtn.disabled = !allChecked;
+  if (allChecked && checkboxes.length > 0) {
+    // Highlight day headers
+    checkboxes.forEach((checkbox) => {
+      const dayHeader = checkbox.closest(".day-header");
+      if (dayHeader) {
+        dayHeader.classList.add("highlight");
+      }
+    });
 
-  // Add blinking effect when all checkboxes are checked
-  if (allChecked) {
-    weekCompletedBtn.classList.add("blink-green");
-    setTimeout(() => weekCompletedBtn.classList.remove("blink-green"), 500);
+    incrementWeekCounter();
+
+    // After a delay, reset checkboxes and remove highlights
+    setTimeout(() => {
+      resetCheckboxes();
+      checkboxes.forEach((checkbox) => {
+        const dayHeader = checkbox.closest(".day-header");
+        if (dayHeader) {
+          dayHeader.classList.remove("highlight");
+        }
+      });
+    }, 1000); // 1-second delay
   }
 }
 
-function incrementWeekCounter() {
-  let weekCount = parseInt(
-    localStorage.getItem(`weekCount_${currentProgram.name}`) || "0"
-  );
-  weekCount++;
-  localStorage.setItem(`weekCount_${currentProgram.name}`, weekCount);
-  updateWeekCounterDisplay();
-  resetCheckboxes();
+// Week counter functionality
+function updateWeekCounterDisplay() {
+  weekCount = localStorage.getItem(`weekCount_${currentProgram.name}`) || "0";
+  weekCounterElement.textContent = weekCount;
 }
 
-function updateWeekCounterDisplay() {
-  const weekCount =
-    localStorage.getItem(`weekCount_${currentProgram.name}`) || "0";
-  document.getElementById("weekCounter").textContent = weekCount;
+function incrementWeekCounter() {
+  weekCount = parseInt(weekCount) + 1;
+  localStorage.setItem(`weekCount_${currentProgram.name}`, weekCount);
+  updateWeekCounterDisplay();
+  weekCounterElement.classList.add("blink-green");
+  setTimeout(() => weekCounterElement.classList.remove("blink-green"), 500);
+}
+
+function resetWeekCount() {
+  weekCount = 0;
+  localStorage.setItem(`weekCount_${currentProgram.name}`, weekCount);
+  updateWeekCounterDisplay();
+  weekCounterElement.classList.add("blink-red");
+  setTimeout(() => weekCounterElement.classList.remove("blink-red"), 500);
+}
+
+function handleWeekCountStart(event) {
+  event.preventDefault();
+  isWeekCountLongPress = false;
+  weekCountLongPressTimer = setTimeout(() => {
+    isWeekCountLongPress = true;
+    resetWeekCount();
+  }, longPressDuration);
+}
+
+function handleWeekCountEnd(event) {
+  event.preventDefault();
+  clearTimeout(weekCountLongPressTimer);
+}
+
+function addWeekCountEventListeners() {
+  let touchStarted = false;
+
+  weekCounterElement.addEventListener("mousedown", handleWeekCountStart);
+  weekCounterElement.addEventListener("mouseup", handleWeekCountEnd);
+  weekCounterElement.addEventListener("mouseleave", () =>
+    clearTimeout(weekCountLongPressTimer)
+  );
+
+  weekCounterElement.addEventListener(
+    "touchstart",
+    (e) => {
+      if (!touchStarted) {
+        touchStarted = true;
+        handleWeekCountStart(e);
+      }
+    },
+    { passive: false }
+  );
+
+  weekCounterElement.addEventListener(
+    "touchend",
+    (e) => {
+      if (touchStarted) {
+        touchStarted = false;
+        handleWeekCountEnd(e);
+      }
+    },
+    { passive: false }
+  );
 }
 
 // Timer functionality
-const timerElement = document.getElementById("timer");
-const timerOptions = document.getElementById("timer-options");
-let timeLeft = 60;
-let lastSetValue = 60;
-let isTimerRunning = false;
-let timerStartTime;
-let timerEndTime;
-let timerAnimationFrame;
-let longPressTimer;
-const longPressDuration = 500; // milliseconds
-let isLongPress = false;
-
 function updateTimerDisplay(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
@@ -507,12 +578,6 @@ function addTimerEventListeners() {
 }
 
 // Count button functionality
-const countButton = document.getElementById("count-button");
-const countValue = document.getElementById("count-value");
-let count = 0;
-let countLongPressTimer;
-let isCountLongPress = false;
-
 function updateCountDisplay() {
   countValue.textContent = count;
 }
@@ -578,19 +643,6 @@ function addCountEventListeners() {
     },
     { passive: false }
   );
-}
-
-// Reset all functionality
-function resetAll() {
-  // Clear all data saved by the website
-  localStorage.clear();
-
-  // Optionally clear session storage if used
-  sessionStorage.clear();
-
-  // Reload the page from the server to get fresh content
-  window.location.href =
-    window.location.href.split("?")[0] + "?nocache=" + new Date().getTime();
 }
 
 // Go back to program list functionality
@@ -721,12 +773,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeTheme();
   addTimerEventListeners();
   addCountEventListeners();
+  addWeekCountEventListeners();
 
   // Event listeners for buttons
-  document
-    .getElementById("weekCompletedBtn")
-    .addEventListener("click", incrementWeekCounter);
-  document.getElementById("resetBtn").addEventListener("click", resetAll);
   document
     .getElementById("goBackBtn")
     .addEventListener("click", goBackToProgramList);

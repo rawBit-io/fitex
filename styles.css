@@ -1,8 +1,3 @@
-/* styles.css */
-
-/* Base Styles */
-
-/* General Styles */
 body {
   font-family: "Courier New", monospace;
   background-color: var(--body-bg-color);
@@ -36,7 +31,7 @@ h3 {
 .timer-count-wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Adjusted to space out items */
+  justify-content: space-between;
   width: 100%;
   position: sticky;
   top: 0;
@@ -60,70 +55,56 @@ h3 {
   position: relative;
 }
 
-/* Styles for timer and count-button */
+/* Styles for timer, count-button, and goBackBtn */
 #timer,
-#count-button {
+#count-button,
+#goBackBtn {
   font-family: "Courier New", monospace;
-  font-size: 24px; /* Increased font size */
+  font-size: 24px;
   font-weight: normal;
   cursor: pointer;
   user-select: none;
   background-color: var(--timer-bg-color);
   color: var(--primary-color);
   border: 1px solid var(--timer-border-color);
-  padding: 10px 15px; /* Increased padding */
+  padding: 10px 15px;
   transition: background-color 0.1s ease;
 }
 
-/* Styles for other buttons */
-#weekCompletedBtn,
-#goBackBtn,
-#resetBtn {
+/* Styles for weekCounter without box */
+#weekCounter {
   font-family: "Courier New", monospace;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: normal;
-  cursor: pointer;
   user-select: none;
-  background-color: var(--timer-bg-color);
   color: var(--primary-color);
-  border: 1px solid var(--timer-border-color);
-  padding: 5px 10px;
-  transition: background-color 0.1s ease;
+  cursor: pointer;
+  transition: color 0.1s ease;
+  margin-left: auto;
 }
 
+/* Hover and active states for buttons */
 #timer:hover,
 #count-button:hover,
-#weekCompletedBtn:hover,
-#goBackBtn:hover,
-#resetBtn:hover {
+#goBackBtn:hover {
   background-color: var(--timer-hover-bg-color);
 }
 
 #timer:active,
 #count-button:active,
-#weekCompletedBtn:active,
-#goBackBtn:active,
-#resetBtn:active {
+#goBackBtn:active {
   background-color: var(--timer-active-bg-color);
 }
 
-#weekCompletedBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Specific styles for #goBackBtn */
-#goBackBtn {
-  background-color: transparent;
-  border: none;
-  padding: 10;
-  margin-right: 10px;
+/* Hover effect for weekCounter */
+#weekCounter:hover {
+  color: var(--highlight-color);
 }
 
 /* Specific styles for #theme-button */
 #theme-button {
   font-family: "Courier New", monospace;
-  font-size: 30px; /* Adjust font size for better visibility */
+  font-size: 30px;
   cursor: pointer;
   user-select: none;
   color: var(--primary-color);
@@ -141,7 +122,7 @@ h3 {
 /* Theme Switcher Container */
 .theme-switcher {
   position: relative;
-  margin-right: 0px; /* Space from the right edge */
+  margin-right: 0px;
 }
 
 /* Timer Options Menu */
@@ -341,54 +322,11 @@ input[type="checkbox"]:checked::before {
   font-size: 14px;
 }
 
-/* Week Counter and Reset Button Styles */
+/* Week Counter Container */
 .week-completed-container {
   display: flex;
   align-items: center;
   margin-top: 20px;
-}
-
-/* General button styles for week-completed-container */
-.week-completed-container button {
-  font-family: "Courier New", monospace;
-  font-size: 18px;
-  font-weight: normal;
-  cursor: pointer;
-  user-select: none;
-  background-color: var(--timer-bg-color);
-  color: var(--primary-color);
-  border: 1px solid var(--timer-border-color);
-  padding: 5px 10px; /* Adjusted padding to accommodate text */
-  transition: background-color 0.1s ease;
-  margin-right: 5px;
-  text-align: center;
-}
-
-/* Adjust hover and active states */
-.week-completed-container button:hover {
-  background-color: var(--timer-hover-bg-color);
-}
-
-.week-completed-container button:active {
-  background-color: var(--timer-active-bg-color);
-}
-
-#weekCompletedBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-#weekCounter {
-  font-size: 24px;
-  color: var(--primary-color);
-  text-align: center;
-  margin-right: 10px;
-}
-
-/* Specific styles for #resetBtn */
-#resetBtn {
-  margin-left: auto;
-  padding: 5px 10px;
 }
 
 /* Animation Styles */
@@ -478,11 +416,17 @@ input[type="checkbox"]:checked::before {
     font-size: 6px;
   }
 
-  /* Adjust font size for timer and count-button on all mobile screens */
+  /* Adjust font size for timer, count-button, goBackBtn on mobile */
   #timer,
-  #count-button {
-    font-size: 18px; /* Decreased from 22px */
-    padding: 7px 10px; /* Decreased from 9px 13px */
+  #count-button,
+  #goBackBtn {
+    font-size: 18px;
+    padding: 7px 10px;
+  }
+
+  /* Adjust font size for weekCounter on mobile */
+  #weekCounter {
+    font-size: 18px;
   }
 }
 
