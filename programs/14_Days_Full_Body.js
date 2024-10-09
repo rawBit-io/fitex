@@ -247,14 +247,24 @@ window.programData = [
             circuitExercises: [
               {
                 name: "Box jumps (or step-ups for lower impact)",
-                hasPicture: false,
+                asciiArtKey: "box_jumps",
+                hasPicture: true,
               },
               {
                 name: "Plyometric push-ups (or regular push-ups)",
-                hasPicture: false,
+                asciiArtKey: "plyo_pushup",
+                hasPicture: true,
               },
-              { name: "Skater hops", hasPicture: false },
-              { name: "Medicine ball slams", hasPicture: false },
+              {
+                name: "Skater hops",
+                asciiArtKey: "skater_hops",
+                hasPicture: true,
+              },
+              {
+                name: "Medicine ball slams",
+                asciiArtKey: "ball_slams",
+                hasPicture: true,
+              },
             ],
           },
           {
@@ -263,11 +273,13 @@ window.programData = [
           },
           {
             name: "Balance work: Single-leg Romanian deadlifts, 3 sets of 8 each leg (light dumbbell)",
-            hasPicture: false,
+            asciiArtKey: "single_leg_rom_deadlift",
+            hasPicture: true,
           },
           {
             name: "Hyperextensions: 2 sets of 12 reps (bodyweight)",
-            hasPicture: false,
+            asciiArtKey: "hyperextensions",
+            hasPicture: true,
           },
         ],
       },
