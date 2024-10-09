@@ -1,7 +1,8 @@
 /* themes.css */
 
+/* Existing themes */
+
 /* Default Theme (Solarized Dark) */
-:root,
 [data-theme="Solarized Dark"] {
   --body-bg-color: #002b36;
   --text-color: #839496;
@@ -89,6 +90,7 @@
   --section-color-cool-down: #ffff00;
 }
 
+/* 60s Theme */
 [data-theme="60s"] {
   --body-bg-color: #ffefd5;
   --text-color: #008080;
@@ -108,4 +110,92 @@
   --section-color-dynamic-warmup: #ff69b4;
   --section-color-main-workout: #32cd32;
   --section-color-cool-down: #ffa500;
+}
+
+/* Synthwave Theme */
+[data-theme="Synthwave"] {
+  --body-bg-color: #2b0f54;
+  --text-color: #ffffff;
+  --heading-color: #ff77ff;
+  --link-color: #33ffff;
+  --primary-color: #ff77ff;
+  --secondary-color: #33ffff;
+  --accent-color: #ffdd00;
+  --highlight-color: #ff0066;
+  --timer-bg-color: #3d1e6d;
+  --timer-border-color: #ff77ff;
+  --timer-hover-bg-color: #4e287e;
+  --timer-active-bg-color: #5f3390;
+  --blink-green-color: #33ffff;
+  --blink-red-color: #ff0066;
+  --day-bg-color: #3d1e6d;
+  --section-color-dynamic-warmup: #33ffff;
+  --section-color-main-workout: #ff77ff;
+  --section-color-cool-down: #ffdd00;
+}
+
+/* Neo Tokyo Theme */
+[data-theme="Neo Tokyo"] {
+  --body-bg-color: #0d0d0d;
+  --text-color: #e6e6e6;
+  --heading-color: #ff0033;
+  --link-color: #00ccff;
+  --primary-color: #ff0033;
+  --secondary-color: #00ccff;
+  --accent-color: #ccff00;
+  --highlight-color: #cc00ff;
+  --timer-bg-color: #1a1a1a;
+  --timer-border-color: #e6e6e6;
+  --timer-hover-bg-color: #262626;
+  --timer-active-bg-color: #333333;
+  --blink-green-color: #00ccff;
+  --blink-red-color: #ff0033;
+  --day-bg-color: #1a1a1a;
+  --section-color-dynamic-warmup: #00ccff;
+  --section-color-main-workout: #ff0033;
+  --section-color-cool-down: #cc00ff;
+}
+
+/* Deep Space Theme */
+[data-theme="Deep Space"] {
+  --body-bg-color: #000014;
+  --text-color: #ffffff;
+  --heading-color: #00ffff;
+  --link-color: #ff00ff;
+  --primary-color: #00ff00;
+  --secondary-color: #0000ff;
+  --accent-color: #ff0000;
+  --highlight-color: #ffff00;
+  --timer-bg-color: #0a0a2e;
+  --timer-border-color: #ffffff;
+  --timer-hover-bg-color: #1a1a3e;
+  --timer-active-bg-color: #2a2a4e;
+  --blink-green-color: #00ff00;
+  --blink-red-color: #ff0000;
+  --day-bg-color: #0a0a2e;
+  --section-color-dynamic-warmup: #00ffff;
+  --section-color-main-workout: #00ff00;
+  --section-color-cool-down: #ff00ff;
+}
+
+/* Ukrainian Sky Theme */
+[data-theme="Ukrainian Sky"] {
+  --body-bg-color: #0057b7; /* Blue */
+  --text-color: #ffd700; /* Yellow */
+  --heading-color: #ffd700; /* Yellow */
+  --link-color: #00ffff; /* Bright Cyan */
+  --primary-color: #ffd700; /* Yellow */
+  --secondary-color: #ffffff; /* White */
+  --accent-color: #ffffff; /* White */
+  --highlight-color: #ffd700; /* Yellow */
+  --timer-bg-color: #003f8e; /* Darker Blue */
+  --timer-border-color: #ffd700; /* Yellow */
+  --timer-hover-bg-color: #004da6; /* Medium Blue */
+  --timer-active-bg-color: #0064cc; /* Lighter Blue */
+  --blink-green-color: #32cd32; /* Green */
+  --blink-red-color: #ff4500; /* Orange-red */
+  --day-bg-color: #0057b7; /* Blue */
+  --section-color-dynamic-warmup: #ffd700; /* Yellow */
+  --section-color-main-workout: #ffffff; /* White */
+  --section-color-cool-down: #ffd700; /* Yellow */
 }
