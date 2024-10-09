@@ -3,13 +3,11 @@
 // Initialize the current program and available programs
 let currentProgram = null;
 let availablePrograms = [];
-let currentProgramData = null; // Store the current program data
+
+// Remove asciiArtPaths from script.js since it's in ascii-art.js
 
 // Create a cache object to store loaded ASCII arts
 const asciiArtCache = {};
-
-// Initialize the current circuit
-let currentCircuit = null;
 
 // Function to display the list of available programs
 function displayProgramList() {
@@ -70,7 +68,6 @@ function loadProgram(programMeta) {
   // Load the program data
   loadProgramData(programMeta)
     .then((programData) => {
-      currentProgramData = programData; // Store the program data
       generateProgramContent(programData);
       loadProgress();
       updateWeekCompletedButton();
@@ -135,63 +132,62 @@ function generateProgramContent(days) {
         ${day.categories
           .map(
             (category, catIndex) => `
-              <h3>${category.name} (${category.time})</h3>
-              <ul>
-                ${category.exercises
-                  .map((exercise, exIndex) => {
-                    if (typeof exercise === "string") {
-                      return `<li class="exercise-item no-bullet">${exercise}</li>`;
-                    } else if (exercise.isDescription) {
-                      return `<li class="exercise-description">${exercise.name}</li>`;
-                    } else if (exercise.isCircuit) {
-                      return `
-                      <li class="exercise-circuit">
-                        <span>${exercise.name}</span>
-                        <button class="start-circuit-button" onclick="startCircuit(${dayIndex}, ${catIndex}, ${exIndex})">Start Circuit</button>
-                        <ul>
-                          ${exercise.circuitExercises
-                            .map(
-                              (circuitExercise, circuitIndex) => `
-                              <li class="exercise-item ${
+            <h3>${category.name} (${category.time})</h3>
+            <ul>
+              ${category.exercises
+                .map((exercise, exIndex) => {
+                  if (typeof exercise === "string") {
+                    return `<li class="exercise-item no-bullet">${exercise}</li>`;
+                  } else if (exercise.isDescription) {
+                    return `<li class="exercise-description">${exercise.name}</li>`;
+                  } else if (exercise.isCircuit) {
+                    return `
+                    <li class="exercise-circuit">
+                      <span>${exercise.name}</span>
+                      <ul>
+                        ${exercise.circuitExercises
+                          .map(
+                            (circuitExercise, circuitIndex) => `
+                            <li class="exercise-item ${
+                              circuitExercise.hasPicture
+                                ? "picture-available"
+                                : ""
+                            }">
+                              <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${circuitIndex}, '${
+                              circuitExercise.asciiArtKey || ""
+                            }')">${circuitExercise.name}</span>
+                              ${
                                 circuitExercise.hasPicture
-                                  ? "picture-available"
+                                  ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}"></pre>`
                                   : ""
-                              }">
-                                <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${circuitIndex}, '${
-                                circuitExercise.asciiArtKey || ""
-                              }')">${circuitExercise.name}</span>
-                                ${
-                                  circuitExercise.hasPicture
-                                    ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}"></pre>`
-                                    : ""
-                                }
-                              </li>
-                            `
-                            )
-                            .join("")}
-                        </ul>
-                      </li>
-                    `;
-                    } else {
-                      return `
-                      <li class="exercise-item ${
-                        exercise.hasPicture ? "picture-available" : ""
-                      }">
-                        <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, undefined, '${
-                        exercise.asciiArtKey || ""
-                      }')">${exercise.name}</span>
-                        ${
-                          exercise.hasPicture
-                            ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
-                            : ""
-                        }
-                      </li>
-                    `;
-                    }
-                  })
-                  .join("")}
-              </ul>
-            `
+                              }
+                            </li>
+                          `
+                          )
+                          .join("")}
+                      </ul>
+                    </li>
+                  `;
+                  } else {
+                    return `
+                    <li class="exercise-item ${
+                      exercise.hasPicture ? "picture-available" : ""
+                    }">
+                      <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, undefined, '${
+                      exercise.asciiArtKey || ""
+                    }')">${exercise.name}</span>
+                      ${
+                        exercise.hasPicture
+                          ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
+                          : ""
+                      }
+                    </li>
+                  `;
+                  }
+                })
+                .join("")}
+            </ul>
+          `
           )
           .join("")}
       </div>
@@ -247,7 +243,7 @@ function toggleAsciiArt(
   }
 }
 
-// Function to load ASCII art
+// Updated loadAsciiArt function with caching
 function loadAsciiArt(element, asciiArtKey) {
   // Check if the ASCII art is already in the cache
   if (asciiArtCache[asciiArtKey]) {
@@ -280,7 +276,7 @@ function loadAsciiArt(element, asciiArtKey) {
   }
 }
 
-// Function to scale ASCII art
+// Updated scaleAsciiArt function to fix scaling issue
 function scaleAsciiArt(asciiElement) {
   const container = asciiElement.parentElement;
 
@@ -289,16 +285,19 @@ function scaleAsciiArt(asciiElement) {
   asciiElement.style.lineHeight = "";
 
   const containerWidth = container.offsetWidth;
+  const containerHeight = container.offsetHeight;
   const asciiLines = asciiElement.textContent.split("\n");
   const maxLineLength = Math.max(...asciiLines.map((line) => line.length));
 
   // Define multipliers and base font size for exercise ASCII arts
   const widthMultiplier = 8;
+  const heightMultiplier = 16;
   const baseFontSize = 10;
 
   // Calculate the scaling factor
   const widthScale = containerWidth / (maxLineLength * widthMultiplier);
-  const scaleFactor = widthScale;
+  const heightScale = containerHeight / (asciiLines.length * heightMultiplier);
+  const scaleFactor = Math.min(widthScale, heightScale);
 
   // Apply the scaling
   asciiElement.style.fontSize = `${scaleFactor * baseFontSize}px`;
@@ -743,258 +742,8 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", () => {
     const asciiElements = document.querySelectorAll(".ascii-art.show");
     asciiElements.forEach(scaleAsciiArt); // Rescale exercises
-    if (currentCircuit && document.getElementById("circuit-ascii-art")) {
-      scaleAsciiArt(document.getElementById("circuit-ascii-art"));
-    }
   });
 
   // Start by displaying the program list
   displayProgramList();
-});
-
-// Function to start the circuit (now embedded in the same page)
-function startCircuit(dayIndex, catIndex, exIndex) {
-  // Retrieve the circuit exercise data
-  const day = currentProgramData[dayIndex];
-  const category = day.categories[catIndex];
-  const exercise = category.exercises[exIndex];
-
-  // Hide main content
-  document.getElementById("program").style.display = "none";
-  document.getElementById("timer-count-wrapper").style.display = "none";
-  document.getElementById("week-completed-container").style.display = "none";
-  document.getElementById("program-title").style.display = "none";
-
-  // Show circuit content
-  document.getElementById("circuit-page").style.display = "block";
-
-  // Initialize circuit
-  initializeCircuit(exercise);
-}
-
-// Circuit functionality (merged from circuit.js)
-
-// Function to initialize the circuit
-function initializeCircuit(exercise) {
-  // Extract circuit details
-  const rounds = exercise.rounds || 1;
-  const workTime = exercise.workTime || 30; // default to 30 seconds
-  const restTime = exercise.restTime || 15; // default to 15 seconds
-  const restBetweenRounds = exercise.restBetweenRounds || 60; // default to 60 seconds
-  const circuitExercises = exercise.circuitExercises;
-
-  // Update the circuit description (remove 'Circuit' and parentheses)
-  let description = exercise.name
-    .replace(/Circuit/g, "")
-    .replace(/[()]/g, "")
-    .trim();
-  document.getElementById("circuit-description").textContent = description;
-
-  // Update total rounds
-  document.getElementById("circuit-total-rounds").textContent = rounds;
-
-  // Initialize circuit variables
-  currentCircuit = {
-    rounds,
-    workTime,
-    restTime,
-    restBetweenRounds,
-    circuitExercises,
-    currentRound: 1,
-    currentExerciseIndex: 0,
-    isExercise: true, // true if currently in exercise time, false if in rest
-    timeLeft: workTime,
-    timerInterval: null,
-    isTimerRunning: false,
-  };
-
-  // Display the list of circuit exercises
-  displayCircuitExerciseList();
-
-  // Update the display
-  updateCircuitDisplay();
-  updateCircuitTimerDisplay();
-}
-
-// Function to display the list of circuit exercises
-function displayCircuitExerciseList() {
-  const circuit = currentCircuit;
-  const exerciseListDiv = document.getElementById("circuit-exercise-list");
-  exerciseListDiv.innerHTML = "";
-
-  // Create a container similar to the exercise boxes in the main program
-  const exerciseBox = document.createElement("div");
-  exerciseBox.className = "exercise-box";
-
-  circuit.circuitExercises.forEach((exercise, index) => {
-    const exerciseItem = document.createElement("div");
-    exerciseItem.className = "circuit-exercise-item";
-    exerciseItem.textContent = exercise.name;
-    exerciseItem.id = `exercise-item-${index}`;
-    exerciseBox.appendChild(exerciseItem);
-  });
-
-  exerciseListDiv.appendChild(exerciseBox);
-}
-
-// Function to update the active exercise in the list
-function updateActiveExerciseInList() {
-  const circuit = currentCircuit;
-
-  // Remove 'active' class from all exercises
-  const exerciseItems = document.querySelectorAll(".circuit-exercise-item");
-  exerciseItems.forEach((item) => item.classList.remove("active"));
-
-  // Add 'active' class to the current exercise
-  const currentExerciseItem = document.getElementById(
-    `exercise-item-${circuit.currentExerciseIndex}`
-  );
-  if (currentExerciseItem) {
-    currentExerciseItem.classList.add("active");
-  }
-}
-
-// Function to start the circuit timer
-function startCircuitTimer() {
-  const circuit = currentCircuit;
-
-  if (circuit.isTimerRunning) {
-    // Timer is already running
-    return;
-  }
-
-  circuit.isTimerRunning = true;
-  updateCircuitDisplay();
-
-  circuit.timerInterval = setInterval(() => {
-    circuit.timeLeft--;
-    updateCircuitTimerDisplay();
-
-    if (circuit.timeLeft <= 0) {
-      if (circuit.isExercise) {
-        // Finished work time, start rest time
-        circuit.isExercise = false;
-        circuit.timeLeft = circuit.restTime;
-        updateCircuitDisplay("Rest");
-      } else {
-        // Finished rest time, move to next exercise
-        circuit.isExercise = true;
-        circuit.currentExerciseIndex++;
-        if (circuit.currentExerciseIndex >= circuit.circuitExercises.length) {
-          // Finished all exercises in this round
-          circuit.currentExerciseIndex = 0;
-          circuit.currentRound++;
-          if (circuit.currentRound > circuit.rounds) {
-            // Finished all rounds
-            clearInterval(circuit.timerInterval);
-            circuit.isTimerRunning = false;
-            alert("Circuit completed!");
-            stopCircuit();
-            return;
-          } else {
-            // Rest between rounds
-            circuit.isExercise = false;
-            circuit.timeLeft = circuit.restBetweenRounds;
-            updateCircuitDisplay("Rest between rounds");
-          }
-        } else {
-          // Start next exercise
-          circuit.timeLeft = circuit.workTime;
-          updateCircuitDisplay();
-        }
-      }
-    }
-  }, 1000);
-
-  document.getElementById("circuit-start-button").disabled = true;
-  document.getElementById("circuit-pause-button").disabled = false;
-}
-
-// Function to pause the circuit timer
-function pauseCircuitTimer() {
-  const circuit = currentCircuit;
-
-  if (!circuit.isTimerRunning) {
-    // Timer is not running
-    return;
-  }
-
-  circuit.isTimerRunning = false;
-  clearInterval(circuit.timerInterval);
-
-  document.getElementById("circuit-start-button").disabled = false;
-  document.getElementById("circuit-pause-button").disabled = true;
-}
-
-// Function to update the circuit display
-function updateCircuitDisplay(status) {
-  const circuit = currentCircuit;
-  document.getElementById("circuit-round").textContent = circuit.currentRound;
-  const exerciseNameElement = document.getElementById("circuit-exercise-name");
-  const asciiArtElement = document.getElementById("circuit-ascii-art");
-
-  if (status === "Rest") {
-    exerciseNameElement.textContent = "Rest";
-    asciiArtElement.textContent = "";
-  } else if (status === "Rest between rounds") {
-    exerciseNameElement.textContent = "Rest between rounds";
-    asciiArtElement.textContent = "";
-  } else {
-    const exercise = circuit.circuitExercises[circuit.currentExerciseIndex];
-    exerciseNameElement.textContent = exercise.name;
-
-    // Load ASCII art if available
-    if (exercise.hasPicture && exercise.asciiArtKey) {
-      loadAsciiArt(asciiArtElement, exercise.asciiArtKey);
-    } else {
-      asciiArtElement.textContent = "";
-    }
-  }
-
-  updateActiveExerciseInList();
-}
-
-// Function to update the circuit timer display
-function updateCircuitTimerDisplay() {
-  const circuit = currentCircuit;
-  const minutes = Math.floor(circuit.timeLeft / 60);
-  const seconds = circuit.timeLeft % 60;
-  document.getElementById("circuit-timer").textContent = `${String(
-    minutes
-  ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-}
-
-// Function to stop the circuit
-function stopCircuit() {
-  const circuit = currentCircuit;
-  if (circuit.timerInterval) {
-    clearInterval(circuit.timerInterval);
-  }
-
-  // Hide circuit content
-  document.getElementById("circuit-page").style.display = "none";
-
-  // Show main content
-  document.getElementById("program").style.display = "block";
-  document.getElementById("timer-count-wrapper").style.display = "flex";
-  document.getElementById("week-completed-container").style.display = "flex";
-  document.getElementById("program-title").style.display = "block";
-
-  // Reset currentCircuit
-  currentCircuit = null;
-}
-
-// Ensure that theme is applied when circuit is initialized
-function applySelectedTheme() {
-  let savedTheme = localStorage.getItem("selectedTheme") || "Solarized Dark";
-  if (savedTheme === "Default") {
-    savedTheme = "Solarized Dark";
-    localStorage.setItem("selectedTheme", savedTheme);
-  }
-  loadTheme(savedTheme);
-}
-
-// Add event listener for window load to apply theme
-window.addEventListener("load", () => {
-  applySelectedTheme();
 });
