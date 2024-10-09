@@ -249,74 +249,60 @@ function toggleAsciiArt(
 
 // Function to load ASCII art
 function loadAsciiArt(element, asciiArtKey) {
-  // Clear the element's content initially
-  element.textContent = ""; // Optional: Set to 'Loading...' if desired
-
   // Check if the ASCII art is already in the cache
   if (asciiArtCache[asciiArtKey]) {
     element.textContent = asciiArtCache[asciiArtKey];
     scaleAsciiArt(element);
+    return;
+  }
+
+  const filePath = asciiArtPaths[asciiArtKey];
+  if (filePath) {
+    fetch(filePath)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Could not load ASCII art for key: ${asciiArtKey}`);
+        }
+        return response.text();
+      })
+      .then((asciiArtContent) => {
+        // Store the ASCII art content in the cache
+        asciiArtCache[asciiArtKey] = asciiArtContent;
+        element.textContent = asciiArtContent;
+        scaleAsciiArt(element);
+      })
+      .catch((error) => {
+        console.error(error);
+        element.textContent = "ASCII art not found";
+      });
   } else {
-    const filePath = asciiArtPaths[asciiArtKey];
-    if (filePath) {
-      fetch(filePath)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`Could not load ASCII art for key: ${asciiArtKey}`);
-          }
-          return response.text();
-        })
-        .then((asciiArtContent) => {
-          // Store the ASCII art content in the cache
-          asciiArtCache[asciiArtKey] = asciiArtContent;
-          element.textContent = asciiArtContent;
-          scaleAsciiArt(element);
-        })
-        .catch((error) => {
-          console.error(error);
-          element.textContent = "NO PIC";
-          element.style.fontSize = "20px"; // Adjust font size as needed
-          element.style.lineHeight = "normal";
-        });
-    } else {
-      element.textContent = "NO PIC";
-      element.style.fontSize = "20px"; // Adjust font size as needed
-      element.style.lineHeight = "normal";
-    }
+    element.textContent = "ASCII art not found";
   }
 }
 
 // Function to scale ASCII art
 function scaleAsciiArt(asciiElement) {
-  const containerWidth = asciiElement.clientWidth;
-  const containerHeight = asciiElement.clientHeight;
+  const container = asciiElement.parentElement;
 
   // Reset font size and line height to default values
   asciiElement.style.fontSize = "";
   asciiElement.style.lineHeight = "";
 
+  const containerWidth = container.offsetWidth;
   const asciiLines = asciiElement.textContent.split("\n");
-  const lineCount = asciiLines.length;
   const maxLineLength = Math.max(...asciiLines.map((line) => line.length));
 
-  // Define base font size
-  const baseFontSize = 10; // You can adjust this value
+  // Define multipliers and base font size for exercise ASCII arts
+  const widthMultiplier = 8;
+  const baseFontSize = 10;
 
-  // Calculate scaling factors based on container dimensions
-  const widthScale = containerWidth / (maxLineLength * baseFontSize * 0.6);
-  const heightScale = containerHeight / (lineCount * baseFontSize);
-
-  // Use the smaller scale factor to ensure the ASCII art fits within both dimensions
-  const scaleFactor = Math.min(widthScale, heightScale, 1);
+  // Calculate the scaling factor
+  const widthScale = containerWidth / (maxLineLength * widthMultiplier);
+  const scaleFactor = widthScale;
 
   // Apply the scaling
   asciiElement.style.fontSize = `${scaleFactor * baseFontSize}px`;
   asciiElement.style.lineHeight = "1";
-
-  // Center the ASCII art within the container
-  asciiElement.style.display = "flex";
-  asciiElement.style.alignItems = "center";
-  asciiElement.style.justifyContent = "center";
 }
 
 // Functions to handle progress saving and loading
@@ -786,7 +772,7 @@ function startCircuit(dayIndex, catIndex, exIndex) {
   initializeCircuit(exercise);
 }
 
-// Circuit functionality (adjusted to allow exercise selection and ASCII art update)
+// Circuit functionality (merged from circuit.js)
 
 // Function to initialize the circuit
 function initializeCircuit(exercise) {
@@ -816,7 +802,6 @@ function initializeCircuit(exercise) {
     circuitExercises,
     currentRound: 1,
     currentExerciseIndex: 0,
-    selectedExerciseIndex: 0, // New property to track selected exercise
     isExercise: true, // true if currently in exercise time, false if in rest
     timeLeft: workTime,
     timerInterval: null,
@@ -846,79 +831,26 @@ function displayCircuitExerciseList() {
     exerciseItem.className = "circuit-exercise-item";
     exerciseItem.textContent = exercise.name;
     exerciseItem.id = `exercise-item-${index}`;
-    exerciseItem.dataset.index = index; // Store the index for reference
-
-    // Add click event listener to make the exercise selectable
-    exerciseItem.addEventListener("click", (event) => {
-      selectCircuitExercise(index);
-    });
-
     exerciseBox.appendChild(exerciseItem);
   });
 
   exerciseListDiv.appendChild(exerciseBox);
-
-  // Set the default selected exercise to the first one
-  circuit.selectedExerciseIndex = 0;
-  highlightSelectedExercise();
 }
 
-// Function to highlight the selected exercise
-function highlightSelectedExercise() {
+// Function to update the active exercise in the list
+function updateActiveExerciseInList() {
   const circuit = currentCircuit;
+
+  // Remove 'active' class from all exercises
   const exerciseItems = document.querySelectorAll(".circuit-exercise-item");
+  exerciseItems.forEach((item) => item.classList.remove("active"));
 
-  exerciseItems.forEach((item) => {
-    const itemIndex = parseInt(item.dataset.index, 10);
-    if (itemIndex === circuit.selectedExerciseIndex) {
-      item.classList.add("selected");
-    } else {
-      item.classList.remove("selected");
-    }
-  });
-
-  // Update the ASCII art for the selected exercise
-  updateSelectedExerciseAsciiArt();
-}
-
-// Function to handle exercise selection
-function selectCircuitExercise(index) {
-  const circuit = currentCircuit;
-  if (!circuit.isTimerRunning) {
-    circuit.selectedExerciseIndex = index;
-    highlightSelectedExercise();
-  }
-}
-
-function setupCircuitExerciseList() {
-  const exerciseListDiv = document.getElementById("circuit-exercise-list");
-  exerciseListDiv.addEventListener("click", function (event) {
-    if (event.target.classList.contains("circuit-exercise-item")) {
-      const index = parseInt(event.target.dataset.index, 10);
-      selectCircuitExercise(index);
-    }
-  });
-}
-
-// Function to update the ASCII art for the selected exercise
-function updateSelectedExerciseAsciiArt() {
-  const circuit = currentCircuit;
-  const asciiArtElement = document.getElementById("circuit-ascii-art");
-  const exerciseNameElement = document.getElementById("circuit-exercise-name");
-
-  // Only update if the circuit is not running
-  if (!circuit.isTimerRunning) {
-    const exercise = circuit.circuitExercises[circuit.selectedExerciseIndex];
-    exerciseNameElement.textContent = exercise.name;
-
-    // Load ASCII art if available
-    if (exercise.hasPicture && exercise.asciiArtKey) {
-      loadAsciiArt(asciiArtElement, exercise.asciiArtKey);
-    } else {
-      asciiArtElement.textContent = "NO PIC";
-      asciiArtElement.style.fontSize = "20px"; // Adjust font size as needed
-      asciiArtElement.style.lineHeight = "normal";
-    }
+  // Add 'active' class to the current exercise
+  const currentExerciseItem = document.getElementById(
+    `exercise-item-${circuit.currentExerciseIndex}`
+  );
+  if (currentExerciseItem) {
+    currentExerciseItem.classList.add("active");
   }
 }
 
@@ -929,11 +861,6 @@ function startCircuitTimer() {
   if (circuit.isTimerRunning) {
     // Timer is already running
     return;
-  }
-
-  // Set the current exercise index to the selected one at the start
-  if (circuit.currentRound === 1 && circuit.currentExerciseIndex === 0) {
-    circuit.currentExerciseIndex = circuit.selectedExerciseIndex;
   }
 
   circuit.isTimerRunning = true;
@@ -961,7 +888,8 @@ function startCircuitTimer() {
             // Finished all rounds
             clearInterval(circuit.timerInterval);
             circuit.isTimerRunning = false;
-
+            alert("Circuit completed!");
+            stopCircuit();
             return;
           } else {
             // Rest between rounds
@@ -969,17 +897,11 @@ function startCircuitTimer() {
             circuit.timeLeft = circuit.restBetweenRounds;
             updateCircuitDisplay("Rest between rounds");
           }
+        } else {
+          // Start next exercise
+          circuit.timeLeft = circuit.workTime;
+          updateCircuitDisplay();
         }
-        // Skip to selected exercise if starting a new round
-        if (
-          circuit.currentExerciseIndex === 0 &&
-          circuit.currentRound > 1 &&
-          circuit.selectedExerciseIndex > 0
-        ) {
-          circuit.currentExerciseIndex = circuit.selectedExerciseIndex;
-        }
-        circuit.timeLeft = circuit.workTime;
-        updateCircuitDisplay();
       }
     }
   }, 1000);
@@ -1005,7 +927,6 @@ function pauseCircuitTimer() {
 }
 
 // Function to update the circuit display
-// Function to update the circuit display
 function updateCircuitDisplay(status) {
   const circuit = currentCircuit;
   document.getElementById("circuit-round").textContent = circuit.currentRound;
@@ -1014,14 +935,10 @@ function updateCircuitDisplay(status) {
 
   if (status === "Rest") {
     exerciseNameElement.textContent = "Rest";
-    asciiArtElement.textContent = "REST";
-    asciiArtElement.style.fontSize = "20px";
-    asciiArtElement.style.lineHeight = "normal";
+    asciiArtElement.textContent = "";
   } else if (status === "Rest between rounds") {
     exerciseNameElement.textContent = "Rest between rounds";
-    asciiArtElement.textContent = "REST";
-    asciiArtElement.style.fontSize = "20px";
-    asciiArtElement.style.lineHeight = "normal";
+    asciiArtElement.textContent = "";
   } else {
     const exercise = circuit.circuitExercises[circuit.currentExerciseIndex];
     exerciseNameElement.textContent = exercise.name;
@@ -1030,58 +947,11 @@ function updateCircuitDisplay(status) {
     if (exercise.hasPicture && exercise.asciiArtKey) {
       loadAsciiArt(asciiArtElement, exercise.asciiArtKey);
     } else {
-      asciiArtElement.textContent = "NO PIC";
-      asciiArtElement.style.fontSize = "20px";
-      asciiArtElement.style.lineHeight = "normal";
+      asciiArtElement.textContent = "";
     }
-
-    // Update the selected exercise to match the current exercise
-    circuit.selectedExerciseIndex = circuit.currentExerciseIndex;
   }
 
-  // Update the active and selected exercise in the list
   updateActiveExerciseInList();
-  highlightSelectedExercise();
-}
-
-// Function to update the active exercise in the list
-function updateActiveExerciseInList() {
-  const circuit = currentCircuit;
-
-  // Remove 'active' and 'selected' classes from all exercises
-  const exerciseItems = document.querySelectorAll(".circuit-exercise-item");
-  exerciseItems.forEach((item) => {
-    item.classList.remove("active");
-    item.classList.remove("selected");
-  });
-
-  // Add 'active' and 'selected' classes to the current exercise
-  const currentExerciseItem = document.getElementById(
-    `exercise-item-${circuit.currentExerciseIndex}`
-  );
-  if (currentExerciseItem) {
-    currentExerciseItem.classList.add("active");
-    currentExerciseItem.classList.add("selected");
-  }
-}
-
-// Remove the separate highlightSelectedExercise function as it's no longer needed
-
-// Function to update the active exercise in the list
-function updateActiveExerciseInList() {
-  const circuit = currentCircuit;
-
-  // Remove 'active' class from all exercises
-  const exerciseItems = document.querySelectorAll(".circuit-exercise-item");
-  exerciseItems.forEach((item) => item.classList.remove("active"));
-
-  // Add 'active' class to the current exercise
-  const currentExerciseItem = document.getElementById(
-    `exercise-item-${circuit.currentExerciseIndex}`
-  );
-  if (currentExerciseItem) {
-    currentExerciseItem.classList.add("active");
-  }
 }
 
 // Function to update the circuit timer display
