@@ -336,6 +336,22 @@ function linkAsciiArt(exercise) {
     exercise.hasPicture = false;
   }
 }
+// Function to process program data and link ASCII art
+function processProgramData(programData) {
+  programData.forEach((day) => {
+    day.categories.forEach((category) => {
+      category.exercises.forEach((exercise) => {
+        if (exercise.isCircuit) {
+          exercise.circuitExercises.forEach((circuitExercise) => {
+            linkAsciiArt(circuitExercise);
+          });
+        } else {
+          linkAsciiArt(exercise);
+        }
+      });
+    });
+  });
+}
 
 // Event listener for loading the user's own program
 document.getElementById("load-program-button").onclick = function () {
@@ -398,6 +414,7 @@ function loadProgram(programMeta) {
 
   if (programMeta.data) {
     // If program data is already available (user-loaded program)
+    processProgramData(programMeta.data); // <-- Add this line
     generateProgramContent(programMeta.data);
     loadProgress();
     updateWeekCounterDisplay();
@@ -405,6 +422,7 @@ function loadProgram(programMeta) {
     // Load the program data
     loadProgramData(programMeta)
       .then((programData) => {
+        processProgramData(programData); // <-- Add this line
         generateProgramContent(programData);
         loadProgress();
         updateWeekCounterDisplay();

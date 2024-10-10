@@ -10,13 +10,11 @@ window.programData = [
         exercises: [
           {
             name: "Light jogging in place or jumping jacks (3 min)",
-            hasPicture: false,
           },
           {
             name: "Arm circles, leg swings, torso twists (4 min)",
-            hasPicture: false,
           },
-          { name: "Light stretching (3 min)", hasPicture: false },
+          { name: "Light stretching (3 min)" },
         ],
       },
       {
@@ -32,48 +30,35 @@ window.programData = [
             restBetweenRounds: 1,
             circuitExercises: [
               {
-                name: "Bodyweight squats",
-                asciiArtKey: "squats",
-                hasPicture: true,
+                name: "Squats",
                 repetitions: 0,
               },
               {
                 name: "Push-ups (on knees if needed)",
-                asciiArtKey: "pushUps",
-                hasPicture: true,
                 repetitions: 0,
               },
               {
                 name: "Dumbbell rows (light weight, 3-5 kg)",
-                asciiArtKey: "dumbbellRows",
-                hasPicture: true,
                 repetitions: 0,
               },
               {
-                name: "Plank hold",
-                asciiArtKey: "plank",
-                hasPicture: true,
+                name: "Plank",
                 repetitions: 0,
               },
               {
                 name: "Dumbbell lunges (light weight, 3-5 kg)",
-                asciiArtKey: "lunges",
-                hasPicture: true,
                 repetitions: 0,
               },
               {
                 name: "Bicycle crunches",
-                hasPicture: false,
                 repetitions: 0,
               },
               {
                 name: "Glute bridges",
-                hasPicture: false,
                 repetitions: 0,
               },
               {
                 name: "Mountain climbers",
-                hasPicture: false,
                 repetitions: 0,
               },
             ],
@@ -86,10 +71,9 @@ window.programData = [
         exercises: [
           {
             name: "Russian twists with light dumbbell (2 min)",
-            hasPicture: false,
           },
-          { name: "Dead bug exercise (2 min)", hasPicture: false },
-          { name: "Hollow body hold (1 min)", hasPicture: false },
+          { name: "Dead bug exercise (2 min)" },
+          { name: "Hollow body hold (1 min)" },
         ],
       },
       {
@@ -98,7 +82,6 @@ window.programData = [
         exercises: [
           {
             name: "Light stretching for all major muscle groups",
-            hasPicture: false,
           },
         ],
       },
@@ -113,13 +96,11 @@ window.programData = [
         exercises: [
           {
             name: "Brisk walking in place or step-ups (3 min)",
-            hasPicture: false,
           },
           {
             name: "Arm crossovers, hip rotations, shoulder rolls (4 min)",
-            hasPicture: false,
           },
-          { name: "Dynamic stretching (3 min)", hasPicture: false },
+          { name: "Dynamic stretching (3 min)" },
         ],
       },
       {
@@ -136,43 +117,34 @@ window.programData = [
             circuitExercises: [
               {
                 name: "Bodyweight reverse lunges",
-                asciiArtKey: "lunges",
-                hasPicture: true,
                 repetitions: 0,
               },
               {
                 name: "Dumbbell shoulder press (light weight, 2-4 kg)",
-                hasPicture: false,
                 repetitions: 0,
               },
               {
                 name: "Dumbbell Romanian deadlifts (light weight, 3-5 kg)",
-                hasPicture: false,
                 repetitions: 0,
               },
               {
                 name: "Tricep dips (using a chair or bench)",
-                hasPicture: false,
                 repetitions: 0,
               },
               {
                 name: "Lateral lunges",
-                hasPicture: false,
                 repetitions: 0,
               },
               {
                 name: "Dumbbell woodchoppers (light weight, 3-5 kg)",
-                hasPicture: false,
                 repetitions: 0,
               },
               {
                 name: "Superman holds",
-                hasPicture: false,
                 repetitions: 0,
               },
               {
                 name: "High knees",
-                hasPicture: false,
                 repetitions: 0,
               },
             ],
@@ -183,12 +155,11 @@ window.programData = [
         name: "Core Focus",
         time: "5 min",
         exercises: [
-          { name: "Plank to downward dog (2 min)", hasPicture: false },
+          { name: "Plank to downward dog (2 min)" },
           {
             name: "Side plank holds (1 min each side)",
-            hasPicture: false,
           },
-          { name: "Bird dog exercise (1 min)", hasPicture: false },
+          { name: "Bird dog exercise (1 min)" },
         ],
       },
       {
@@ -197,7 +168,6 @@ window.programData = [
         exercises: [
           {
             name: "Light stretching for all major muscle groups",
-            hasPicture: false,
           },
         ],
       },
