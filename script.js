@@ -111,18 +111,29 @@ function loadCustomPrograms() {
 // Function to save custom program to localStorage
 function saveCustomProgram(programMeta) {
   let customPrograms = JSON.parse(localStorage.getItem("customPrograms")) || [];
-  // Check for duplicate program names
-  const existingProgram = customPrograms.find(
-    (p) => p.name === programMeta.name
-  );
-  if (existingProgram) {
-    // Update existing program
-    existingProgram.data = programMeta.data;
-  } else {
-    // Add new program
-    customPrograms.push(programMeta);
-  }
+  // Add new program without overwriting existing ones
+  customPrograms.push(programMeta);
   localStorage.setItem("customPrograms", JSON.stringify(customPrograms));
+}
+
+// Function to generate a unique program name
+function generateUniqueProgramName(baseName) {
+  let customPrograms = JSON.parse(localStorage.getItem("customPrograms")) || [];
+  const programNames = customPrograms.map((p) => p.name);
+
+  // Also include names of built-in programs
+  const builtInProgramNames = availablePrograms
+    .filter((p) => !p.isCustom)
+    .map((p) => p.name);
+  const allProgramNames = programNames.concat(builtInProgramNames);
+
+  let version = 1;
+  let uniqueName = baseName;
+  while (allProgramNames.includes(uniqueName)) {
+    version++;
+    uniqueName = `${baseName} v${version}`;
+  }
+  return uniqueName;
 }
 
 // Function to show the program input modal
@@ -195,11 +206,15 @@ function parseMarkdownProgram(markdownText) {
   const subHeaderRegex = /^##\s+(.+)/;
   const subSubHeaderRegex = /^###\s+(.+)/;
   const listItemRegex = /^-\s+(.+)/;
+  const horizontalRuleRegex = /^---+$/; // For horizontal rules
 
   for (let line of lines) {
     line = line.trim();
 
-    if (headerRegex.test(line)) {
+    if (horizontalRuleRegex.test(line)) {
+      // Skip horizontal rules
+      continue;
+    } else if (headerRegex.test(line)) {
       // New Day
       currentExercise = null;
       inCircuit = false;
@@ -318,6 +333,9 @@ document.getElementById("load-program-button").onclick = function () {
     alert("Program name cannot be empty.");
     return;
   }
+
+  // Generate a unique program name if necessary
+  programName = generateUniqueProgramName(programName);
 
   // Create a program metadata object
   const programMeta = {
