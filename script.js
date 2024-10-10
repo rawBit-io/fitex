@@ -7,6 +7,33 @@ let availablePrograms = [];
 // Create a cache object to store loaded ASCII arts
 const asciiArtCache = {};
 
+// Normalize the asciiArtPaths keys (Assuming asciiArtPaths is defined in ascii-art.js)
+const normalizedAsciiArtPaths = asciiArtPaths;
+
+// Function to normalize exercise names
+function normalizeExerciseName(name) {
+  return name
+    .toLowerCase()
+    .replace(/\(.*?\)/g, "") // Remove text in parentheses
+    .replace(/([a-z])([A-Z])/g, "$1 $2") // Split camelCase
+    .replace(/[-_]/g, " ") // Replace hyphens and underscores with spaces
+    .replace(/[^a-zA-Z0-9\s]/g, "") // Remove non-alphanumeric characters except spaces
+    .trim()
+    .split(/\s+/) // Split by one or more spaces
+    .join("");
+}
+
+// Singularize function
+function singularize(word) {
+  if (word.length > 3 && word.endsWith("ies")) {
+    return word.slice(0, -3) + "y"; // e.g., "bodies" to "body"
+  }
+  if (word.length > 3 && word.endsWith("s")) {
+    return word.slice(0, -1);
+  }
+  return word;
+}
+
 // Initialize elements and variables
 const timerElement = document.getElementById("timer");
 const timerOptions = document.getElementById("timer-options");
@@ -300,11 +327,8 @@ function parseMarkdownProgram(markdownText) {
 
 // Function to link ASCII art based on exercise name
 function linkAsciiArt(exercise) {
-  const normalizedName = exercise.name
-    .toLowerCase()
-    .replace(/\s+/g, "")
-    .replace(/[^a-zA-Z0-9]/g, "");
-  if (asciiArtPaths.hasOwnProperty(normalizedName)) {
+  const normalizedName = normalizeExerciseName(exercise.name);
+  if (normalizedAsciiArtPaths.hasOwnProperty(normalizedName)) {
     exercise.asciiArtKey = normalizedName;
     exercise.hasPicture = true;
   } else {
@@ -567,7 +591,8 @@ function loadAsciiArt(element, asciiArtKey) {
     return;
   }
 
-  const filePath = asciiArtPaths[asciiArtKey];
+  // Use normalizedAsciiArtPaths instead of asciiArtPaths
+  const filePath = normalizedAsciiArtPaths[asciiArtKey];
   if (filePath) {
     fetch(filePath)
       .then((response) => {
