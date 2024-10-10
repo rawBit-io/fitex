@@ -136,76 +136,35 @@ function showInfoModal() {
   const modal = document.getElementById("info-modal");
   modal.style.display = "block";
 
-  // Load the example program data (take for example one first day of 14 days program)
-  const exampleProgram = [
-    {
-      title: "Full Body Strength and Cardio",
-      categories: [
-        {
-          name: "Dynamic Warm-up",
-          time: "10 min",
-          exercises: [
-            { name: "Light jog", hasPicture: false },
-            { name: "Arm circles", hasPicture: false },
-            { name: "Leg swings", hasPicture: false },
-            { name: "Bodyweight squats", hasPicture: false },
-          ],
-        },
-        {
-          name: "Main Workout",
-          time: "65 min",
-          exercises: [
-            {
-              name: "Circuit (3 rounds, 45 sec each exercise, 15 sec rest between exercises, 2 min rest between rounds)",
-              isCircuit: true,
-              circuitExercises: [
-                {
-                  name: "Pull-ups or assisted pull-ups",
-                  asciiArtKey: "pullUps",
-                  hasPicture: true,
-                },
-                { name: "Push-ups", asciiArtKey: "pushUps", hasPicture: true },
-                {
-                  name: "Bodyweight squats",
-                  asciiArtKey: "squats",
-                  hasPicture: true,
-                },
-                {
-                  name: "Dumbbell rows (10kg)",
-                  asciiArtKey: "dumbbellRows",
-                  hasPicture: true,
-                },
-                { name: "Lunges", asciiArtKey: "lunges", hasPicture: true },
-                { name: "Plank", asciiArtKey: "plank", hasPicture: true },
-              ],
-            },
-            {
-              name: "Cardio: 15 min moderate-intensity running or cycling",
-              hasPicture: false,
-            },
-            {
-              name: "Hyperextensions: 3 sets of 10 reps (bodyweight)",
-              asciiArtKey: "hyperextensions",
-              hasPicture: true,
-            },
-          ],
-        },
-        {
-          name: "Cool-down and Stretching",
-          time: "15 min",
-          exercises: [
-            {
-              name: "Full body stretch, focus on back and legs",
-              hasPicture: false,
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  // Load the example program data in Markdown format
+  const exampleProgram = `
+# Full Body Strength and Cardio
+
+## Dynamic Warm-up (10 min)
+- Light jog
+- Arm circles
+- Leg swings
+- Bodyweight squats
+
+## Main Workout (65 min)
+
+### Circuit (3 rounds, 45 sec each exercise, 15 sec rest between exercises, 2 min rest between rounds)
+- Pull-ups or assisted pull-ups
+- Push-ups
+- Bodyweight squats
+- Dumbbell rows (10kg)
+- Lunges
+- Plank
+
+- Cardio: 15 min moderate-intensity running or cycling
+- Hyperextensions: 3 sets of 10 reps (bodyweight)
+
+## Cool-down and Stretching (15 min)
+- Full body stretch, focus on back and legs
+`;
 
   const exampleProgramPre = document.getElementById("example-program");
-  exampleProgramPre.textContent = JSON.stringify(exampleProgram, null, 2);
+  exampleProgramPre.textContent = exampleProgram;
 }
 
 // Function to hide modals
@@ -223,14 +182,130 @@ document.getElementById("program-input-modal-close").onclick = function () {
   hideModal("program-input-modal");
 };
 
+// Function to parse Markdown input into program data
+function parseMarkdownProgram(markdownText) {
+  const lines = markdownText.split("\n");
+  let programData = [];
+  let currentDay = null;
+  let currentCategory = null;
+  let currentExercise = null;
+  let inCircuit = false; // Track if we're inside a circuit
+
+  const headerRegex = /^#\s+(.+)/;
+  const subHeaderRegex = /^##\s+(.+)/;
+  const subSubHeaderRegex = /^###\s+(.+)/;
+  const listItemRegex = /^-\s+(.+)/;
+
+  for (let line of lines) {
+    line = line.trim();
+
+    if (headerRegex.test(line)) {
+      // New Day
+      currentExercise = null;
+      inCircuit = false;
+      const title = line.match(headerRegex)[1];
+      currentDay = { title: title, categories: [] };
+      programData.push(currentDay);
+      currentCategory = null;
+    } else if (subHeaderRegex.test(line)) {
+      // New Category
+      currentExercise = null;
+      inCircuit = false;
+      const categoryLine = line.match(subHeaderRegex)[1];
+      const timeMatch = categoryLine.match(/\(([^)]+)\)/);
+      const name = categoryLine.replace(/\([^)]+\)/, "").trim();
+      const time = timeMatch ? timeMatch[1] : "";
+      currentCategory = { name: name, time: time, exercises: [] };
+      if (currentDay) {
+        currentDay.categories.push(currentCategory);
+      }
+    } else if (subSubHeaderRegex.test(line)) {
+      // New Sub-Category or Circuit
+      currentExercise = null;
+      inCircuit = false;
+      const exerciseLine = line.match(subSubHeaderRegex)[1];
+      if (exerciseLine.toLowerCase().includes("circuit")) {
+        // It's a circuit
+        inCircuit = true;
+        currentExercise = {
+          name: exerciseLine,
+          isCircuit: true,
+          circuitExercises: [],
+        };
+        if (currentCategory) {
+          currentCategory.exercises.push(currentExercise);
+        }
+      } else {
+        // Regular sub-category (optional handling)
+        inCircuit = false;
+      }
+    } else if (listItemRegex.test(line)) {
+      // Exercise Item
+      const exerciseName = line.match(listItemRegex)[1];
+      if (inCircuit && currentExercise && currentExercise.isCircuit) {
+        // Add to circuit exercises
+        currentExercise.circuitExercises.push({ name: exerciseName });
+      } else {
+        // Regular exercise
+        if (currentCategory) {
+          currentCategory.exercises.push({ name: exerciseName });
+        }
+      }
+    } else if (line === "") {
+      // Empty line
+      if (inCircuit) {
+        // If we are in a circuit, reset inCircuit
+        inCircuit = false;
+        currentExercise = null;
+      }
+    } else {
+      // Any other text resets the currentExercise and inCircuit
+      currentExercise = null;
+      inCircuit = false;
+    }
+  }
+
+  // After parsing, link ASCII art if available
+  programData.forEach((day) => {
+    day.categories.forEach((category) => {
+      category.exercises.forEach((exercise) => {
+        if (exercise.isCircuit) {
+          exercise.circuitExercises.forEach((circuitExercise) => {
+            linkAsciiArt(circuitExercise);
+          });
+        } else {
+          linkAsciiArt(exercise);
+        }
+      });
+    });
+  });
+
+  return programData;
+}
+
+// Function to link ASCII art based on exercise name
+function linkAsciiArt(exercise) {
+  const normalizedName = exercise.name
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/[^a-zA-Z0-9]/g, "");
+  if (asciiArtPaths.hasOwnProperty(normalizedName)) {
+    exercise.asciiArtKey = normalizedName;
+    exercise.hasPicture = true;
+  } else {
+    exercise.hasPicture = false;
+  }
+}
+
 // Event listener for loading the user's own program
 document.getElementById("load-program-button").onclick = function () {
   const textarea = document.getElementById("program-input-textarea");
   let userProgramData;
   try {
-    userProgramData = JSON.parse(textarea.value);
+    userProgramData = parseMarkdownProgram(textarea.value);
   } catch (e) {
-    alert("Invalid JSON format. Please check your program data.");
+    alert("Error parsing Markdown format. Please check your program data.");
+    console.error(e);
     return;
   }
 
@@ -351,7 +426,9 @@ function generateProgramContent(days) {
         ${day.categories
           .map(
             (category, catIndex) => `
-            <h3>${category.name} (${category.time})</h3>
+            <h3>${category.name} ${
+              category.time ? "(" + category.time + ")" : ""
+            }</h3>
             <ul>
               ${category.exercises
                 .map((exercise, exIndex) => {
@@ -424,7 +501,7 @@ function generateProgramContent(days) {
   });
 }
 
-// Functions to handle exercise toggling and ASCII art display
+// Function to handle exercise toggling
 function toggleExercises(dayNumber) {
   const exercisesDiv = document.getElementById(`exercises${dayNumber}`);
   if (
@@ -437,6 +514,7 @@ function toggleExercises(dayNumber) {
   }
 }
 
+// Function to handle ASCII art display
 function toggleAsciiArt(
   event,
   dayIndex,
@@ -462,7 +540,7 @@ function toggleAsciiArt(
   }
 }
 
-// Updated loadAsciiArt function with caching
+// Load ASCII art with caching
 function loadAsciiArt(element, asciiArtKey) {
   // Check if the ASCII art is already in the cache
   if (asciiArtCache[asciiArtKey]) {
@@ -495,7 +573,7 @@ function loadAsciiArt(element, asciiArtKey) {
   }
 }
 
-// Updated scaleAsciiArt function to fix scaling issue
+// Scale ASCII art
 function scaleAsciiArt(asciiElement) {
   const container = asciiElement.parentElement;
 
