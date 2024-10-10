@@ -227,13 +227,13 @@ function parseMarkdownProgram(markdownText) {
   let currentDay = null;
   let currentCategory = null;
   let currentExercise = null;
-  let inCircuit = false; // Track if we're inside a circuit
+  let inCircuit = false;
 
   const headerRegex = /^#\s+(.+)/;
   const subHeaderRegex = /^##\s+(.+)/;
   const subSubHeaderRegex = /^###\s+(.+)/;
   const listItemRegex = /^-\s+(.+)/;
-  const horizontalRuleRegex = /^---+$/; // For horizontal rules
+  const horizontalRuleRegex = /^---+$/;
 
   for (let line of lines) {
     line = line.trim();
@@ -260,6 +260,8 @@ function parseMarkdownProgram(markdownText) {
       currentCategory = { name: name, time: time, exercises: [] };
       if (currentDay) {
         currentDay.categories.push(currentCategory);
+      } else {
+        console.warn("Category without a day:", line);
       }
     } else if (subSubHeaderRegex.test(line)) {
       // New Sub-Category or Circuit
@@ -276,6 +278,8 @@ function parseMarkdownProgram(markdownText) {
         };
         if (currentCategory) {
           currentCategory.exercises.push(currentExercise);
+        } else {
+          console.warn("Circuit without a category:", line);
         }
       } else {
         // Regular sub-category (optional handling)
@@ -291,19 +295,15 @@ function parseMarkdownProgram(markdownText) {
         // Regular exercise
         if (currentCategory) {
           currentCategory.exercises.push({ name: exerciseName });
+        } else {
+          console.warn("Exercise without a category:", line);
         }
       }
     } else if (line === "") {
-      // Empty line
-      if (inCircuit) {
-        // If we are in a circuit, reset inCircuit
-        inCircuit = false;
-        currentExercise = null;
-      }
+      // Empty line; do nothing
     } else {
-      // Any other text resets the currentExercise and inCircuit
-      currentExercise = null;
-      inCircuit = false;
+      // Unrecognized line; log a warning
+      console.warn("Unrecognized line:", line);
     }
   }
 
@@ -322,6 +322,7 @@ function parseMarkdownProgram(markdownText) {
     });
   });
 
+  console.log("Parsed Program Data:", programData);
   return programData;
 }
 
