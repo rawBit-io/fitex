@@ -36,7 +36,7 @@ window.programData = [
                 repetitions: 0,
               },
               {
-                name: "Dumbbell rows (light weight)",
+                name: "Single-arm Dumbbell Row",
                 repetitions: 0,
               },
               {
@@ -44,7 +44,7 @@ window.programData = [
                 repetitions: 0,
               },
               {
-                name: "Lunges with dumbbells (light weight)",
+                name: "Dumbbell lunges",
                 repetitions: 0,
               },
               {
@@ -120,15 +120,15 @@ window.programData = [
             restBetweenRounds: 60,
             circuitExercises: [
               {
-                name: "Lunges",
+                name: "Jump lunges",
                 repetitions: 0,
               },
               {
-                name: "Shoulder press (light weight)",
+                name: "Shoulder press",
                 repetitions: 0,
               },
               {
-                name: "Romanian deadlifts (light weight)",
+                name: "Romanian deadlifts",
                 repetitions: 0,
               },
               {
@@ -136,11 +136,11 @@ window.programData = [
                 repetitions: 0,
               },
               {
-                name: "Side lunges",
+                name: "Single-leg deadlift",
                 repetitions: 0,
               },
               {
-                name: "Renegade rows (light weight)",
+                name: "Renegade rows",
                 repetitions: 0,
               },
               {
@@ -148,7 +148,7 @@ window.programData = [
                 repetitions: 0,
               },
               {
-                name: "High knees",
+                name: "Squat jumps",
                 repetitions: 0,
               },
             ],
