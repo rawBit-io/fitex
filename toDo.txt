@@ -1,0 +1,5 @@
+- adjust readme file
+- create ascii for all 50 pics
+- adjust new program addition - one button, exercises from list. copy and test it
+- correct small bugs with tiner reset, a not selction of weeks counter
+- maybe some better way to link pics (probably not, because if someone creates their own program with new exercises it shoud genearllyy work)
