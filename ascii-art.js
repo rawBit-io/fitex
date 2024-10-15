@@ -34,6 +34,7 @@ const asciiArtPaths = {
   superman: "ascii-art/superman.txt",
   glute_bridge: "ascii-art/glute-bridge.txt",
   hanging_leg_raises: "ascii-art/hanging-leg-raises.txt",
+  walking_lunges: "ascii-art/lunges.txt",
 
   // Balance exercises
   single_leg_stand: "ascii-art/single-leg-stand.txt",

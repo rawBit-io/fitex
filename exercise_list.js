@@ -14,6 +14,7 @@ const exerciseList = {
     "Superman",
     "Hyperextensions",
     "Hanging leg raises",
+    "Walking Lunges",
   ],
   dumbbell: [
     "Goblet squats",
