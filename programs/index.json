@@ -3,12 +3,9 @@
     "name": "2-Days Full Body Workout Plan Si",
     "file": "2_Days_Full_Body_Workout_Si.js"
   },
+
   {
-    "name": "7-Days Full Body Workout GPT",
-    "file": "7_Days_Full_Body_GPT.js"
-  },
-  {
-    "name": "7-Days Full Body Workout Claude",
-    "file": "7_days_Full_Body_Claude.js"
+    "name": "14-Days Full Body Workout",
+    "file": "14_Days_Full_Body.js"
   }
 ]

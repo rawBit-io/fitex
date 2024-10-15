@@ -1,6 +1,6 @@
 window.programData = [
   {
-    title: "Full Body Strength and Core - Day 1",
+    title: "Full Body Strength and Core",
     categories: [
       {
         name: "Warm-up",
@@ -92,7 +92,7 @@ window.programData = [
     ],
   },
   {
-    title: "Full Body Strength and Core - Day 2",
+    title: "Full Body Strength and Core",
     categories: [
       {
         name: "Warm-up",
