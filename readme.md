@@ -16,7 +16,7 @@ fitex is a free, open-source fitness app that keeps things simple. Chat with AI,
    ```
    git clone https://github.com/yourusername/fitex.git
    ```
-2. Open `index.html` in your browser
+2. Open `index.html` in your browser --> this doesnt work! need to start server, because of files loading
 3. Start your fitness journey!
 
 ## How to Use
