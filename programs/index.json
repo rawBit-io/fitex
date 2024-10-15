@@ -3,12 +3,17 @@
     "name": "14-Day Full Body Program",
     "file": "14_Days_Full_Body.js"
   },
-  {
-    "name": "3-Day Yoga Program",
-    "file": "3_Days_Yoga.js"
-  },
+
   {
     "name": "2-Days Full Body Workout Plan Si",
     "file": "2_Days_Full_Body_Workout_Si.js"
+  },
+  {
+    "name": "7-Days Full Body Workout GPT",
+    "file": "7_Days_Full_Body_GPT.js"
+  },
+  {
+    "name": "7-Days Full Body Workout Claude",
+    "file": "7_days_Full_Body_Claude.js"
   }
 ]
