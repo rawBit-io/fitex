@@ -1,3 +1,7 @@
+const fs = require("fs");
+const path = require("path");
+
+// ASCII art paths
 const asciiArtPaths = {
   pushups: "ascii-art/pushups.txt",
   squats: "ascii-art/squats.txt",
@@ -57,3 +61,31 @@ const asciiArtPaths = {
   jumping_jacks_cardio: "ascii-art/jumping_jacks_cardio.txt",
   logo: "ascii-art/logo.txt",
 };
+
+// Function to check if a file exists
+function fileExists(filePath) {
+  return fs.existsSync(filePath);
+}
+
+// Check all files
+console.log("Checking ASCII art files...");
+console.log("----------------------------");
+
+let missingFiles = 0;
+let existingFiles = 0;
+
+for (const [key, filePath] of Object.entries(asciiArtPaths)) {
+  const fullPath = path.join(__dirname, filePath);
+  if (fileExists(fullPath)) {
+    console.log(`✅ ${key}: File exists`);
+    existingFiles++;
+  } else {
+    console.log(`❌ ${key}: File not found (${filePath})`);
+    missingFiles++;
+  }
+}
+
+console.log("----------------------------");
+console.log(
+  `Check complete. ${existingFiles} file(s) found, ${missingFiles} file(s) missing.`
+);
