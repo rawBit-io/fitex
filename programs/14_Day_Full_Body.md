@@ -86,9 +86,9 @@
 - Jumping jacks
 - Mountain climbers
 
-## Main Workout (90 min)
+## Main Workout (70 min)
 
-### HIIT Circuit (4 rounds, 45 sec work, 15 sec rest)
+### HIIT Circuit (3 rounds, 45 sec work, 15 sec rest)
 
 - Burpees
 - Mountain climbers
@@ -210,7 +210,7 @@
 - High knees
 - Squats
 
-## Main Workout (85 min)
+## Main Workout (70 min)
 
 ### Functional Circuit (3 rounds, 50 sec work, 10 sec rest)
 
@@ -253,7 +253,7 @@
 - Arm circles
 - Side lunges
 
-## Main Workout (90 min)
+## Main Workout (70 min)
 
 ### Light Full Body Circuit (2 rounds, 30 sec work, 30 sec rest)
 
@@ -374,9 +374,9 @@
 - Jumping jacks
 - Mountain climbers
 
-## Main Workout (90 min)
+## Main Workout (70 min)
 
-### HIIT Circuit (4 rounds, 45 sec work, 15 sec rest)
+### HIIT Circuit (3 rounds, 45 sec work, 15 sec rest)
 
 - Burpees
 - Mountain climbers
@@ -498,7 +498,7 @@
 - High knees
 - Squat jumps
 
-## Main Workout (90 min)
+## Main Workout (70 min)
 
 ### Functional Circuit (3 rounds, 50 sec work, 10 sec rest)
 
@@ -542,7 +542,7 @@
 - Arm circles
 - Side lunges
 
-## Main Workout (90 min)
+## Main Workout (70 min)
 
 ### Light Full Body Circuit (2 rounds, 30 sec work, 30 sec rest)
 
