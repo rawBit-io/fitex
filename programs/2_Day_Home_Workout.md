@@ -12,7 +12,7 @@
 ### Strength Circuit (3 rounds, 40 sec work, 20 sec rest)
 
 - Push-ups
-- Dips
+- Pike push-ups
 - Bicep curls
 - Chest press
 - Shoulder press
@@ -57,7 +57,7 @@
 - Glute bridge
 - Single-leg deadlift
 - Plank with alternating leg lift
-- Bicep curls
+- Bent-over rows
 
 ### Core Circuit (3 rounds, 40 sec work, 20 sec rest)
 
