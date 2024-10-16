@@ -1,29 +1,39 @@
-# fitex: AI-Powered Text-Based Fitness Tracker
+# fitex: Text-Based Fitness Tracker with AI Integration
 
-fitex is a free, open-source fitness app that keeps things simple. Chat with AI, get personalized workouts, and track your progress—all without the clutter.
+fitex is a free, open-source fitness app that keeps things simple. Use AI-generated workouts or create your own, and track your progress—all without the clutter.
+
+## Quick Start
+
+1. Visit https://rawbit-io.github.io/fitex/ to use fitex directly in your browser.
+
+OR
+
+2. Clone the repo to run locally:
+   ```
+   git clone https://github.com/rawBit-io/fitex.git
+   cd fitex
+   python -m http.server 8000
+   ```
+   Then open `http://localhost:8000` in your browser.
 
 ## Key Features
 
-- 🤖 AI-powered workout planning
+- 📋 Pre-made workout programs
+- 🤖 AI workout generation (via external AI chat)
 - 📊 Simple progress tracking
 - ⏱️ Built-in timer and rep counter
 - 🎨 Customizable themes
 - 📱 Works on any device with a browser
-
-## Quick Start
-
-1. Clone the repo:
-   ```
-   git clone https://github.com/yourusername/fitex.git
-   ```
-2. Open `index.html` in your browser --> this doesnt work! need to start server, because of files loading
-3. Start your fitness journey!
+- 🖼️ ASCII art exercise illustrations
 
 ## How to Use
 
-1. Chat with AI to set your goals
-2. Follow your personalized workouts
-3. Track progress with simple check-offs
+1. Choose a pre-made program or create your own:
+   - To create a custom program, use the provided example in an external AI chat
+   - Copy the AI-generated workout and paste it into fitex
+2. Follow your workouts and check off completed exercises
+3. Use the timer and rep counter for each exercise
+4. Track your weekly progress
 
 ## Contribute
 
@@ -35,8 +45,6 @@ MIT License - do what you want, just don't sue us.
 
 ## Questions?
 
-GitHub: https://github.com/yourusername/fitex
+Open an issue on GitHub: https://github.com/rawBit-io/fitex/issues
 
 Keep it simple, keep moving! 💪
-
-python3 -m http.server 8000

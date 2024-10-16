@@ -1,9 +1,0 @@
-- adjust readme file
-- create ascii for all 50 pics
-- adjust new program addition - one button, exercises from list. copy and test it
-- correct small bugs with tiner reset, a not selction of weeks counter
-- maybe some better way to link pics (probably not, because if someone creates their own program with new exercises it shoud genearllyy work)
-- put logo somewhere on starting page?
-- create tests (playwright)
-- do i need this functinality with name search? because now exercises are cretaed from the list
-- colab with DARBEE (most popular workouts)
