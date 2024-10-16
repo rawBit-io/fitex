@@ -1,6 +1,14 @@
 [
   {
+    "name": "2 Day Home Workout",
+    "file": "2_Day_Home_Workout.md"
+  },
+  {
     "name": "3 Day Full Body",
     "file": "3_Day_Full_Body.md"
+  },
+  {
+    "name": "14 Day Full Body",
+    "file": "14_Day_Full_Body.md"
   }
 ]

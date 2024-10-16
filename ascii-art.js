@@ -8,7 +8,7 @@ const asciiArtPaths = {
   dips: "ascii-art/dips.txt",
   russian_twists: "ascii-art/russian_twists.txt",
   glute_bridge: "ascii-art/glute_bridge.txt",
-  pike_pushups: "ascii-art/pike_pushups.txt",
+  pike_push_ups: "ascii-art/pike_pushups.txt",
   inverted_rows: "ascii-art/inverted_rows.txt",
   superman: "ascii-art/superman.txt",
   hyperextensions: "ascii-art/hyperextensions.txt",
