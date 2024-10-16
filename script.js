@@ -176,29 +176,84 @@ function showInfoModal() {
 
   // Load the example program data in Markdown format
   const exampleProgram = `
-# Full Body Strength and Cardio
+# Day 1: Upper Body Strength
 
-## Dynamic Warm-up (10 min)
-- Light jog
+## Warm-up (10 min)
+
 - Arm circles
-- Leg swings
-- Bodyweight squats
+- Jumping jacks
+- High knees
+- Mountain climbers
 
-## Main Workout (65 min)
+## Main Workout (70 min)
 
-### Circuit (3 rounds, 45 sec each exercise, 15 sec rest between exercises, 2 min rest between rounds)
-- Pull-ups or assisted pull-ups
+### Strength Circuit (3 rounds, 40 sec work, 20 sec rest)
+
 - Push-ups
-- Bodyweight squats
-- Dumbbell rows (10kg)
+- Pull-ups
+- Dips
+- Pike push-ups
+- Inverted rows
+- Bicep curls
+- Russian twists
+- Ab wheel rollouts
+- Superman
+
+### Cardio
+
+- 15 min rowing
+- 15 min jump rope
+
+### Balance
+
+- Single-leg stand: 3 sets of 30 seconds each leg
+
+## Cool-down and Stretching (10 min)
+
+- Standing forward bend
+- Child's pose
+- Doorway chest stretch
+
+---
+
+# Day 2: Lower Body Strength and Balance
+
+## Warm-up (10 min)
+
+- Squats
+- High knees
 - Lunges
-- Plank
+- Glute bridge
 
-- Cardio: 15 min moderate-intensity running or cycling
-- Hyperextensions: 3 sets of 10 reps (bodyweight)
+## Main Workout (70 min)
 
-## Cool-down and Stretching (15 min)
-- Full body stretch, focus on back and legs
+### Strength Circuit (3 rounds, 45 sec work, 15 sec rest)
+
+- Goblet squats
+- Romanian deadlifts
+- Lunges with dumbbells
+- Calf raises
+- Farmer's walks
+- Glute bridge
+- Bosu ball squats
+- Single-leg deadlift
+- Plank with alternating leg lift: 30 sec
+
+### Cardio
+
+- 30 min step climber
+
+### Balance
+
+- Single-leg stand: 3 sets of 30 seconds each leg
+
+## Cool-down and Stretching (10 min)
+
+- Pigeon pose
+- Hamstring stretch
+- Hip flexor stretch
+
+---
 `;
 
   const exampleProgramPre = document.getElementById("example-program");
