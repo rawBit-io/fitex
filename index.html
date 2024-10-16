@@ -1,26 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- (unchanged head content) -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FitEx</title>
+    <title>fitex: AI-Powered Text-Based Fitness Tracker</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="themes.css" />
   </head>
   <body>
-    <!-- Main content area -->
     <div id="app">
-      <!-- Program title with dynamic ID -->
       <h1 id="program-title" style="display: none"></h1>
 
-      <!-- Timer-count-wrapper with theme switcher -->
       <div
-        class="timer-count-wrapper"
         id="timer-count-wrapper"
+        class="timer-count-wrapper"
         style="display: none"
       >
-        <!-- Left controls grouped together -->
         <div class="left-controls">
           <div class="timer-wrapper">
             <div id="timer">01:00</div>
@@ -34,45 +29,54 @@
           </div>
           <div id="count-button">reps <span id="count-value">0</span></div>
         </div>
-
-        <!-- Theme switcher icon -->
         <div class="theme-switcher">
-          <div id="theme-button" onclick="toggleThemeMenu()">&#9789;</div>
+          <div id="theme-button" onclick="toggleThemeMenu()">☽</div>
           <div id="theme-options" style="display: none"></div>
         </div>
       </div>
 
-      <!-- Program content -->
       <div id="program"></div>
 
-      <!-- Week completed container -->
       <div
-        class="week-completed-container"
         id="week-completed-container"
+        class="week-completed-container"
         style="display: none"
       >
-        <button id="goBackBtn"><</button>
+        <button id="goBackBtn">&lt;</button>
         <div id="weekCounter">0</div>
       </div>
-    </div>
 
-    <!-- Program Input Modal -->
-    <div id="program-input-modal" class="modal">
-      <div class="modal-content program-modal">
-        <span class="close" id="program-input-modal-close">&times;</span>
-        <h2>Load Your Program</h2>
-        <p>Paste your program data in Markdown format below:</p>
-        <textarea id="program-input-textarea" rows="15" cols="80"></textarea>
-        <br />
-        <button id="load-program-button">Load Program</button>
-        <button id="info-button" class="info-button">Info</button>
+      <div
+        id="program-list-container"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+        "
+      >
+        <div class="program-list"></div>
+        <div id="reset-button-container">
+          <button id="reset-button" class="reset-button" style="display: none">
+            Reset
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- Info Modal -->
+    <div id="program-input-modal" class="modal">
+      <div class="modal-content program-modal">
+        <span id="program-input-modal-close" class="close">&times;</span>
+        <h2>Load Your Program</h2>
+        <p>Paste your program data in Markdown format below:</p>
+        <textarea id="program-input-textarea"></textarea>
+        <button id="load-program-button">Load Program</button>
+        <button id="info-button">Info</button>
+      </div>
+    </div>
+
     <div id="info-modal" class="modal">
       <div class="modal-content info-modal">
-        <span class="close" id="info-modal-close">&times;</span>
+        <span id="info-modal-close" class="close">&times;</span>
         <h2>Program Instruction Example</h2>
         <textarea id="example-program-textarea" readonly></textarea>
         <button id="copy-example-button">Copy Example</button>
@@ -83,8 +87,6 @@
       </div>
     </div>
 
-    <!-- Include the necessary scripts -->
-    <!-- Make sure to include ascii-art.js before script.js -->
     <script src="ascii-art.js"></script>
     <script src="script.js"></script>
   </body>

@@ -110,10 +110,61 @@ function displayProgramList() {
           loadProgram(savedProgram);
         }
       }
+
+      // Show the reset button
+      showResetButton();
     })
     .catch((error) => {
       console.error("Error fetching programs:", error);
     });
+}
+
+// Function to show the reset button
+function showResetButton() {
+  const resetButton = document.getElementById("reset-button");
+  resetButton.style.display = "block";
+}
+
+// Function to hide the reset button
+function hideResetButton() {
+  const resetButton = document.getElementById("reset-button");
+  resetButton.style.display = "none";
+}
+
+// Function to reset all data
+function resetAll() {
+  if (
+    confirm(
+      "Are you sure you want to reset everything? This will delete all custom programs and reset all counters and timers."
+    )
+  ) {
+    // Reset timers
+    timeLeft = 60;
+    lastSetValue = 60;
+    updateTimerDisplay(timeLeft);
+
+    // Reset counters
+    count = 0;
+    updateCountDisplay();
+
+    // Reset week counter for all programs
+    availablePrograms.forEach((program) => {
+      localStorage.removeItem(`weekCount_${program.name}`);
+    });
+
+    // Reset progress for all programs
+    availablePrograms.forEach((program) => {
+      localStorage.removeItem(`fitnessProgress_${program.name}`);
+    });
+
+    // Delete all custom programs
+    localStorage.removeItem("customPrograms");
+
+    // Refresh the program list
+    displayProgramList();
+
+    alert("All data has been reset.");
+  }
 }
 
 // Function to load custom programs from localStorage
@@ -176,7 +227,7 @@ function showInfoModal() {
 Please create a **3-day-per-week**, **90-minute** full-body training program focusing on **core and cardio** exercises.
 
 **Instructions for the AI:**
-- Use the exercise list provided below.
+- Use the exercise list provided below (exact names).
 - **Provide the program in raw Markdown format, including all \`#\`, \`##\`, \`###\` symbols as shown in the example.**
 - **Do not render or convert the Markdown; output it exactly as typed.**
 - Follow the markdown format shown in the example program.
@@ -191,7 +242,7 @@ Please create a **3-day-per-week**, **90-minute** full-body training program foc
 - Lunges
 - Burpees
 - Mountain climbers
-- Pull-ups/Chin-ups
+- Pull-ups
 - Dips
 - Russian twists
 - Glute bridge
@@ -421,6 +472,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
   };
+
+  // Add event listener for reset button
+  document.getElementById("reset-button").addEventListener("click", resetAll);
 });
 
 // Function to parse Markdown input into program data
@@ -633,6 +687,9 @@ function loadProgram(programMeta) {
   document.getElementById("timer-count-wrapper").style.display = "flex";
   document.getElementById("week-completed-container").style.display = "flex";
   document.getElementById("program-title").style.display = "block";
+
+  // Hide the reset button when a program is loaded
+  hideResetButton();
 
   if (programMeta.data) {
     // If program data is already available (user-loaded program)
@@ -1212,6 +1269,9 @@ function goBackToProgramList() {
   localStorage.removeItem("selectedProgramName");
   currentProgram = null;
   displayProgramList();
+
+  // Show the reset button when going back to the program list
+  showResetButton();
 }
 
 // Theme switching functionality

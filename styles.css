@@ -79,14 +79,25 @@ h3 {
   font-family: "Courier New", monospace;
   font-size: 24px;
   font-weight: normal;
-  user-select: none;
   color: var(--primary-color);
   cursor: pointer;
   transition: color 0.1s ease;
   margin-left: auto;
-  -webkit-user-select: none; /* For Safari */
-  -moz-user-select: none; /* For Firefox */
-  -ms-user-select: none; /* For Internet Explorer/Edge */
+
+  /* Prevent selection */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  /* Prevent touch callout on iOS */
+  -webkit-touch-callout: none;
+
+  /* Prevent text adjustment on iOS */
+  -webkit-text-size-adjust: none;
+
+  /* Prevent highlighting */
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Hover and active states for buttons */
@@ -615,4 +626,19 @@ input[type="checkbox"]:checked::before {
   max-height: 200px;
   overflow-y: auto;
   resize: none; /* Prevent resizing */
+}
+
+.reset-button {
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  padding: 8px 8px;
+  background-color: var(--timer-bg-color);
+  color: var(--primary-color);
+  border: 1px solid var(--timer-border-color);
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.reset-button:hover {
+  background-color: var(--timer-hover-bg-color);
 }
