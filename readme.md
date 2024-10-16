@@ -38,3 +38,5 @@ MIT License - do what you want, just don't sue us.
 GitHub: https://github.com/yourusername/fitex
 
 Keep it simple, keep moving! 💪
+
+python3 -m http.server 8000
