@@ -162,8 +162,6 @@ function resetAll() {
 
     // Refresh the program list
     displayProgramList();
-
-    alert("All data has been reset.");
   }
 }
 
