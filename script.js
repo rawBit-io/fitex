@@ -165,12 +165,98 @@ function showProgramInputModal() {
 }
 
 // Function to show the info modal
+// Function to show the info modal
 function showInfoModal() {
   const modal = document.getElementById("info-modal");
   modal.style.display = "block";
 
   // Load the example program data in Markdown format
   const exampleProgram = `
+# Instruction
+
+Please create a **3-day-per-week**, **90-minute** full-body training program focusing on **core and cardio** exercises. The program should last for **8 weeks**.
+
+**Instructions for the AI:**
+- Use the exercise list provided below.
+- Follow the markdown format shown in the example program.
+- Specify times, rounds, and rest periods where appropriate.
+
+## Exercise List
+
+### Bodyweight Exercises
+
+- Push-ups
+- Squats
+- Lunges
+- Burpees
+- Mountain climbers
+- Pull-ups/Chin-ups
+- Dips
+- Russian twists
+- Glute bridge
+- Pike push-ups
+- Inverted rows
+- Superman
+- Hyperextensions
+- Hanging leg raises
+- Walking lunges
+- Side lunges
+- Jumping jacks
+- Ab wheel rollouts
+- Pallof press
+
+### Dumbbell Exercises
+
+- Goblet squats
+- Romanian deadlifts
+- Chest press
+- Shoulder press
+- Bicep curls
+- Lateral raises
+- Bent-over rows
+- Farmer's walks
+- Calf raises
+- Lunges with dumbbells
+
+### Balance Exercises
+
+- Single-leg stand
+- Single-leg deadlift
+- Plank with alternating leg lift
+- Bosu ball squats
+
+### Stretching Exercises
+
+- Standing forward bend
+- Lunge with spinal twist
+- Cat-cow stretch
+- Downward facing dog
+- Pigeon pose
+- Child's pose
+- Cobra stretch
+- World's greatest stretch
+- Hip flexor stretch
+- Hamstring stretch
+- Doorway chest stretch
+- Arm circles
+- Butterfly stretch
+- Seated forward bend
+- Seated spinal twist
+
+### Cardio Exercises
+
+- High knees
+- Jump rope
+- Squat jumps
+- Running
+- Rowing
+- Step climber
+- Jumping jacks
+
+---
+
+## Example Program Format
+
 # Day 1: Upper Body Strength
 
 ## Warm-up (10 min)
@@ -249,6 +335,8 @@ function showInfoModal() {
 - Hip flexor stretch
 
 ---
+
+*(Copy this entire text and paste it into an AI chat to generate your custom fitness program in the same format.)*
 `;
 
   // Insert the example program into the textarea
@@ -315,11 +403,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Copy button functionality
   document.getElementById("copy-example-button").onclick = function () {
-    const exampleProgram =
-      document.getElementById("example-program").textContent;
+    const exampleProgramTextarea = document.getElementById(
+      "example-program-textarea"
+    );
+    const exampleProgram = exampleProgramTextarea.value;
     navigator.clipboard.writeText(exampleProgram).then(
       function () {
         alert("Example program copied to clipboard.");
+
+        // Close the Info modal
+        hideModal("info-modal");
       },
       function (err) {
         alert("Could not copy text: " + err);
