@@ -1,19 +1,6 @@
 [
   {
-    "name": "2-Days Home Workout",
-    "file": "2_Days_Home_Workout.js"
-  },
-  {
-    "name": "3-Days Full Body Workout",
-    "file": "3_Day_Full_Body.js"
-  },
-  {
-    "name": "5-Days Full Body Workout",
-    "file": "5_Day_Full_Body.js"
-  },
-
-  {
-    "name": "14-Days Full Body Workout",
-    "file": "14_Days_Full_Body.js"
+    "name": "3 Day Full Body",
+    "file": "3_Day_Full_Body.md"
   }
 ]

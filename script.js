@@ -13,14 +13,14 @@ const normalizedAsciiArtPaths = asciiArtPaths;
 // Function to normalize exercise names
 function normalizeExerciseName(name) {
   return name
+    .split(":")[0]
+    .replace(/\d+\s*(min|sets?|reps?)?/gi, "")
     .toLowerCase()
-    .replace(/\(.*?\)/g, "") // Remove text in parentheses
-    .replace(/([a-z])([A-Z])/g, "$1 $2") // Split camelCase
-    .replace(/[-_]/g, " ") // Replace hyphens and underscores with spaces
-    .replace(/[^a-zA-Z0-9\s]/g, "") // Remove non-alphanumeric characters except spaces
-    .trim()
-    .split(/\s+/) // Split by one or more spaces
-    .join("");
+    .replace(/\(.*?\)/g, "")
+    .replace(/[\s\-\/]+/g, "_")
+    .replace(/[^\w_]/g, "")
+    .replace(/^_+|_+$/g, "")
+    .replace(/_+/g, "_");
 }
 
 // Singularize function
@@ -264,26 +264,19 @@ function parseMarkdownProgram(markdownText) {
         console.warn("Category without a day:", line);
       }
     } else if (subSubHeaderRegex.test(line)) {
-      // New Sub-Category or Circuit
+      // New Circuit
       currentExercise = null;
-      inCircuit = false;
-      const exerciseLine = line.match(subSubHeaderRegex)[1];
-      if (exerciseLine.toLowerCase().includes("circuit")) {
-        // It's a circuit
-        inCircuit = true;
-        currentExercise = {
-          name: exerciseLine,
-          isCircuit: true,
-          circuitExercises: [],
-        };
-        if (currentCategory) {
-          currentCategory.exercises.push(currentExercise);
-        } else {
-          console.warn("Circuit without a category:", line);
-        }
+      inCircuit = true;
+      const circuitLine = line.match(subSubHeaderRegex)[1];
+      currentExercise = {
+        name: circuitLine,
+        isCircuit: true,
+        circuitExercises: [],
+      };
+      if (currentCategory) {
+        currentCategory.exercises.push(currentExercise);
       } else {
-        // Regular sub-category (optional handling)
-        inCircuit = false;
+        console.warn("Circuit without a category:", line);
       }
     } else if (listItemRegex.test(line)) {
       // Exercise Item
@@ -336,6 +329,7 @@ function linkAsciiArt(exercise) {
     exercise.hasPicture = false;
   }
 }
+
 // Function to process program data and link ASCII art
 function processProgramData(programData) {
   programData.forEach((day) => {
@@ -433,38 +427,27 @@ function loadProgram(programMeta) {
   }
 }
 
-// Function to load program data from the program file
+// Function to load program data from the program file (Modified)
 function loadProgramData(programMeta) {
   return new Promise((resolve, reject) => {
-    // Remove any previously added program script
-    const existingScript = document.getElementById("program-script");
-    if (existingScript) {
-      existingScript.parentNode.removeChild(existingScript);
-    }
-
-    // Create a new script element to load the program file
-    const script = document.createElement("script");
-    script.id = "program-script";
-    script.src = `programs/${programMeta.file}`;
-    script.onload = () => {
-      // Assume that the program data is assigned to a global variable named 'programData'
-      if (window.programData) {
-        resolve(window.programData);
-        // Clean up the global variable to avoid conflicts
-        delete window.programData;
-      } else {
-        reject("Program data not found in the script.");
-      }
-    };
-    script.onerror = () => {
-      reject("Failed to load the program script.");
-    };
-
-    document.body.appendChild(script);
+    fetch(`programs/${programMeta.file}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to load program file: ${programMeta.file}`);
+        }
+        return response.text();
+      })
+      .then((markdownText) => {
+        const programData = parseMarkdownProgram(markdownText);
+        resolve(programData);
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
 }
 
-// Function to generate the program content
+// Function to generate the program content (Same as before)
 function generateProgramContent(days) {
   const programDiv = document.getElementById("program");
   programDiv.innerHTML = ""; // Clear previous content
@@ -562,7 +545,7 @@ function generateProgramContent(days) {
   });
 }
 
-// Function to handle exercise toggling
+// Function to handle exercise toggling (Same as before)
 function toggleExercises(dayNumber) {
   const exercisesDiv = document.getElementById(`exercises${dayNumber}`);
   if (
@@ -575,7 +558,7 @@ function toggleExercises(dayNumber) {
   }
 }
 
-// Function to handle ASCII art display
+// Function to handle ASCII art display (Same as before)
 function toggleAsciiArt(
   event,
   dayIndex,
@@ -601,7 +584,7 @@ function toggleAsciiArt(
   }
 }
 
-// Load ASCII art with caching
+// Load ASCII art with caching (Same as before)
 function loadAsciiArt(element, asciiArtKey) {
   // Check if the ASCII art is already in the cache
   if (asciiArtCache[asciiArtKey]) {
@@ -635,7 +618,7 @@ function loadAsciiArt(element, asciiArtKey) {
   }
 }
 
-// Scale ASCII art
+// Scale ASCII art (Same as before)
 function scaleAsciiArt(asciiElement) {
   const container = asciiElement.parentElement;
 
@@ -663,7 +646,7 @@ function scaleAsciiArt(asciiElement) {
   asciiElement.style.lineHeight = "1";
 }
 
-// Functions to handle progress saving and loading
+// Functions to handle progress saving and loading (Same as before)
 function saveProgress(event) {
   event.stopPropagation();
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -726,7 +709,7 @@ function checkAllChecked() {
   }
 }
 
-// Week counter functionality
+// Week counter functionality (Same as before)
 function updateWeekCounterDisplay() {
   weekCount = localStorage.getItem(`weekCount_${currentProgram.name}`) || "0";
   weekCounterElement.textContent = weekCount;
@@ -794,7 +777,7 @@ function addWeekCountEventListeners() {
   );
 }
 
-// Timer functionality
+// Timer functionality (Same as before)
 function updateTimerDisplay(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
@@ -863,7 +846,7 @@ function hideTimerOptions() {
   timerOptions.style.display = "none";
 }
 
-// Long press functionality for timer
+// Long press functionality for timer (Same as before)
 function handleTimerStart(event) {
   event.preventDefault();
   isLongPress = false;
@@ -917,7 +900,7 @@ function addTimerEventListeners() {
   );
 }
 
-// Count button functionality
+// Count button functionality (Same as before)
 function updateCountDisplay() {
   countValue.textContent = count;
 }
@@ -985,7 +968,7 @@ function addCountEventListeners() {
   );
 }
 
-// Go back to program list functionality
+// Go back to program list functionality (Same as before)
 function goBackToProgramList() {
   // Reset selected program
   localStorage.removeItem("selectedProgramName");
@@ -993,7 +976,7 @@ function goBackToProgramList() {
   displayProgramList();
 }
 
-// Theme switching functionality
+// Theme switching functionality (Same as before)
 function loadTheme(themeName) {
   document.documentElement.setAttribute("data-theme", themeName);
   localStorage.setItem("selectedTheme", themeName);
@@ -1057,7 +1040,7 @@ function hideThemeMenu() {
   themeOptions.style.display = "none";
 }
 
-// Initialize theme
+// Initialize theme (Same as before)
 function initializeTheme() {
   let savedTheme = localStorage.getItem("selectedTheme") || "Solarized Dark";
   if (savedTheme === "Default") {
@@ -1068,7 +1051,7 @@ function initializeTheme() {
   populateThemeMenu();
 }
 
-// Handle visibility change for timer
+// Handle visibility change for timer (Same as before)
 function handleVisibilityChange() {
   if (!document.hidden && isTimerRunning) {
     const now = Date.now();
@@ -1082,7 +1065,7 @@ function handleVisibilityChange() {
 // Add visibility change event listener
 document.addEventListener("visibilitychange", handleVisibilityChange);
 
-// Hide timer options and theme menu when clicking anywhere else
+// Hide timer options and theme menu when clicking anywhere else (Same as before)
 document.addEventListener("click", (event) => {
   if (
     !timerElement.contains(event.target) &&
