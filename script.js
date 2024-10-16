@@ -456,14 +456,18 @@ function generateProgramContent(days) {
     const dayDiv = document.createElement("div");
     dayDiv.className = "day";
     dayDiv.innerHTML = `
-      <div class="day-header">
-        <div class="checkbox-container">
-          <input type="checkbox" id="day${
-            dayIndex + 1
-          }" onchange="saveProgress(event)">
-        </div>
-        <h2>Day ${dayIndex + 1}: ${day.title}</h2>
-      </div>
+  <div class="day-header">
+    <div class="checkbox-container">
+      <input type="checkbox" id="day${
+        dayIndex + 1
+      }" onchange="saveProgress(event)">
+    </div>
+    <h2>${
+      day.title.startsWith("Day")
+        ? day.title
+        : `Day ${dayIndex + 1}: ${day.title}`
+    }</h2>
+  </div>
       <div id="exercises${
         dayIndex + 1
       }" class="exercises" style="display: none;">
