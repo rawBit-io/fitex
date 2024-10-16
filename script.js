@@ -165,7 +165,6 @@ function showProgramInputModal() {
 }
 
 // Function to show the info modal
-// Function to show the info modal
 function showInfoModal() {
   const modal = document.getElementById("info-modal");
   modal.style.display = "block";
@@ -174,10 +173,12 @@ function showInfoModal() {
   const exampleProgram = `
 # Instruction
 
-Please create a **3-day-per-week**, **90-minute** full-body training program focusing on **core and cardio** exercises. The program should last for **8 weeks**.
+Please create a **3-day-per-week**, **90-minute** full-body training program focusing on **core and cardio** exercises.
 
 **Instructions for the AI:**
 - Use the exercise list provided below.
+- **Provide the program in raw Markdown format, including all \`#\`, \`##\`, \`###\` symbols as shown in the example.**
+- **Do not render or convert the Markdown; output it exactly as typed.**
 - Follow the markdown format shown in the example program.
 - Specify times, rounds, and rest periods where appropriate.
 
@@ -257,6 +258,7 @@ Please create a **3-day-per-week**, **90-minute** full-body training program foc
 
 ## Example Program Format
 
+\`\`\`markdown
 # Day 1: Upper Body Strength
 
 ## Warm-up (10 min)
@@ -335,8 +337,8 @@ Please create a **3-day-per-week**, **90-minute** full-body training program foc
 - Hip flexor stretch
 
 ---
+\`\`\`
 
-*(Copy this entire text and paste it into an AI chat to generate your custom fitness program in the same format.)*
 `;
 
   // Insert the example program into the textarea
@@ -463,6 +465,7 @@ function parseMarkdownProgram(markdownText) {
         currentDay.categories.push(currentCategory);
       } else {
         console.warn("Category without a day:", line);
+        throw new Error("Category defined before any day. Invalid format.");
       }
     } else if (subSubHeaderRegex.test(line)) {
       // New Circuit
@@ -478,6 +481,7 @@ function parseMarkdownProgram(markdownText) {
         currentCategory.exercises.push(currentExercise);
       } else {
         console.warn("Circuit without a category:", line);
+        throw new Error("Circuit defined before any category. Invalid format.");
       }
     } else if (listItemRegex.test(line)) {
       // Exercise Item
@@ -491,6 +495,9 @@ function parseMarkdownProgram(markdownText) {
           currentCategory.exercises.push({ name: exerciseName });
         } else {
           console.warn("Exercise without a category:", line);
+          throw new Error(
+            "Exercise defined before any category. Invalid format."
+          );
         }
       }
     } else if (line === "") {
@@ -498,7 +505,13 @@ function parseMarkdownProgram(markdownText) {
     } else {
       // Unrecognized line; log a warning
       console.warn("Unrecognized line:", line);
+      throw new Error("Unrecognized line in the program data. Invalid format.");
     }
+  }
+
+  // Validate that at least one day was parsed
+  if (programData.length === 0) {
+    throw new Error("No days found in the program. Invalid format.");
   }
 
   // After parsing, link ASCII art if available
@@ -551,11 +564,25 @@ function processProgramData(programData) {
 // Event listener for loading the user's own program
 document.getElementById("load-program-button").onclick = function () {
   const textarea = document.getElementById("program-input-textarea");
+
+  // Check if the textarea is empty
+  if (textarea.value.trim() === "") {
+    alert(
+      "The program data is empty. Please enter your program in Markdown format."
+    );
+    return;
+  }
+
   let userProgramData;
   try {
     userProgramData = parseMarkdownProgram(textarea.value);
+
+    // Check if parsing resulted in valid data
+    if (!userProgramData || userProgramData.length === 0) {
+      throw new Error("Invalid program format.");
+    }
   } catch (e) {
-    alert("Error parsing Markdown format. Please check your program data.");
+    alert("Error parsing the program. Please check your program data.");
     console.error(e);
     return;
   }
