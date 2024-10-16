@@ -91,10 +91,10 @@ window.programData = [
               { name: "Romanian deadlifts" }, // Targets hamstrings, glutes, lower back
               { name: "Lunges with dumbbells" }, // Targets quads, glutes, hamstrings
               { name: "Calf raises" }, // Targets calves
-              { name: "Farmer's walks" }, // Targets grip, shoulders, core
               { name: "Glute bridge" }, // Targets glutes, lower back
-              { name: "Single-leg deadlift" }, // Targets hamstrings, glutes, balance
+              { name: "Single-leg deadlift" }, // Targets hamstrings, glutes
               { name: "Plank with alternating leg lift" }, // Targets core, glutes
+              { name: "Bicep curls" }, // Optional: Additional arm work
             ],
           },
           // Core Circuit
