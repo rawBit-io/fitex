@@ -1,5 +1,3 @@
-// data.js
-
 window.programData = [
   // Day 1: Upper Body Strength
   {
