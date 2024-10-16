@@ -1037,6 +1037,13 @@ function stopTimer() {
   isTimerRunning = false;
   cancelAnimationFrame(timerAnimationFrame); // Stop the animation frame
   updateTimerDisplay(timeLeft);
+
+  setTimeout(resetTimerToStart, 1000); // 1 second delay
+}
+
+function resetTimerToStart() {
+  timeLeft = lastSetValue;
+  updateTimerDisplay(timeLeft);
 }
 
 function updateTimer() {
@@ -1050,7 +1057,6 @@ function updateTimer() {
       timerAnimationFrame = requestAnimationFrame(updateTimer);
     } else {
       stopTimer();
-      timeLeft = lastSetValue; // Reset timeLeft after timer ends
     }
   }
 }
