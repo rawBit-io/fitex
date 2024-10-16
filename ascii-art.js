@@ -1,64 +1,69 @@
 const asciiArtPaths = {
-  // Existing paths
+  // Bodyweight Exercises
   pushups: "ascii-art/pushups.txt",
-  pullups: "ascii-art/pullups.txt",
-  single_arm_dumbell_rows: "ascii-art/dumbbell-rows.txt",
-  lunges: "ascii-art/lunges.txt",
-  plank: "ascii-art/plank.txt",
   squats: "ascii-art/squats.txt",
+  lunges: "ascii-art/lunges.txt",
+  // TODO: Add ascii-art/burpees.txt for "Burpees"
+  // TODO: Add ascii-art/mountain_climbers.txt for "Mountain climbers"
+  pullups: "ascii-art/pullups.txt",
+  // TODO: Add ascii-art/dips.txt for "Dips"
+  // TODO: Add ascii-art/russian_twists.txt for "Russian twists"
+  // TODO: Add ascii-art/glute_bridge.txt for "Glute bridge"
+  // TODO: Add ascii-art/pike_pushups.txt for "Pike push-ups"
+  // TODO: Add ascii-art/inverted_rows.txt for "Inverted rows"
+  // TODO: Add ascii-art/superman.txt for "Superman"
   hyperextensions: "ascii-art/hyperextensions.txt",
-  logo: "ascii-art/logo.txt",
+  // TODO: Add ascii-art/hanging_leg_raises.txt for "Hanging leg raises"
+  // TODO: Add ascii-art/walking_lunges.txt for "Walking lunges"
+  // TODO: Add ascii-art/side_lunges.txt for "Side lunges"
+  // TODO: Add ascii-art/jumping_jacks.txt for "Jumping jacks"
+  // TODO: Add ascii-art/ab_wheel_rollouts.txt for "Ab wheel rollouts"
+  // TODO: Add ascii-art/pallof_press.txt for "Pallof press"
+
+  // Dumbbell Exercises
+  // TODO: Add ascii-art/goblet_squats.txt for "Goblet squats"
+  // TODO: Add ascii-art/romanian_deadlifts.txt for "Romanian deadlifts"
+  // TODO: Add ascii-art/chest_press.txt for "Chest press"
+  // TODO: Add ascii-art/shoulder_press.txt for "Shoulder press"
+  // TODO: Add ascii-art/bicep_curls.txt for "Bicep curls"
+  // TODO: Add ascii-art/lateral_raises.txt for "Lateral raises"
+  // TODO: Add ascii-art/bent_over_rows.txt for "Bent-over rows"
+  // TODO: Add ascii-art/farmers_walks.txt for "Farmer's walks"
+  // TODO: Add ascii-art/calf_raises.txt for "Calf raises"
+  // TODO: Add ascii-art/lunges_with_dumbbells.txt for "Lunges with dumbbells"
+
+  // Balance Exercises
+  // TODO: Add ascii-art/single_leg_stand.txt for "Single-leg stand"
   single_leg_deadlift: "ascii-art/single-leg-deadlift.txt",
+  // TODO: Add ascii-art/plank_with_alternating_leg_lift.txt for "Plank with alternating leg lift"
+  // TODO: Add ascii-art/bosu_ball_squats.txt for "Bosu ball squats"
 
-  // New paths (placeholders for missing exercises)
-  dips: "ascii-art/dips.txt",
-  pike_pushups: "ascii-art/pike-pushups.txt",
-  inverted_rows: "ascii-art/inverted-rows.txt",
-  lateral_raises: "ascii-art/lateral-raises.txt",
-  chest_press: "ascii-art/chest-press.txt",
-  shoulder_press: "ascii-art/shoulder-press.txt",
-  bicep_curls: "ascii-art/bicep-curls.txt",
-  bent_over_rows: "ascii-art/bent-over-rows.txt",
-  jumping_jacks: "ascii-art/jumping-jacks.txt",
-  high_knees: "ascii-art/high-knees.txt",
-  mountain_climbers: "ascii-art/mountain-climbers.txt",
-  goblet_squats: "ascii-art/goblet-squats.txt",
-  romanian_deadlifts: "ascii-art/romanian-deadlifts.txt",
-  calf_raises: "ascii-art/calf-raises.txt",
-  russian_twists: "ascii-art/russian-twists.txt",
-  ab_wheel_rollouts: "ascii-art/ab-wheel-rollouts.txt",
-  pallof_press: "ascii-art/pallof-press.txt",
-  farmers_walks: "ascii-art/farmers-walks.txt",
-  burpees: "ascii-art/burpees.txt",
-  squat_jumps: "ascii-art/squat-jumps.txt",
-  superman: "ascii-art/superman.txt",
-  glute_bridge: "ascii-art/glute-bridge.txt",
-  hanging_leg_raises: "ascii-art/hanging-leg-raises.txt",
-  walking_lunges: "ascii-art/lunges.txt",
+  // Stretching Exercises
+  // TODO: Add ascii-art/standing_forward_bend.txt for "Standing forward bend"
+  // TODO: Add ascii-art/lunge_with_spinal_twist.txt for "Lunge with spinal twist"
+  // TODO: Add ascii-art/cat_cow_stretch.txt for "Cat-cow stretch"
+  // TODO: Add ascii-art/downward_facing_dog.txt for "Downward facing dog"
+  // TODO: Add ascii-art/pigeon_pose.txt for "Pigeon pose"
+  // TODO: Add ascii-art/childs_pose.txt for "Child's pose"
+  // TODO: Add ascii-art/cobra_stretch.txt for "Cobra stretch"
+  // TODO: Add ascii-art/worlds_greatest_stretch.txt for "World's greatest stretch"
+  // TODO: Add ascii-art/hip_flexor_stretch.txt for "Hip flexor stretch"
+  // TODO: Add ascii-art/hamstring_stretch.txt for "Hamstring stretch"
+  // TODO: Add ascii-art/doorway_chest_stretch.txt for "Doorway chest stretch"
+  // TODO: Add ascii-art/arm_circles.txt for "Arm circles"
+  // TODO: Add ascii-art/butterfly_stretch.txt for "Butterfly stretch"
+  // TODO: Add ascii-art/seated_forward_bend.txt for "Seated forward bend"
+  // TODO: Add ascii-art/seated_spinal_twist.txt for "Seated spinal twist"
 
-  // Balance exercises
-  single_leg_stand: "ascii-art/single-leg-stand.txt",
-  bosu_ball_squats: "ascii-art/bosu-ball-squats.txt",
-  plank_with_alternating_leg_lift:
-    "ascii-art/plank-with-alternating-leg-lift.txt",
+  // Cardio Exercises
+  // TODO: Add ascii-art/high_knees.txt for "High knees"
+  // TODO: Add ascii-art/jump_rope.txt for "Jump rope"
+  // TODO: Add ascii-art/squat_jumps.txt for "Squat jumps"
+  // TODO: Add ascii-art/running.txt for "Running"
+  // TODO: Add ascii-art/rowing.txt for "Rowing"
+  // TODO: Add ascii-art/step_climber.txt for "Step climber"
+  // TODO: Add ascii-art/jumping_jacks_cardio.txt for "Jumping jacks"
 
-  // Stretching exercises
-  standing_forward_bend: "ascii-art/standing-forward-bend.txt",
-  lunge_with_spinal_twist: "ascii-art/lunge-with-spinal-twist.txt",
-  cat_cow_stretch: "ascii-art/cat-cow-stretch.txt",
-  downward_facing_dog: "ascii-art/downward-facing-dog.txt",
-  pigeon_pose: "ascii-art/pigeon-pose.txt",
-  childs_pose: "ascii-art/childs-pose.txt",
-  cobra_stretch: "ascii-art/cobra-stretch.txt",
-  worlds_greatest_stretch: "ascii-art/worlds-greatest-stretch.txt",
-  hip_flexor_stretch: "ascii-art/hip-flexor-stretch.txt",
-  hamstring_stretch: "ascii-art/hamstring-stretch.txt",
-  doorway_chest_stretch: "ascii-art/doorway-chest-stretch.txt",
-  arm_circles: "ascii-art/arm-circles.txt",
-
-  // Cardio exercises
-  jump_rope: "ascii-art/jump-rope.txt",
-  running: "ascii-art/running.txt",
-  rowing: "ascii-art/rowing.txt",
-  step_climber: "ascii-art/step-climber.txt",
+  // Additional Paths
+  logo: "ascii-art/logo.txt",
 };
