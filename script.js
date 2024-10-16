@@ -114,14 +114,26 @@ function displayProgramList() {
         if (savedProgram) {
           loadProgram(savedProgram);
         }
+      } else {
+        // Show the reset button when no program is selected
+        showResetButton();
       }
-
-      // Show the reset button
-      showResetButton();
     })
     .catch((error) => {
       console.error("Error fetching programs:", error);
     });
+}
+
+// Function to show the reset button
+function showResetButton() {
+  const resetButton = document.getElementById("reset-button");
+  resetButton.style.display = "block";
+}
+
+// Function to hide the reset button
+function hideResetButton() {
+  const resetButton = document.getElementById("reset-button");
+  resetButton.style.display = "none";
 }
 
 // Function to show the reset button
