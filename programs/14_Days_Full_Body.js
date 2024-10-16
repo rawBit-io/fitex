@@ -1,9 +1,9 @@
 // data.js
 
 window.programData = [
-  // Day 1: Upper Body Strength and Core
+  // Day 1: Upper Body Strength
   {
-    title: "Upper Body Strength and Core",
+    title: "Upper Body Strength",
     categories: [
       // Warm-up
       {
@@ -19,7 +19,7 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "75 min",
+        time: "80 min",
         exercises: [
           // Strength Circuit
           {
@@ -32,31 +32,25 @@ window.programData = [
               { name: "Pike push-ups" },
               { name: "Inverted rows" },
               { name: "Bicep curls" },
-            ],
-          },
-          // Core Circuit
-          {
-            name: "Core Circuit (3 rounds, 15 reps each exercise)",
-            isCircuit: true,
-            circuitExercises: [
               { name: "Russian twists" },
               { name: "Ab wheel rollouts" },
               { name: "Superman" },
             ],
           },
-          // Cardio Circuit
+          // Cardio
           {
-            name: "Cardio Circuit",
+            name: "Cardio",
             isCircuit: true,
             circuitExercises: [
               { name: "15 min rowing" },
               { name: "15 min jump rope" },
             ],
           },
-          // Balance Exercise
+          // Balance
           {
-            name: "Balance Exercise",
-            exercises: [
+            name: "Balance",
+            isCircuit: true,
+            circuitExercises: [
               { name: "Single-leg stand: 3 sets of 30 seconds each leg" },
             ],
           },
@@ -93,7 +87,7 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "75 min",
+        time: "80 min",
         exercises: [
           // Strength Circuit
           {
@@ -106,28 +100,23 @@ window.programData = [
               { name: "Calf raises" },
               { name: "Farmer's walks" },
               { name: "Glute bridge" },
-            ],
-          },
-          // Balance Circuit
-          {
-            name: "Balance Circuit (3 sets, 10 reps each exercise)",
-            isCircuit: true,
-            circuitExercises: [
               { name: "Bosu ball squats" },
               { name: "Single-leg deadlift" },
+              { name: "Plank with alternating leg lift: 30 sec" },
             ],
           },
-          // Cardio Circuit
+          // Cardio
           {
-            name: "Cardio Circuit",
+            name: "Cardio",
             isCircuit: true,
             circuitExercises: [{ name: "30 min step climber" }],
           },
-          // Core Exercise
+          // Balance
           {
-            name: "Core Exercise",
-            exercises: [
-              { name: "Plank with alternating leg lift: 3 sets of 30 seconds" },
+            name: "Balance",
+            isCircuit: true,
+            circuitExercises: [
+              { name: "Single-leg stand: 3 sets of 30 seconds each leg" },
             ],
           },
         ],
@@ -145,9 +134,9 @@ window.programData = [
     ],
   },
 
-  // Day 3: Cardio and Core
+  // Day 3: Cardio and Strength Integration
   {
-    title: "Cardio and Core",
+    title: "Cardio and Strength Integration",
     categories: [
       // Warm-up
       {
@@ -163,7 +152,7 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "85 min",
+        time: "90 min",
         exercises: [
           // HIIT Circuit
           {
@@ -176,21 +165,14 @@ window.programData = [
               { name: "Russian twists" },
               { name: "High knees" },
               { name: "Plank with alternating leg lift" },
-            ],
-          },
-          // Core Circuit
-          {
-            name: "Core Circuit (3 rounds, 12 reps each exercise)",
-            isCircuit: true,
-            circuitExercises: [
               { name: "Ab wheel rollouts" },
               { name: "Pallof press" },
               { name: "Superman" },
             ],
           },
-          // Cardio Circuit
+          // Cardio
           {
-            name: "Cardio Circuit",
+            name: "Cardio",
             isCircuit: true,
             circuitExercises: [
               { name: "10 min running" },
@@ -198,10 +180,11 @@ window.programData = [
               { name: "10 min jump rope" },
             ],
           },
-          // Balance Exercise
+          // Balance
           {
-            name: "Balance Exercise",
-            exercises: [
+            name: "Balance",
+            isCircuit: true,
+            circuitExercises: [
               { name: "Single-leg stand: 3 sets of 30 seconds each leg" },
             ],
           },
@@ -238,7 +221,7 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "75 min",
+        time: "80 min",
         exercises: [
           // Strength Circuit
           {
@@ -251,28 +234,25 @@ window.programData = [
               { name: "Lateral raises" },
               { name: "Pike push-ups" },
               { name: "Bent-over rows" },
-            ],
-          },
-          // Additional Circuit
-          {
-            name: "Additional Circuit (3 rounds, 10 reps each exercise)",
-            isCircuit: true,
-            circuitExercises: [
               { name: "Shoulder press" },
               { name: "Inverted rows" },
               { name: "Bicep curls" },
+              { name: "Russian twists" },
+              { name: "Hanging leg raises" },
+              { name: "Hyperextensions" },
             ],
           },
-          // Cardio Circuit
+          // Cardio
           {
-            name: "Cardio Circuit",
+            name: "Cardio",
             isCircuit: true,
             circuitExercises: [{ name: "30 min jump rope" }],
           },
-          // Balance Exercise
+          // Balance
           {
-            name: "Balance Exercise",
-            exercises: [
+            name: "Balance",
+            isCircuit: true,
+            circuitExercises: [
               { name: "Single-leg deadlift: 3 sets of 8 reps each leg" },
             ],
           },
@@ -291,9 +271,9 @@ window.programData = [
     ],
   },
 
-  // Day 5: Lower Body Strength and Core
+  // Day 5: Lower Body Strength and Balance
   {
-    title: "Lower Body Strength and Core",
+    title: "Lower Body Strength and Balance",
     categories: [
       // Warm-up
       {
@@ -309,11 +289,11 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "75 min",
+        time: "80 min",
         exercises: [
-          // Strength Circuit
+          // Strength and Core Circuit
           {
-            name: "Strength Circuit (3 rounds, 45 sec work, 15 sec rest)",
+            name: "Strength and Core Circuit (3 rounds, 45 sec work, 15 sec rest)",
             isCircuit: true,
             circuitExercises: [
               { name: "Squats" },
@@ -322,31 +302,28 @@ window.programData = [
               { name: "Calf raises" },
               { name: "Farmer's walks" },
               { name: "Glute bridge" },
-            ],
-          },
-          // Core Circuit
-          {
-            name: "Core Circuit (3 rounds, 12 reps each exercise)",
-            isCircuit: true,
-            circuitExercises: [
               { name: "Hanging leg raises" },
               { name: "Russian twists" },
               { name: "Superman" },
+              { name: "Bosu ball squats: 10 reps" },
             ],
           },
-          // Cardio Circuit
+          // Cardio
           {
-            name: "Cardio Circuit",
+            name: "Cardio",
             isCircuit: true,
             circuitExercises: [
               { name: "15 min running" },
               { name: "15 min step climber" },
             ],
           },
-          // Balance Exercise
+          // Balance
           {
-            name: "Balance Exercise",
-            exercises: [{ name: "Bosu ball squats: 3 sets of 10 reps" }],
+            name: "Balance",
+            isCircuit: true,
+            circuitExercises: [
+              { name: "Plank with alternating leg lift: 3 sets of 30 seconds" },
+            ],
           },
         ],
       },
@@ -381,7 +358,7 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "75 min",
+        time: "85 min",
         exercises: [
           // Functional Circuit
           {
@@ -394,6 +371,8 @@ window.programData = [
               { name: "Lunges" },
               { name: "Dips" },
               { name: "Russian twists" },
+              { name: "Ab wheel rollouts" },
+              { name: "Single-leg stand: 30 sec each leg" },
             ],
           },
           // Additional Circuit
@@ -405,23 +384,17 @@ window.programData = [
               { name: "Shoulder press" },
               { name: "Romanian deadlifts" },
               { name: "Bent-over rows" },
-              { name: "Ab wheel rollouts" },
+              { name: "Pallof press" },
+              { name: "Superman" },
             ],
           },
-          // Cardio Circuit
+          // Cardio
           {
-            name: "Cardio Circuit",
+            name: "Cardio",
             isCircuit: true,
             circuitExercises: [
               { name: "15 min rowing" },
               { name: "15 min jump rope" },
-            ],
-          },
-          // Balance Exercise
-          {
-            name: "Balance Exercise",
-            exercises: [
-              { name: "Single-leg stand: 3 sets of 30 seconds each leg" },
             ],
           },
         ],
@@ -456,7 +429,7 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "75 min",
+        time: "90 min",
         exercises: [
           // Light Full Body Circuit
           {
@@ -469,29 +442,25 @@ window.programData = [
               { name: "Plank with alternating leg lift" },
               { name: "Lunges" },
               { name: "Superman" },
+              { name: "Single-leg stand: 30 sec each leg" },
             ],
           },
-          // Cardio Circuit
+          // Cardio and Flexibility Circuit
           {
-            name: "Cardio Circuit",
+            name: "Cardio and Flexibility Circuit",
             isCircuit: true,
-            circuitExercises: [{ name: "30 min light intensity running" }],
-          },
-          // Balance and Flexibility Exercises
-          {
-            name: "Balance and Flexibility",
-            exercises: [
-              { name: "Single-leg stand: 3 sets of 30 seconds each leg" },
-              { name: "Standing forward bend: 60 seconds" },
-              { name: "Lunge with spinal twist: 30 seconds each side" },
-              { name: "Downward facing dog: 60 seconds" },
-              { name: "Pigeon pose: 30 seconds each side" },
-              { name: "Child's pose: 60 seconds" },
-              { name: "Cobra stretch: 30 seconds" },
-              { name: "World's greatest stretch: 30 seconds each side" },
-              { name: "Hip flexor stretch: 30 seconds each side" },
-              { name: "Hamstring stretch: 30 seconds each side" },
-              { name: "Doorway chest stretch: 30 seconds" },
+            circuitExercises: [
+              { name: "30 min light intensity running" },
+              { name: "Standing forward bend: 60 sec" },
+              { name: "Lunge with spinal twist: 30 sec each side" },
+              { name: "Downward facing dog: 60 sec" },
+              { name: "Pigeon pose: 30 sec each side" },
+              { name: "Child's pose: 60 sec" },
+              { name: "Cobra stretch: 30 sec" },
+              { name: "World's greatest stretch: 30 sec each side" },
+              { name: "Hip flexor stretch: 30 sec each side" },
+              { name: "Hamstring stretch: 30 sec each side" },
+              { name: "Doorway chest stretch: 30 sec" },
             ],
           },
         ],
@@ -501,17 +470,17 @@ window.programData = [
         name: "Cool-down",
         time: "5 min",
         exercises: [
-          { name: "Seated forward bend: 60 seconds" },
-          { name: "Seated spinal twist: 30 seconds each side" },
-          { name: "Butterfly stretch: 60 seconds" },
+          { name: "Seated forward bend: 60 sec" },
+          { name: "Seated spinal twist: 30 sec each side" },
+          { name: "Butterfly stretch: 60 sec" },
         ],
       },
     ],
   },
 
-  // Day 8: Upper Body Strength and Core Variation
+  // Day 8: Upper Body Strength Variation
   {
-    title: "Upper Body Strength and Core Variation",
+    title: "Upper Body Strength Variation",
     categories: [
       // Warm-up
       {
@@ -527,7 +496,7 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "75 min",
+        time: "80 min",
         exercises: [
           // Strength Circuit
           {
@@ -540,29 +509,24 @@ window.programData = [
               { name: "Lateral raises" },
               { name: "Pull-ups/Chin-ups" },
               { name: "Push-ups" },
-            ],
-          },
-          // Core Circuit
-          {
-            name: "Core Circuit (3 rounds, 12 reps each exercise)",
-            isCircuit: true,
-            circuitExercises: [
               { name: "Pallof press" },
               { name: "Hanging leg raises" },
               { name: "Hyperextensions" },
+              { name: "Single-leg deadlift: 8 reps each leg" },
             ],
           },
-          // Cardio Circuit
+          // Cardio
           {
-            name: "Cardio Circuit",
+            name: "Cardio",
             isCircuit: true,
             circuitExercises: [{ name: "30 min rowing" }],
           },
-          // Balance Exercise
+          // Balance
           {
-            name: "Balance Exercise",
-            exercises: [
-              { name: "Single-leg deadlift: 3 sets of 8 reps each leg" },
+            name: "Balance",
+            isCircuit: true,
+            circuitExercises: [
+              { name: "Single-leg stand: 3 sets of 30 seconds each leg" },
             ],
           },
         ],
@@ -598,11 +562,11 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "75 min",
+        time: "80 min",
         exercises: [
-          // Strength Circuit
+          // Strength and Core Circuit
           {
-            name: "Strength Circuit (3 rounds, 45 sec work, 15 sec rest)",
+            name: "Strength and Core Circuit (3 rounds, 45 sec work, 15 sec rest)",
             isCircuit: true,
             circuitExercises: [
               { name: "Squats" },
@@ -611,27 +575,23 @@ window.programData = [
               { name: "Calf raises" },
               { name: "Hyperextensions" },
               { name: "Glute bridge" },
-            ],
-          },
-          // Balance Circuit
-          {
-            name: "Balance Circuit (3 sets, 30 sec each exercise)",
-            isCircuit: true,
-            circuitExercises: [
-              { name: "Single-leg stand" },
+              { name: "Russian twists: 15 reps" },
               { name: "Plank with alternating leg lift" },
             ],
           },
-          // Cardio Circuit
+          // Cardio
           {
-            name: "Cardio Circuit",
+            name: "Cardio",
             isCircuit: true,
             circuitExercises: [{ name: "30 min step climber" }],
           },
-          // Core Exercise
+          // Balance
           {
-            name: "Core Exercise",
-            exercises: [{ name: "Russian twists: 3 sets of 15 reps" }],
+            name: "Balance",
+            isCircuit: true,
+            circuitExercises: [
+              { name: "Single-leg stand: 3 sets of 30 seconds each leg" },
+            ],
           },
         ],
       },
@@ -648,9 +608,9 @@ window.programData = [
     ],
   },
 
-  // Day 10: Cardio and Core Variation
+  // Day 10: Cardio and Strength Integration
   {
-    title: "Cardio and Core Variation",
+    title: "Cardio and Strength Integration",
     categories: [
       // Warm-up
       {
@@ -666,7 +626,7 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "85 min",
+        time: "90 min",
         exercises: [
           // HIIT Circuit
           {
@@ -679,21 +639,14 @@ window.programData = [
               { name: "Russian twists" },
               { name: "High knees" },
               { name: "Glute bridge" },
-            ],
-          },
-          // Core Circuit
-          {
-            name: "Core Circuit (3 rounds, 12 reps each exercise)",
-            isCircuit: true,
-            circuitExercises: [
               { name: "Ab wheel rollouts" },
               { name: "Pallof press" },
               { name: "Superman" },
             ],
           },
-          // Cardio Circuit
+          // Cardio
           {
-            name: "Cardio Circuit",
+            name: "Cardio",
             isCircuit: true,
             circuitExercises: [
               { name: "10 min running" },
@@ -701,10 +654,11 @@ window.programData = [
               { name: "10 min jump rope" },
             ],
           },
-          // Balance Exercise
+          // Balance
           {
-            name: "Balance Exercise",
-            exercises: [{ name: "Bosu ball squats: 3 sets of 10 reps" }],
+            name: "Balance",
+            isCircuit: true,
+            circuitExercises: [{ name: "Bosu ball squats: 3 sets of 10 reps" }],
           },
         ],
       },
@@ -739,7 +693,7 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "75 min",
+        time: "80 min",
         exercises: [
           // Strength Circuit
           {
@@ -752,28 +706,25 @@ window.programData = [
               { name: "Pike push-ups" },
               { name: "Dips" },
               { name: "Lateral raises" },
-            ],
-          },
-          // Additional Circuit
-          {
-            name: "Additional Circuit (3 rounds, 12 reps each exercise)",
-            isCircuit: true,
-            circuitExercises: [
               { name: "Chest press" },
               { name: "Bicep curls" },
               { name: "Bent-over rows" },
+              { name: "Russian twists" },
+              { name: "Hanging leg raises" },
+              { name: "Hyperextensions" },
             ],
           },
-          // Cardio Circuit
+          // Cardio
           {
-            name: "Cardio Circuit",
+            name: "Cardio",
             isCircuit: true,
             circuitExercises: [{ name: "30 min jump rope" }],
           },
-          // Balance Exercise
+          // Balance
           {
-            name: "Balance Exercise",
-            exercises: [
+            name: "Balance",
+            isCircuit: true,
+            circuitExercises: [
               { name: "Single-leg deadlift: 3 sets of 8 reps each leg" },
             ],
           },
@@ -792,9 +743,9 @@ window.programData = [
     ],
   },
 
-  // Day 12: Lower Body Strength and Core Variation
+  // Day 12: Lower Body Strength and Balance Variation
   {
-    title: "Lower Body Strength and Core Variation",
+    title: "Lower Body Strength and Balance Variation",
     categories: [
       // Warm-up
       {
@@ -810,11 +761,11 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "75 min",
+        time: "80 min",
         exercises: [
-          // Strength Circuit
+          // Strength and Core Circuit
           {
-            name: "Strength Circuit (3 rounds, 45 sec work, 15 sec rest)",
+            name: "Strength and Core Circuit (3 rounds, 45 sec work, 15 sec rest)",
             isCircuit: true,
             circuitExercises: [
               { name: "Goblet squats" },
@@ -823,32 +774,27 @@ window.programData = [
               { name: "Calf raises" },
               { name: "Farmer's walks" },
               { name: "Glute bridge" },
-            ],
-          },
-          // Core Circuit
-          {
-            name: "Core Circuit (3 rounds, 15 reps each exercise)",
-            isCircuit: true,
-            circuitExercises: [
               { name: "Hanging leg raises" },
               { name: "Russian twists" },
               { name: "Superman" },
+              { name: "Plank with alternating leg lift: 30 sec" },
             ],
           },
-          // Cardio Circuit
+          // Cardio
           {
-            name: "Cardio Circuit",
+            name: "Cardio",
             isCircuit: true,
             circuitExercises: [
               { name: "15 min running" },
               { name: "15 min step climber" },
             ],
           },
-          // Balance Exercise
+          // Balance
           {
-            name: "Balance Exercise",
-            exercises: [
-              { name: "Plank with alternating leg lift: 3 sets of 30 seconds" },
+            name: "Balance",
+            isCircuit: true,
+            circuitExercises: [
+              { name: "Single-leg stand: 3 sets of 30 seconds each leg" },
             ],
           },
         ],
@@ -884,7 +830,7 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "85 min",
+        time: "90 min",
         exercises: [
           // Functional Circuit
           {
@@ -897,6 +843,8 @@ window.programData = [
               { name: "Lunges" },
               { name: "Dips" },
               { name: "Russian twists" },
+              { name: "Ab wheel rollouts" },
+              { name: "Single-leg stand: 30 sec each leg" },
             ],
           },
           // Additional Circuit
@@ -908,24 +856,18 @@ window.programData = [
               { name: "Shoulder press" },
               { name: "Romanian deadlifts" },
               { name: "Bent-over rows" },
-              { name: "Ab wheel rollouts" },
+              { name: "Pallof press" },
+              { name: "Superman" },
             ],
           },
-          // Cardio Circuit
+          // Cardio
           {
-            name: "Cardio Circuit",
+            name: "Cardio",
             isCircuit: true,
             circuitExercises: [
               { name: "10 min rowing" },
               { name: "10 min jump rope" },
               { name: "10 min running" },
-            ],
-          },
-          // Balance Exercise
-          {
-            name: "Balance Exercise",
-            exercises: [
-              { name: "Single-leg stand: 3 sets of 30 seconds each leg" },
             ],
           },
         ],
@@ -960,7 +902,7 @@ window.programData = [
       // Main Workout
       {
         name: "Main Workout",
-        time: "75 min",
+        time: "90 min",
         exercises: [
           // Light Full Body Circuit
           {
@@ -973,29 +915,25 @@ window.programData = [
               { name: "Plank with alternating leg lift" },
               { name: "Lunges" },
               { name: "Superman" },
+              { name: "Single-leg stand: 30 sec each leg" },
             ],
           },
-          // Cardio Circuit
+          // Cardio and Flexibility Circuit
           {
-            name: "Cardio Circuit",
+            name: "Cardio and Flexibility Circuit",
             isCircuit: true,
-            circuitExercises: [{ name: "30 min light intensity running" }],
-          },
-          // Balance and Flexibility Exercises
-          {
-            name: "Balance and Flexibility",
-            exercises: [
-              { name: "Single-leg stand: 3 sets of 30 seconds each leg" },
-              { name: "Standing forward bend: 60 seconds" },
-              { name: "Lunge with spinal twist: 30 seconds each side" },
-              { name: "Downward facing dog: 60 seconds" },
-              { name: "Pigeon pose: 30 seconds each side" },
-              { name: "Child's pose: 60 seconds" },
-              { name: "Cobra stretch: 30 seconds" },
-              { name: "World's greatest stretch: 30 seconds each side" },
-              { name: "Hip flexor stretch: 30 seconds each side" },
-              { name: "Hamstring stretch: 30 seconds each side" },
-              { name: "Doorway chest stretch: 30 seconds" },
+            circuitExercises: [
+              { name: "30 min light intensity running" },
+              { name: "Standing forward bend: 60 sec" },
+              { name: "Lunge with spinal twist: 30 sec each side" },
+              { name: "Downward facing dog: 60 sec" },
+              { name: "Pigeon pose: 30 sec each side" },
+              { name: "Child's pose: 60 sec" },
+              { name: "Cobra stretch: 30 sec" },
+              { name: "World's greatest stretch: 30 sec each side" },
+              { name: "Hip flexor stretch: 30 sec each side" },
+              { name: "Hamstring stretch: 30 sec each side" },
+              { name: "Doorway chest stretch: 30 sec" },
             ],
           },
         ],
@@ -1005,9 +943,9 @@ window.programData = [
         name: "Cool-down",
         time: "5 min",
         exercises: [
-          { name: "Seated forward bend: 60 seconds" },
-          { name: "Seated spinal twist: 30 seconds each side" },
-          { name: "Butterfly stretch: 60 seconds" },
+          { name: "Seated forward bend: 60 sec" },
+          { name: "Seated spinal twist: 30 sec each side" },
+          { name: "Butterfly stretch: 60 sec" },
         ],
       },
     ],

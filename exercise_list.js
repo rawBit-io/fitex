@@ -14,7 +14,11 @@ const exerciseList = {
     "Superman",
     "Hyperextensions",
     "Hanging leg raises",
-    "Walking Lunges",
+    "Walking lunges",
+    "Side lunges",
+    "Jumping jacks",
+    "Ab wheel rollouts",
+    "Pallof press",
   ],
   dumbbell: [
     "Goblet squats",
@@ -26,6 +30,7 @@ const exerciseList = {
     "Bent-over rows",
     "Farmer's walks",
     "Calf raises",
+    "Lunges with dumbbells",
   ],
   balance: [
     "Single-leg stand",
@@ -33,7 +38,6 @@ const exerciseList = {
     "Plank with alternating leg lift",
     "Bosu ball squats",
   ],
-  core: ["Ab wheel rollouts", "Pallof press"],
   stretching: [
     "Standing forward bend",
     "Lunge with spinal twist",
@@ -47,6 +51,9 @@ const exerciseList = {
     "Hamstring stretch",
     "Doorway chest stretch",
     "Arm circles",
+    "Butterfly stretch",
+    "Seated forward bend",
+    "Seated spinal twist",
   ],
   cardio: [
     "High knees",
@@ -55,5 +62,6 @@ const exerciseList = {
     "Running",
     "Rowing",
     "Step climber",
+    "Jumping jacks",
   ],
 };

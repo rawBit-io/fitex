@@ -6,3 +6,4 @@
 - put logo somewhere on starting page?
 - create tests (playwright)
 - do i need this functinality with name search? because now exercises are cretaed from the list
+- colab with DARBEE (most popular workouts)
