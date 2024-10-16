@@ -1,10 +1,10 @@
 const asciiArtPaths = {
-  push_ups: "ascii-art/pushups.txt",
+  push_ups: "ascii-art/push_ups.txt",
   squats: "ascii-art/squats.txt",
   lunges: "ascii-art/lunges.txt",
   burpees: "ascii-art/burpees.txt",
   mountain_climbers: "ascii-art/mountain_climbers.txt",
-  pull_ups: "ascii-art/pullups.txt",
+  pull_ups: "ascii-art/pull_ups.txt",
   dips: "ascii-art/dips.txt",
   russian_twists: "ascii-art/russian_twists.txt",
   glute_bridge: "ascii-art/glute_bridge.txt",
