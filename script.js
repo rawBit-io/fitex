@@ -227,11 +227,13 @@ function showInfoModal() {
 Please create a **3-day-per-week**, **90-minute** full-body training program focusing on **core and cardio** exercises.
 
 **Instructions for the AI:**
-- Use the exercise list provided below (exact names).
-- **Provide the program in raw Markdown format, including all \`#\`, \`##\`, \`###\` symbols as shown in the example.**
+- Use ONLY the exercises from the provided list below, using their exact names.
+- Do not add any exercises not on the list or modify exercise names.
+- **Provide the program in raw Markdown format, exactly matching the structure and headings of the example provided.**
+- **Do not add any additional titles or headings beyond what is shown in the example.**
 - **Do not render or convert the Markdown; output it exactly as typed.**
-- Follow the markdown format shown in the example program.
 - Specify times, rounds, and rest periods where appropriate.
+- Before submitting, verify that your output strictly adheres to the example format and only uses exercises from the provided list.
 
 ## Exercise List
 
