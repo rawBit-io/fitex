@@ -77,14 +77,6 @@ function displayProgramList() {
   };
   programListDiv.appendChild(loadProgramButton);
 
-  // Add 'Info' button
-  const infoButton = document.createElement("button");
-  infoButton.textContent = "Info";
-  infoButton.onclick = () => {
-    showInfoModal();
-  };
-  programListDiv.appendChild(infoButton);
-
   // Fetch the list of programs from index.json
   fetch("programs/index.json")
     .then((response) => response.json())
@@ -167,6 +159,9 @@ function generateUniqueProgramName(baseName) {
 function showProgramInputModal() {
   const modal = document.getElementById("program-input-modal");
   modal.style.display = "block";
+
+  // Clear the textarea
+  document.getElementById("program-input-textarea").value = "";
 }
 
 // Function to show the info modal
@@ -256,8 +251,11 @@ function showInfoModal() {
 ---
 `;
 
-  const exampleProgramPre = document.getElementById("example-program");
-  exampleProgramPre.textContent = exampleProgram;
+  // Insert the example program into the textarea
+  const exampleProgramTextarea = document.getElementById(
+    "example-program-textarea"
+  );
+  exampleProgramTextarea.value = exampleProgram;
 }
 
 // Function to hide modals
@@ -266,14 +264,69 @@ function hideModal(modalId) {
   modal.style.display = "none";
 }
 
-// Event listeners for modal close buttons
-document.getElementById("info-modal-close").onclick = function () {
-  hideModal("info-modal");
-};
+// Wait for the DOM content to be fully loaded before attaching event listeners
+document.addEventListener("DOMContentLoaded", () => {
+  // Existing initialization code
+  updateTimerDisplay(timeLeft);
+  updateCountDisplay();
+  initializeTheme();
+  addTimerEventListeners();
+  addCountEventListeners();
+  addWeekCountEventListeners();
 
-document.getElementById("program-input-modal-close").onclick = function () {
-  hideModal("program-input-modal");
-};
+  // Event listeners for buttons
+  document
+    .getElementById("goBackBtn")
+    .addEventListener("click", goBackToProgramList);
+
+  // Event listener for checkbox changes
+  document.addEventListener("change", function (event) {
+    if (event.target.type === "checkbox") {
+      saveProgress(event);
+    }
+  });
+
+  // Add a window resize event listener to rescale ASCII art
+  window.addEventListener("resize", () => {
+    const asciiElements = document.querySelectorAll(".ascii-art.show");
+    asciiElements.forEach(scaleAsciiArt); // Rescale exercises
+  });
+
+  // Start by displaying the program list
+  displayProgramList();
+
+  // Now that the DOM is loaded, attach event listeners to the modal elements
+
+  // Event listener for the Info button in the "Load Program" modal
+  document.getElementById("info-button").onclick = function () {
+    showInfoModal();
+  };
+
+  // Event listener for the close button in the Info modal
+  document.getElementById("info-modal-close").onclick = function () {
+    // Close the Info modal
+    hideModal("info-modal");
+  };
+
+  // Event listener for the close button in the "Load Program" modal
+  document.getElementById("program-input-modal-close").onclick = function () {
+    hideModal("program-input-modal");
+  };
+
+  // Copy button functionality
+  document.getElementById("copy-example-button").onclick = function () {
+    const exampleProgram =
+      document.getElementById("example-program").textContent;
+    navigator.clipboard.writeText(exampleProgram).then(
+      function () {
+        alert("Example program copied to clipboard.");
+      },
+      function (err) {
+        alert("Could not copy text: " + err);
+      }
+    );
+  };
+});
 
 // Function to parse Markdown input into program data
 function parseMarkdownProgram(markdownText) {
@@ -463,7 +516,7 @@ function loadProgram(programMeta) {
 
   if (programMeta.data) {
     // If program data is already available (user-loaded program)
-    processProgramData(programMeta.data); // <-- Add this line
+    processProgramData(programMeta.data);
     generateProgramContent(programMeta.data);
     loadProgress();
     updateWeekCounterDisplay();
@@ -471,7 +524,7 @@ function loadProgram(programMeta) {
     // Load the program data
     loadProgramData(programMeta)
       .then((programData) => {
-        processProgramData(programData); // <-- Add this line
+        processProgramData(programData);
         generateProgramContent(programData);
         loadProgress();
         updateWeekCounterDisplay();
@@ -482,7 +535,7 @@ function loadProgram(programMeta) {
   }
 }
 
-// Function to load program data from the program file (Modified)
+// Function to load program data from the program file
 function loadProgramData(programMeta) {
   return new Promise((resolve, reject) => {
     fetch(`programs/${programMeta.file}`)
@@ -502,7 +555,7 @@ function loadProgramData(programMeta) {
   });
 }
 
-// Function to generate the program content (Same as before)
+// Function to generate the program content
 function generateProgramContent(days) {
   const programDiv = document.getElementById("program");
   programDiv.innerHTML = ""; // Clear previous content
@@ -511,86 +564,86 @@ function generateProgramContent(days) {
     const dayDiv = document.createElement("div");
     dayDiv.className = "day";
     dayDiv.innerHTML = `
-  <div class="day-header">
-    <div class="checkbox-container">
-      <input type="checkbox" id="day${
-        dayIndex + 1
-      }" onchange="saveProgress(event)">
-    </div>
-    <h2>${
-      day.title.startsWith("Day")
-        ? day.title
-        : `Day ${dayIndex + 1}: ${day.title}`
-    }</h2>
-  </div>
-      <div id="exercises${
-        dayIndex + 1
-      }" class="exercises" style="display: none;">
-        ${day.categories
-          .map(
-            (category, catIndex) => `
-            <h3>${category.name} ${
-              category.time ? "(" + category.time + ")" : ""
-            }</h3>
-            <ul>
-              ${category.exercises
-                .map((exercise, exIndex) => {
-                  if (typeof exercise === "string") {
-                    return `<li class="exercise-item no-bullet">${exercise}</li>`;
-                  } else if (exercise.isDescription) {
-                    return `<li class="exercise-description">${exercise.name}</li>`;
-                  } else if (exercise.isCircuit) {
-                    return `
-                    <li class="exercise-circuit">
-                      <span>${exercise.name}</span>
-                      <ul>
-                        ${exercise.circuitExercises
-                          .map(
-                            (circuitExercise, circuitIndex) => `
-                            <li class="exercise-item ${
-                              circuitExercise.hasPicture
-                                ? "picture-available"
-                                : ""
-                            }">
-                              <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${circuitIndex}, '${
-                              circuitExercise.asciiArtKey || ""
-                            }')">${circuitExercise.name}</span>
-                              ${
-                                circuitExercise.hasPicture
-                                  ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}"></pre>`
-                                  : ""
-                              }
-                            </li>
-                          `
-                          )
-                          .join("")}
-                      </ul>
-                    </li>
-                  `;
-                  } else {
-                    return `
-                    <li class="exercise-item ${
-                      exercise.hasPicture ? "picture-available" : ""
-                    }">
-                      <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, undefined, '${
-                      exercise.asciiArtKey || ""
-                    }')">${exercise.name}</span>
-                      ${
-                        exercise.hasPicture
-                          ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
-                          : ""
-                      }
-                    </li>
-                  `;
-                  }
-                })
-                .join("")}
-            </ul>
-          `
-          )
-          .join("")}
+      <div class="day-header">
+        <div class="checkbox-container">
+          <input type="checkbox" id="day${
+            dayIndex + 1
+          }" onchange="saveProgress(event)">
+        </div>
+        <h2>${
+          day.title.startsWith("Day")
+            ? day.title
+            : `Day ${dayIndex + 1}: ${day.title}`
+        }</h2>
       </div>
-    `;
+          <div id="exercises${
+            dayIndex + 1
+          }" class="exercises" style="display: none;">
+            ${day.categories
+              .map(
+                (category, catIndex) => `
+                  <h3>${category.name} ${
+                  category.time ? "(" + category.time + ")" : ""
+                }</h3>
+                  <ul>
+                    ${category.exercises
+                      .map((exercise, exIndex) => {
+                        if (typeof exercise === "string") {
+                          return `<li class="exercise-item no-bullet">${exercise}</li>`;
+                        } else if (exercise.isDescription) {
+                          return `<li class="exercise-description">${exercise.name}</li>`;
+                        } else if (exercise.isCircuit) {
+                          return `
+                          <li class="exercise-circuit">
+                            <span>${exercise.name}</span>
+                            <ul>
+                              ${exercise.circuitExercises
+                                .map(
+                                  (circuitExercise, circuitIndex) => `
+                                  <li class="exercise-item ${
+                                    circuitExercise.hasPicture
+                                      ? "picture-available"
+                                      : ""
+                                  }">
+                                    <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, ${circuitIndex}, '${
+                                    circuitExercise.asciiArtKey || ""
+                                  }')">${circuitExercise.name}</span>
+                                    ${
+                                      circuitExercise.hasPicture
+                                        ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}-${circuitIndex}"></pre>`
+                                        : ""
+                                    }
+                                  </li>
+                                `
+                                )
+                                .join("")}
+                            </ul>
+                          </li>
+                        `;
+                        } else {
+                          return `
+                          <li class="exercise-item ${
+                            exercise.hasPicture ? "picture-available" : ""
+                          }">
+                            <span onclick="toggleAsciiArt(event, ${dayIndex}, ${catIndex}, ${exIndex}, undefined, '${
+                            exercise.asciiArtKey || ""
+                          }')">${exercise.name}</span>
+                            ${
+                              exercise.hasPicture
+                                ? `<pre class="ascii-art" id="ascii-${dayIndex}-${catIndex}-${exIndex}"></pre>`
+                                : ""
+                            }
+                          </li>
+                        `;
+                        }
+                      })
+                      .join("")}
+                  </ul>
+                `
+              )
+              .join("")}
+          </div>
+        `;
     programDiv.appendChild(dayDiv);
 
     // Add click event listener to the day header
@@ -604,7 +657,7 @@ function generateProgramContent(days) {
   });
 }
 
-// Function to handle exercise toggling (Same as before)
+// Function to handle exercise toggling
 function toggleExercises(dayNumber) {
   const exercisesDiv = document.getElementById(`exercises${dayNumber}`);
   if (
@@ -617,7 +670,7 @@ function toggleExercises(dayNumber) {
   }
 }
 
-// Function to handle ASCII art display (Same as before)
+// Function to handle ASCII art display
 function toggleAsciiArt(
   event,
   dayIndex,
@@ -643,7 +696,7 @@ function toggleAsciiArt(
   }
 }
 
-// Load ASCII art with caching (Same as before)
+// Load ASCII art with caching
 function loadAsciiArt(element, asciiArtKey) {
   // Check if the ASCII art is already in the cache
   if (asciiArtCache[asciiArtKey]) {
@@ -677,7 +730,7 @@ function loadAsciiArt(element, asciiArtKey) {
   }
 }
 
-// Scale ASCII art (Same as before)
+// Scale ASCII art
 function scaleAsciiArt(asciiElement) {
   const container = asciiElement.parentElement;
 
@@ -705,7 +758,7 @@ function scaleAsciiArt(asciiElement) {
   asciiElement.style.lineHeight = "1";
 }
 
-// Functions to handle progress saving and loading (Same as before)
+// Functions to handle progress saving and loading
 function saveProgress(event) {
   event.stopPropagation();
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -768,7 +821,7 @@ function checkAllChecked() {
   }
 }
 
-// Week counter functionality (Same as before)
+// Week counter functionality
 function updateWeekCounterDisplay() {
   weekCount = localStorage.getItem(`weekCount_${currentProgram.name}`) || "0";
   weekCounterElement.textContent = weekCount;
@@ -836,7 +889,7 @@ function addWeekCountEventListeners() {
   );
 }
 
-// Timer functionality (Same as before)
+// Timer functionality
 function updateTimerDisplay(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
@@ -905,7 +958,7 @@ function hideTimerOptions() {
   timerOptions.style.display = "none";
 }
 
-// Long press functionality for timer (Same as before)
+// Long press functionality for timer
 function handleTimerStart(event) {
   event.preventDefault();
   isLongPress = false;
@@ -959,7 +1012,7 @@ function addTimerEventListeners() {
   );
 }
 
-// Count button functionality (Same as before)
+// Count button functionality
 function updateCountDisplay() {
   countValue.textContent = count;
 }
@@ -1027,7 +1080,7 @@ function addCountEventListeners() {
   );
 }
 
-// Go back to program list functionality (Same as before)
+// Go back to program list functionality
 function goBackToProgramList() {
   // Reset selected program
   localStorage.removeItem("selectedProgramName");
@@ -1035,7 +1088,7 @@ function goBackToProgramList() {
   displayProgramList();
 }
 
-// Theme switching functionality (Same as before)
+// Theme switching functionality
 function loadTheme(themeName) {
   document.documentElement.setAttribute("data-theme", themeName);
   localStorage.setItem("selectedTheme", themeName);
@@ -1099,7 +1152,7 @@ function hideThemeMenu() {
   themeOptions.style.display = "none";
 }
 
-// Initialize theme (Same as before)
+// Initialize theme
 function initializeTheme() {
   let savedTheme = localStorage.getItem("selectedTheme") || "Solarized Dark";
   if (savedTheme === "Default") {
@@ -1110,7 +1163,7 @@ function initializeTheme() {
   populateThemeMenu();
 }
 
-// Handle visibility change for timer (Same as before)
+// Handle visibility change for timer
 function handleVisibilityChange() {
   if (!document.hidden && isTimerRunning) {
     const now = Date.now();
@@ -1124,7 +1177,7 @@ function handleVisibilityChange() {
 // Add visibility change event listener
 document.addEventListener("visibilitychange", handleVisibilityChange);
 
-// Hide timer options and theme menu when clicking anywhere else (Same as before)
+// Hide timer options and theme menu when clicking anywhere else
 document.addEventListener("click", (event) => {
   if (
     !timerElement.contains(event.target) &&
@@ -1149,32 +1202,4 @@ timerOptions.addEventListener("click", (event) => {
 });
 
 // Initialize the application when the page loads
-document.addEventListener("DOMContentLoaded", () => {
-  updateTimerDisplay(timeLeft);
-  updateCountDisplay();
-  initializeTheme();
-  addTimerEventListeners();
-  addCountEventListeners();
-  addWeekCountEventListeners();
-
-  // Event listeners for buttons
-  document
-    .getElementById("goBackBtn")
-    .addEventListener("click", goBackToProgramList);
-
-  // Event listener for checkbox changes
-  document.addEventListener("change", function (event) {
-    if (event.target.type === "checkbox") {
-      saveProgress(event);
-    }
-  });
-
-  // Add a window resize event listener to rescale ASCII art
-  window.addEventListener("resize", () => {
-    const asciiElements = document.querySelectorAll(".ascii-art.show");
-    asciiElements.forEach(scaleAsciiArt); // Rescale exercises
-  });
-
-  // Start by displaying the program list
-  displayProgramList();
-});
+// (Already wrapped in DOMContentLoaded event listener above)

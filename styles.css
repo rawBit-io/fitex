@@ -1,3 +1,6 @@
+/* styles.css */
+
+/* Base Styles */
 body {
   font-family: "Courier New", monospace;
   background-color: var(--body-bg-color);
@@ -455,7 +458,6 @@ input[type="checkbox"]:checked::before {
 .program-list button:active {
   background-color: var(--timer-active-bg-color);
 }
-
 /* Modal Styles */
 .modal {
   display: none; /* Hidden by default */
@@ -465,31 +467,59 @@ input[type="checkbox"]:checked::before {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: auto; /* Enable scrolling if needed */
   background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
 }
 
+/* General Modal Content Styles */
 .modal-content {
   background-color: var(--body-bg-color);
-  margin: 10% auto;
+  margin: 5% auto; /* Adjusted margin to 5% to allow more height */
   padding: 20px;
   border: 1px solid var(--secondary-color);
   width: 80%;
   max-width: 600px;
   color: var(--text-color);
   font-family: "Courier New", monospace;
+  box-sizing: border-box;
+  border-radius: 4px;
+  max-height: 90vh; /* Ensure modal doesn't exceed viewport height */
+  overflow-y: auto; /* Enable scrolling within modal if content overflows */
 }
 
+/* Specific Modal Content Heights */
+.program-modal {
+  height: auto; /* Let the height adjust based on content */
+  max-height: 600px; /* Set a maximum height */
+}
+
+.info-modal {
+  height: auto; /* Let the height adjust based on content */
+  max-height: 600px; /* Same maximum height as the program modal */
+}
+
+/* Ensure both modals have the same size */
+.program-modal,
+.info-modal {
+  max-height: 600px; /* Adjust this value if needed */
+}
+
+/* Style the preformatted text within the Info Modal */
+.info-modal pre {
+  max-height: 300px; /* Limit the height of the pre element */
+  overflow-y: auto; /* Enable scrolling within the pre element */
+  word-wrap: break-word; /* Break long lines */
+  white-space: pre-wrap; /* Wrap long lines */
+}
+
+/* Other Modal Content Styles */
 .modal-content h2 {
   margin-top: 0;
   color: var(--heading-color);
 }
 
-.modal-content pre {
-  background-color: var(--timer-bg-color);
-  padding: 10px;
-  border: 1px solid var(--timer-border-color);
-  overflow-x: auto;
+.modal-content p {
+  color: var(--text-color);
 }
 
 .modal-content textarea {
@@ -501,6 +531,9 @@ input[type="checkbox"]:checked::before {
   font-family: "Courier New", monospace;
   font-size: 14px;
   box-sizing: border-box;
+  height: 200px; /* Adjust height as needed */
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .modal-content button {
@@ -531,4 +564,52 @@ input[type="checkbox"]:checked::before {
   color: var(--highlight-color);
   text-decoration: none;
   cursor: pointer;
+}
+
+/* Style for the Info button within the modal */
+.info-button {
+  font-family: "Courier New", monospace;
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: var(--timer-bg-color);
+  color: var(--primary-color);
+  border: 1px solid var(--timer-border-color);
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.info-button:hover {
+  background-color: var(--timer-hover-bg-color);
+}
+
+/* Style for the copy button */
+#copy-example-button {
+  font-family: "Courier New", monospace;
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: var(--timer-bg-color);
+  color: var(--primary-color);
+  border: 1px solid var(--timer-border-color);
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#copy-example-button:hover {
+  background-color: var(--timer-hover-bg-color);
+}
+
+/* Styles for the textarea in the Info Modal */
+.info-modal textarea {
+  width: 100%;
+  background-color: var(--timer-bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--timer-border-color);
+  padding: 10px;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  box-sizing: border-box;
+  height: 200px; /* Adjust height as needed */
+  max-height: 200px;
+  overflow-y: auto;
+  resize: none; /* Prevent resizing */
 }
