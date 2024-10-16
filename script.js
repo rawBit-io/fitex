@@ -8,7 +8,12 @@ let availablePrograms = [];
 const asciiArtCache = {};
 
 // Normalize the asciiArtPaths keys (Assuming asciiArtPaths is defined in ascii-art.js)
-const normalizedAsciiArtPaths = asciiArtPaths;
+const normalizedAsciiArtPaths = Object.fromEntries(
+  Object.entries(asciiArtPaths).map(([key, value]) => [
+    normalizeExerciseName(key),
+    value,
+  ])
+);
 
 // Function to normalize exercise names
 function normalizeExerciseName(name) {

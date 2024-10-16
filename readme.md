@@ -12,7 +12,7 @@ OR
    ```
    git clone https://github.com/rawBit-io/fitex.git
    cd fitex
-   python -m http.server 8000
+   python3 -m http.server 8000
    ```
    Then open `http://localhost:8000` in your browser.
 
