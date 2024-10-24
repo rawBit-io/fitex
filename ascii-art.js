@@ -56,5 +56,6 @@ const asciiArtPaths = {
   step_climber: "ascii-art/step_climber.txt",
   jumping_jacks_cardio: "ascii-art/jumping_jacks_cardio.txt",
   bird_dog: "ascii-art/bird_dog.txt",
+  side_plank: "ascii-art/side_plank.txt",
   logo: "ascii-art/logo.txt",
 };
