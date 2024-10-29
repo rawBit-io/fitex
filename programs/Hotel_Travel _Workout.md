@@ -7,7 +7,6 @@
 - Arm circles
 - High knees
 - Jumping jacks
-- Mountain climbers
 - Hip circles
 
 ## Main Workout (30 min)
